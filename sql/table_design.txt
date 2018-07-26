@@ -1,0 +1,28 @@
+# Use with: https://app.quickdatabasediagrams.com/#/schema/
+Strategy
+-
+user_id int
+strategy_id int
+strategy char
+active boolean
+parameters int
+
+Order
+-
+order_id int
+stock varchar(4) 
+quantity int
+strategy_id
+time
+
+Execution
+-
+order_id - FK 
+execution_id
+time
+quantity
+fill varchar
+
+User
+-
+user_id
