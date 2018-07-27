@@ -10,4 +10,4 @@ COPY --from=build /app/target/Spring4Rest.war /usr/local/tomcat/webapps/Spring4R
 
 CMD [ "catalina.sh", "run"]
 
-#ENTRYPOINT ["java", "-war", "/app/Spring4Rest.war"]
+ENTRYPOINT ["java", "-war", "/app/Spring4Rest.war"]
