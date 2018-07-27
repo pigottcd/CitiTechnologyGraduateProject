@@ -6,7 +6,6 @@
     <groupId>com.graduate.training</groupId>
     <artifactId>AlgoStrategyTrainer</artifactId>
     <version>1.0-SNAPSHOT</version>
-    <packaging>war</packaging>
     <dependencyManagement>
         <dependencies>
             <dependency>
