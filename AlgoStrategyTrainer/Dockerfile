@@ -1,6 +1,6 @@
 FROM openjdk:8-alpine AS build
 
-WORKDIR /APP
+WORKDIR /app
 
 COPY . .
 
