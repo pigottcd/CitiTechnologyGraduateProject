@@ -8,6 +8,6 @@ FROM openjdk:8-alpine
 
 WORKDIR /app
 
-COPY --from=build /app/target/AlgoStrategyTrainer-1.0-SNAPSHOT.war . 
+COPY --from=build /app/target/Spring4Rest.war . 
 
-ENTRYPOINT ["java", "-war", "/app/AlgoStrategyTrainer-1.0-SNAPSHOT.war"]
+ENTRYPOINT ["java", "-war", "/app/Spring4Rest.war"]
