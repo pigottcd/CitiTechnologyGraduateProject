@@ -4,12 +4,10 @@ WORKDIR /app
 
 COPY . .
 
-FROM  tomcat
+FROM openjdk:8-alpine
 
-COPY --from=build /app/target/Spring4Rest.war /usr/local/tomcat/webapps/Spring4Rest.war 
+WORKDIR /app
 
-EXPOSE 3306
+COPY --from=build /app/target/AlgoStrategyTrainer-0.0.1-SNAPSHOT.jar .
 
-CMD [ "catalina.sh", "run"]
-
-#ENTRYPOINT ["java", "-war", "/app/Spring4Rest.war"]
+CMD ["java", "-jar", "/app/AlgoStrategyTrainer-0.0.1-SNAPSHOT.jar"]
