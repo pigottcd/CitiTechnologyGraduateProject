@@ -1,4 +1,4 @@
-package configuration;
+package com.graduate.training.configuration;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +23,7 @@ import java.util.Properties;
 @Configuration
 @EnableTransactionManagement
 @PropertySource(value = {"classpath:application.properties"})
-@EnableJpaRepositories(basePackages = "dao")
+@EnableJpaRepositories(basePackages = "com.graduate.training.daoe")
 
 public class JpaConfiguration {
 
@@ -44,7 +44,7 @@ public class JpaConfiguration {
     public LocalContainerEntityManagerFactoryBean entityManagerFactory() throws NamingException {
         LocalContainerEntityManagerFactoryBean factoryBean = new LocalContainerEntityManagerFactoryBean();
         factoryBean.setDataSource(dataSource());
-        factoryBean.setPackagesToScan(new String[]{"entities"});
+        factoryBean.setPackagesToScan(new String[]{"com.graduate.training.entities"});
         factoryBean.setJpaVendorAdapter(jpaVendorAdapter());
         factoryBean.setJpaProperties(jpaProperties());
         return factoryBean;

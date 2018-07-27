@@ -1,4 +1,4 @@
-package configuration;
+package com.graduate.training.configuration;
 
 
 import org.springframework.context.annotation.ComponentScan;
@@ -11,7 +11,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 @Configuration
 @Import(JpaConfiguration.class)
 @EnableWebMvc
-@ComponentScan(basePackages = "configuration")
+@ComponentScan(basePackages = "com.graduate.training")
 public class AppConfig extends WebMvcConfigurerAdapter {
 
     @Override

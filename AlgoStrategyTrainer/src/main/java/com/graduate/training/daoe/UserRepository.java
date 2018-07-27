@@ -1,6 +1,6 @@
-package dao;
+package com.graduate.training.daoe;
 
-import entities.User;
+import com.graduate.training.entities.User;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 

@@ -1,7 +1,7 @@
-package service;
+package com.graduate.training.service;
 
-import dao.UserRepository;
-import entities.User;
+import com.graduate.training.daoe.UserRepository;
+import com.graduate.training.entities.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;

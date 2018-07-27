@@ -1,14 +1,25 @@
-package entities;
+package com.graduate.training.entities;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity
 @Table(name="users")
 
-public class User {
+
+@NamedQueries(
+        {
+                @NamedQuery(name="user.getAll",
+                        query="select u from User as u",
+                        hints = {@QueryHint(name = "org.hibernate.cacheable", value = "true")})
+        })
+
+
+public class User implements Serializable {
 
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
+    @Column(name="id")
     private int id;
 
     @Column(name="name") private String name;

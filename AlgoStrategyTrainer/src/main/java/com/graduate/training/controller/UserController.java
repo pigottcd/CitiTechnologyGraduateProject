@@ -1,21 +1,21 @@
-package controller;
+package com.graduate.training.controller;
 
 
-import entities.User;
+import com.graduate.training.entities.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
-import service.UserService;
+import com.graduate.training.service.UserService;
 
 @RestController
 
-
+@RequestMapping("/")
 public class UserController {
 
-    @Autowireds
+    @Autowired
     private UserService service;
-    @RequestMapping(value = "/user", method = RequestMethod.GET)
+    @RequestMapping(method = RequestMethod.GET)
     Iterable<User> findAll() {
         System.out.println("got request");
         return service.getUsers();
