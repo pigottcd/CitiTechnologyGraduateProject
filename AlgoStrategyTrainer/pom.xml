@@ -53,13 +53,13 @@
             <artifactId>spring-jms</artifactId>
             <version>4.1.4.RELEASE</version>
         </dependency>
-        <dependency>
+       <!--- <dependency>
             <groupId>org.apache.activemq</groupId>
             <artifactId>activemq-broker</artifactId>
         </dependency>
 
 
-        <!-- dependencies for logging-->
+         dependencies for logging-->
         <!--<dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
