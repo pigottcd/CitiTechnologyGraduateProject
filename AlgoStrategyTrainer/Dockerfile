@@ -8,6 +8,6 @@ FROM openjdk:8-alpine
 
 WORKDIR /app
 
-COPY --from=build /app/target/AlgoStrategyTrainer-0.0.1-SNAPSHOT.jar .
+COPY --from=build /app/target/AlgoStrategyTrainer-1.0-SNAPSHOT.jar .
 
-CMD ["java", "-jar", "/app/AlgoStrategyTrainer-0.0.1-SNAPSHOT.jar"]
+CMD ["java", "-jar", "/app/AlgoStrategyTrainer-1.0-SNAPSHOT.jar"]
