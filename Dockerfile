@@ -1,5 +1,0 @@
-FROM
-
-ADD 
-
-ENTRYPOINT 
