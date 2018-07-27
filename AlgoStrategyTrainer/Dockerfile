@@ -6,7 +6,7 @@ COPY . .
 
 FROM  tomcat
 
-COPY --from=build /app/target/Spring4Rest.war /usr/local/tomcat/webapps/ROOT.war 
+COPY --from=build /app/target/Spring4Rest.war /usr/local/tomcat/webapps/Spring4Rest.war 
 
 CMD [ "catalina.sh", "run"]
 
