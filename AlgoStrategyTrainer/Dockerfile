@@ -8,7 +8,7 @@ FROM  tomcat
 
 COPY --from=build /app/target/Spring4Rest.war /usr/local/tomcat/webapps/Spring4Rest.war 
 
-EXPOSE 3036
+EXPOSE 3306
 
 CMD [ "catalina.sh", "run"]
 
