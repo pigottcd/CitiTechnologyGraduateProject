@@ -1,4 +1,4 @@
-package com.graduate.training.daoe;
+package com.graduate.training.dao;
 
 import com.graduate.training.entities.User;
 import org.springframework.data.repository.CrudRepository;

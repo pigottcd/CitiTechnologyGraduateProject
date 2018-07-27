@@ -23,7 +23,7 @@ import java.util.Properties;
 @Configuration
 @EnableTransactionManagement
 @PropertySource(value = {"classpath:application.properties"})
-@EnableJpaRepositories(basePackages = "com.graduate.training.daoe")
+@EnableJpaRepositories(basePackages = "com.graduate.training.dao")
 
 public class JpaConfiguration {
 
