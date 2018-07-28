@@ -4,7 +4,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jms.core.JmsTemplate;
 import org.springframework.stereotype.Component;
 
+import javax.jms.Message;
 import javax.jms.Session;
+import java.util.UUID;
 
 
 @Component
@@ -16,7 +18,11 @@ public class ActiveMQSender {
         this.jmsTemplate = template;
     }
     public void send(String message) {
-        jmsTemplate.send("queue/testQueue",
-                (Session session)-> session.createTextMessage(message));
+        jmsTemplate.send("OrderBroker",
+                (Session session)-> {
+                    Message m = session.createTextMessage(message);
+                    m.setJMSCorrelationID(UUID.randomUUID().toString());
+                    return m;
+                });
     }
 }

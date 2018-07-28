@@ -15,9 +15,12 @@ import org.springframework.jms.config.JmsListenerContainerFactory;
 import org.springframework.jms.config.SimpleJmsListenerContainerFactory;
 import org.springframework.jms.core.JmsTemplate;
 import org.springframework.jms.core.MessageCreator;
+import org.springframework.util.FileSystemUtils;
 
 import javax.jms.ConnectionFactory;
+import java.io.File;
 import java.time.LocalDateTime;
+
 
 
 @EnableAutoConfiguration
@@ -34,12 +37,21 @@ public class AppConfig {
         return factory;
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException {
+        FileSystemUtils.deleteRecursively(new File("activemq-data"));
         ConfigurableApplicationContext context = SpringApplication.run(AppConfig.class, args);
         ActiveMQSender sender = context.getBean(ActiveMQSender.class);
-        Order newOrder = new Order(true, 0, 10.1, 120,
+        Order newOrder = new Order(true, 1, 10.1, 120,
+                "GE", LocalDateTime.now());
+        Thread.sleep(10000);
+        sender.send(newOrder.toString());
+        newOrder = new Order(true, 2, 10.1, 120,
                 "GE", LocalDateTime.now());
         sender.send(newOrder.toString());
+        newOrder = new Order(true, 3, 10.1, 120,
+                "GE", LocalDateTime.now());
+        sender.send(newOrder.toString());
+
     }
 
 }

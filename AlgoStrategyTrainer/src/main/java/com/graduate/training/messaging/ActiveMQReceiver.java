@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class ActiveMQReceiver {
 
-    @JmsListener(destination = "queue/testQueue", containerFactory = "initJmsContainerF")
+    @JmsListener(destination = "OrderBroker_Reply", containerFactory = "initJmsContainerF")
     public void receive(String message) {
         System.out.println("Got: " + message);
     }
