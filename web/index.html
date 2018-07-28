@@ -12,7 +12,7 @@
 
         <!-- CSS -->
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
-        <link href="./css/starter-template.css" rel="stylesheet">
+        <link href="./css/style.css" rel="stylesheet">
 
     </head>
 
@@ -73,7 +73,7 @@
             	<!-- Strategy Creator col (might need to split up form into cols for mobile use) -->
                 <div class="col-md-12">
 
-                	<!-- Strategy Creator div-->
+                	<!-- Strategy Creator-->
                     <form>
                        	<div class="form-inline">
                       		
@@ -142,7 +142,7 @@
                     // populate selection menu
                     if (strategy =='twoMovingAverage') {
                     	let selectionMenu = '<label for="longAverage">Long Average:</label>' +
-                        '<input type="number" class="form-control" placeholder="Enter an amount."required>' +
+                        '<input type="number" class="form-control" placeholder="Enter an amount." required>' +
                         '<select class="form-control">' +
                         '<option>hours</option>' +
                         '<option>minutes</option>' +
@@ -162,55 +162,35 @@
 
                     }
                     else if (strategy == 'bollingerBands') {
-                    	let selectionMenu = '<div class="form-group">' +
-                        '<label for="amount">Moving Average:</label>' +
-                        '<input type="number" class="form-control" placeholder="Enter an amount."required>' +
-                        '<div class="invalid-feedback">Amount required.</div>' +
+                    	let selectionMenu = '<label for="amount">Moving Average:</label>' +
+                        '<input type="number" class="form-control" placeholder="Enter an amount." required>' +
                         '<select class="form-control">' +
                         '<option>hours</option>' +
                         '<option>minutes</option>' +
                         '<option>seconds</option>' +
                         '</select>' +
-                        '</div>' +
-                        '<div class="form-group">' +
-                        '<label for="amount">Standard Deviations:</label>' +
+                        '<label for="standardDeviations">Standard Deviations:</label>' +
                         '<input type="number" class="form-control" placeholder="Enter an amount." required>' +
-                        '<div class="invalid-feedback">Amount required.</div>' +
-                        '</div>' +
-                        '<div class="form-inline">' +
-                        '<div class="form-group">' +
-                        '<label for="stock">P/L%:</label>' +
+                        '<label for="plp">P/L%:</label>' +
                         '<input type="number" class="form-control" placeholder="Enter a percentage." required>' +
-                        '<div class="invalid-feedback">Percentage required.</div>' +
-                        '<button type="submit" class="btn">Submit</button>' +
-                        '</div></div>';
-                        $("#fillOut").html(selectionMenu);
+                        '<button type="submit" class="btn">Submit</button>';
+                        $("#strategyCreatorStage2").html(selectionMenu);
 
                     }
                     else if (strategy == 'priceBreakout') {
-                    	let selectionMenu = '<div class="form-group">' +
-                        '<label for="amount">Fixed Period:</label>' +
-                        '<input type="number" class="form-control" placeholder="Enter an amount."required>' +
-                        '<div class="invalid-feedback">Amount required.</div>' +
+                    	let selectionMenu = '<label for="amount">Fixed Period:</label>' +
+                        '<input type="number" class="form-control" placeholder="Enter an amount." required>' +
                         '<select class="form-control">' +
                         '<option>hours</option>' +
                         '<option>minutes</option>' +
                         '<option>seconds</option>' +
                         '</select>' +
-                        '</div>' +
-                        '<div class="form-group">' +
-                        '<label for="amount">Fit Occurances:</label>' +
+                        '<label for="fitOccurances">Fit Occurances:</label>' +
                         '<input type="number" class="form-control" placeholder="Enter an amount." required>' +
-                        '<div class="invalid-feedback">Amount required.</div>' +
-                        '</div>' +
-                        '<div class="form-inline">' +
-                        '<div class="form-group">' +
                         '<label for="stock">P/L%:</label>' +
                         '<input type="number" class="form-control" placeholder="Enter a percentage." required>' +
-                        '<div class="invalid-feedback">Percentage required.</div>' +
-                        '<button type="submit" class="btn">Submit</button>' +
-                        '</div></div>';
-                        $("#fillOut").html(selectionMenu);
+                        '<button type="submit" class="btn">Submit</button>';
+                        $("#strategyCreatorStage2").html(selectionMenu);
 
                     }
                 })
