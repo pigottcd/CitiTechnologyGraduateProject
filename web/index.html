@@ -1,28 +1,23 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-        <meta name="description" content="">
-        <meta name="author" content="">
-        <!-- <link rel="icon" href=""> -->
-
         <title>AlgoStrategyTrader</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <!--
+        Description: <meta name="description" content="">
+        Author: <meta name="author" content="">
+        Icon: <link rel="icon" href="">
+        -->
 
-        <!-- Latest compiled and minified CSS -->
+        <!-- CSS -->
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
-
-        <!-- Custom styles for this template -->
         <link href="./css/starter-template.css" rel="stylesheet">
-
-        <!-- Latest Chart -->
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.bundle.min.js"></script>
     </head>
 
     <body>
 
-
+        <!-- Navbar -->
         <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
             <a class="navbar-brand" href="">AlgoStrategyTrader</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
@@ -70,8 +65,8 @@
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label for="strategy">Strategy:</label>
-                                    <select class="form-control" id="strategy">
+                                    <label for="strategySelector">Strategy:</label>
+                                    <select class="form-control" id="strategySelector">
                                         <option disabled selected hidden>Select a strategy.</option>
                                         <option value="twoMovingAverage">Two Moving Averages</option>
                                         <option value="bollingerBands">Bollinger Bands</option>
@@ -79,8 +74,8 @@
                                     </select>
                                 </div>
                             </div>
-                            <!--
-                            <div class="row">
+                            <div class="row" id="strategyCreaterRow2">
+                                <!--
                                 <div class="form-group">
                                     <label for="amount">Amount:</label>
                                     <input type="text" class="form-control" id="amount" placeholder="Enter an amount." value="" required>
@@ -102,8 +97,8 @@
                                     </div>
                                 </div>
                                 <button type="submit" class="btn btn-default">Submit</button>
+                                -->
                             </div>
-                            -->
                         </form>
                     </div>
                 </div>
@@ -126,16 +121,45 @@
 
         </main>
 
-        <!-- jQuery library -->
+        <!-- Script libraries -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.bundle.min.js"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-
-        <!-- Popper JS -->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
-
-        <!-- Latest compiled JavaScript -->
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
 
-        <!-- Script to populate page, might want to put in a seperate .js file -->
+        <!-- Strategy selection  -->
+        <script>
+            $(document).ready(function() {
+                $("#strategySelector").change(function() {
+                    console.log("selection changed!");
+                    // populate selection menu
+                    let selectionMenu = '<div class="form-group">\n' +
+                        '<label for="amount">Amount:</label>\n' +
+                        '<input type="text" class="form-control" id="amount" placeholder="Enter an amount." value="" required>\n' +
+                        '<div class="invalid-feedback">\n' +
+                        'Amount required.\n' +
+                        '</div>\n' +
+                        '</div>\n' +
+                        '<div class="form-group">\n' +
+                        '<label>Param1:</label>\n' +
+                        '<input type="text" class="form-control" required>\n' +
+                        '<div class="invalid-feedback">\n' +
+                        'required.\n' +
+                        '</div>\n' +
+                        '</div><div class="form-group">\n' +
+                        '<label>Param2:</label>\n' +
+                        '<input type="text" class="form-control" required>\n' +
+                        '<div class="invalid-feedback">\n' +
+                        'required.\n' +
+                        '</div>\n' +
+                        '</div>\n' +
+                        '<button type="submit" class="btn btn-default">Submit</button>';
+                    $("#strategyCreaterRow2").html(selectionMenu);
+                })
+            })
+        </script>
+
+        <!-- Script to populate table and chart, might want to put in a separate .js file -->
         <script>
             // run code once the page has loaded
             $(document).ready(function() {
