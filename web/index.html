@@ -52,17 +52,26 @@
         </nav>
 
         <main role="main" class="container-fluid">
+
+        	<!-- Strategy Creator row -->
             <div class="row">
+
+            	<!-- Strategy Creator col -->
                 <div class="col-md-12">
+
+                	<!-- Strategy Creator-->
                     <div class="createStrategyForm">
-                        <form class="form-inline">
-                            <div class="row">
+                    	<form>
+                        	<div class="form-inline" id="strategyCreater">
+                        		<!-- Strategy Creator Row 1 -->
                                 <div class="form-group">
+                                	
                                     <label for="stock">Stock:</label>
                                     <input type="text" class="form-control" id="stock" placeholder="Enter a stock tag." value="" required>
                                     <div class="invalid-feedback">
                                         Stock required.
                                     </div>
+                                
                                 </div>
                                 <div class="form-group">
                                     <label for="strategySelector">Strategy:</label>
@@ -73,34 +82,13 @@
                                         <option value="priceBreakout">Price Breakout</option>
                                     </select>
                                 </div>
-                            </div>
-                            <div class="row" id="strategyCreaterRow2">
-                                <!--
-                                <div class="form-group">
-                                    <label for="amount">Amount:</label>
-                                    <input type="text" class="form-control" id="amount" placeholder="Enter an amount." value="" required>
-                                        <div class="invalid-feedback">
-                                            Amount required.
-                                        </div>
+                                <div class="form-group" id="fillOut">
                                 </div>
-                                <div class="form-group">
-                                    <label>Param1:</label>
-                                    <input type="text" class="form-control" required>
-                                    <div class="invalid-feedback">
-                                        required.
-                                    </div>
-                                </div><div class="form-group">
-                                    <label>Param2:</label>
-                                    <input type="text" class="form-control" required>
-                                    <div class="invalid-feedback">
-                                        required.
-                                    </div>
-                                </div>
-                                <button type="submit" class="btn btn-default">Submit</button>
-                                -->
                             </div>
                         </form>
                     </div>
+                    </div>
+
                 </div>
             </div>
 
@@ -131,30 +119,93 @@
         <script>
             $(document).ready(function() {
                 $("#strategySelector").change(function() {
-                    console.log("selection changed!");
+
+                	let strategy = $("#strategySelector :selected").val();
+
                     // populate selection menu
-                    let selectionMenu = '<div class="form-group">\n' +
-                        '<label for="amount">Amount:</label>\n' +
-                        '<input type="text" class="form-control" id="amount" placeholder="Enter an amount." value="" required>\n' +
-                        '<div class="invalid-feedback">\n' +
-                        'Amount required.\n' +
-                        '</div>\n' +
-                        '</div>\n' +
-                        '<div class="form-group">\n' +
-                        '<label>Param1:</label>\n' +
-                        '<input type="text" class="form-control" required>\n' +
-                        '<div class="invalid-feedback">\n' +
-                        'required.\n' +
-                        '</div>\n' +
-                        '</div><div class="form-group">\n' +
-                        '<label>Param2:</label>\n' +
-                        '<input type="text" class="form-control" required>\n' +
-                        '<div class="invalid-feedback">\n' +
-                        'required.\n' +
-                        '</div>\n' +
-                        '</div>\n' +
-                        '<button type="submit" class="btn btn-default">Submit</button>';
-                    $("#strategyCreaterRow2").html(selectionMenu);
+                    if (strategy =='twoMovingAverage') {
+                    	let selectionMenu = '<div class="form-group">' +
+                        '<label for="amount">Long Average:</label>' +
+                        '<input type="number" class="form-control" placeholder="Enter an amount."required>' +
+                        '<div class="invalid-feedback">Amount required.</div>' +
+                        '<select class="form-control">' +
+                        '<option>hours</option>' +
+                        '<option>minutes</option>' +
+                        '<option>seconds</option>' +
+                        '</select>' +
+                        '</div>' +
+                        '<div class="form-group">' +
+                        '<label for="amount">Short Average:</label>' +
+                        '<input type="number" class="form-control" placeholder="Enter an amount." required>' +
+                        '<div class="invalid-feedback">Amount required.</div>' +
+                        '<select class="form-control">' +
+                        '<option>hours</option>' +
+                        '<option selected>minutes</option>' +
+                        '<option>seconds</option>' +
+                        '</select>' +
+                        '</div>' +
+                        '<div class="form-inline">' +
+                        '<div class="form-group">' +
+                        '<label for="stock">P/L%:</label>' +
+                        '<input type="number" class="form-control" placeholder="Enter a percentage." required>' +
+                        '<div class="invalid-feedback">Percentage required.</div>' +
+                        '<button type="submit" class="btn">Submit</button>' +
+                        '</div></div>';
+                        $("#fillOut").html(selectionMenu);
+
+                    }
+                    else if (strategy == 'bollingerBands') {
+                    	let selectionMenu = '<div class="form-group">' +
+                        '<label for="amount">Moving Average:</label>' +
+                        '<input type="number" class="form-control" placeholder="Enter an amount."required>' +
+                        '<div class="invalid-feedback">Amount required.</div>' +
+                        '<select class="form-control">' +
+                        '<option>hours</option>' +
+                        '<option>minutes</option>' +
+                        '<option>seconds</option>' +
+                        '</select>' +
+                        '</div>' +
+                        '<div class="form-group">' +
+                        '<label for="amount">Standard Deviations:</label>' +
+                        '<input type="number" class="form-control" placeholder="Enter an amount." required>' +
+                        '<div class="invalid-feedback">Amount required.</div>' +
+                        '</div>' +
+                        '<div class="form-inline">' +
+                        '<div class="form-group">' +
+                        '<label for="stock">P/L%:</label>' +
+                        '<input type="number" class="form-control" placeholder="Enter a percentage." required>' +
+                        '<div class="invalid-feedback">Percentage required.</div>' +
+                        '<button type="submit" class="btn">Submit</button>' +
+                        '</div></div>';
+                        $("#fillOut").html(selectionMenu);
+
+                    }
+                    else if (strategy == 'priceBreakout') {
+                    	let selectionMenu = '<div class="form-group">' +
+                        '<label for="amount">Fixed Period:</label>' +
+                        '<input type="number" class="form-control" placeholder="Enter an amount."required>' +
+                        '<div class="invalid-feedback">Amount required.</div>' +
+                        '<select class="form-control">' +
+                        '<option>hours</option>' +
+                        '<option>minutes</option>' +
+                        '<option>seconds</option>' +
+                        '</select>' +
+                        '</div>' +
+                        '<div class="form-group">' +
+                        '<label for="amount">Fit Occurances:</label>' +
+                        '<input type="number" class="form-control" placeholder="Enter an amount." required>' +
+                        '<div class="invalid-feedback">Amount required.</div>' +
+                        '</div>' +
+                        '<div class="form-inline">' +
+                        '<div class="form-group">' +
+                        '<label for="stock">P/L%:</label>' +
+                        '<input type="number" class="form-control" placeholder="Enter a percentage." required>' +
+                        '<div class="invalid-feedback">Percentage required.</div>' +
+                        '<button type="submit" class="btn">Submit</button>' +
+                        '</div></div>';
+                        $("#fillOut").html(selectionMenu);
+
+                    }
                 })
             })
         </script>
