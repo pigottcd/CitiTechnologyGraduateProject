@@ -82,8 +82,7 @@
                                	
                                	<!-- stock selection -->
                                 <label for="stockSelector">Stock:</label>
-                                <input type="text" class="form-control" id="stockSelector" placeholder="Enter a stock tag." required>
-                                <div class="invalid-feedback">Stock required.</div>
+                                <input type="text" class="form-control" id="stockSelector" placeholder="Ex: AMD" required>
                                 	
                                 <!-- strategy selection -->
                                 <label for="strategySelector">Strategy:</label>
@@ -142,21 +141,21 @@
                     // populate selection menu
                     if (strategy =='twoMovingAverage') {
                     	let selectionMenu = '<label for="longAverage">Long Average:</label>' +
-                        '<input type="number" class="form-control" placeholder="Enter an amount." required>' +
+                        '<input type="number" class="form-control" id="longAverage" placeholder="Ex: 3" required>' +
                         '<select class="form-control">' +
                         '<option>hours</option>' +
                         '<option>minutes</option>' +
                         '<option>seconds</option>' +
                         '</select>' +
                         '<label for="shortAverage">Short Average:</label>' +
-                        '<input type="number" class="form-control" placeholder="Enter an amount." required>' +
+                        '<input type="number" class="form-control" id="shortAverage" placeholder="Ex: 30" required>' +
                         '<select class="form-control">' +
                         '<option>hours</option>' +
                         '<option selected>minutes</option>' +
                         '<option>seconds</option>' +
                         '</select>' +
                         '<label for="plp">P/L%:</label>' +
-                        '<input type="number" class="form-control" placeholder="Enter a percentage." required>' +
+                        '<input type="number" class="form-control" id="plp"placeholder="Ex: 1" required>' +
                         '<button type="submit" class="btn">Submit</button>';
                         $("#strategyCreatorStage2").html(selectionMenu);
 

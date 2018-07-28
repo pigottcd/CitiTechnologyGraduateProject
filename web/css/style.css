@@ -33,3 +33,7 @@ hr {
 .form-inline * {
     margin:0px 3px 0px 0px;
 }
+
+#stockSelector, #longAverage, #shortAverage, #plp {
+  width: 90px;
+}
