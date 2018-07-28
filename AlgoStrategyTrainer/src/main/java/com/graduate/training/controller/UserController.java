@@ -20,7 +20,6 @@ public class UserController {
     private UserService service;
     @RequestMapping(method = RequestMethod.GET)
     Iterable<User> findAll() {
-        System.out.println("got request");
         return service.getUsers();
     }
 }
