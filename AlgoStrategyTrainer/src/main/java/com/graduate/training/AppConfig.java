@@ -1,8 +1,12 @@
 package com.graduate.training;
 
+import com.graduate.training.entities.Order;
+import com.graduate.training.messaging.ActiveMQSender;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Import;
@@ -13,6 +17,7 @@ import org.springframework.jms.core.JmsTemplate;
 import org.springframework.jms.core.MessageCreator;
 
 import javax.jms.ConnectionFactory;
+import java.time.LocalDateTime;
 
 
 @EnableAutoConfiguration
@@ -20,6 +25,7 @@ import javax.jms.ConnectionFactory;
 @ComponentScan(basePackages = "com.graduate.training")
 @Import(SwaggerConfig.class)
 public class AppConfig {
+
 
     @Bean
     public JmsListenerContainerFactory<?> initJmsContainerF(ConnectionFactory connF) {
@@ -29,7 +35,11 @@ public class AppConfig {
     }
 
     public static void main(String[] args) {
-        SpringApplication.run(AppConfig.class, args);
+        ConfigurableApplicationContext context = SpringApplication.run(AppConfig.class, args);
+        ActiveMQSender sender = context.getBean(ActiveMQSender.class);
+        Order newOrder = new Order(true, 0, 10.1, 120,
+                "GE", LocalDateTime.now());
+        sender.send(newOrder.toString());
     }
 
 }

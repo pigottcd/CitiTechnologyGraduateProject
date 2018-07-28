@@ -2,15 +2,12 @@ package com.graduate.training.messaging;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jms.core.JmsTemplate;
-import org.springframework.jms.core.MessageCreator;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 
-import javax.jms.JMSException;
-import javax.jms.Message;
 import javax.jms.Session;
 
 
-@Service
+@Component
 public class ActiveMQSender {
     private JmsTemplate jmsTemplate;
 
@@ -19,7 +16,7 @@ public class ActiveMQSender {
         this.jmsTemplate = template;
     }
     public void send(String message) {
-        jmsTemplate.send("/tbd",
+        jmsTemplate.send("queue/testQueue",
                 (Session session)-> session.createTextMessage(message));
     }
 }
