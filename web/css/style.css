@@ -31,9 +31,18 @@ hr {
 
 
 .form-inline * {
-    margin:0px 3px 0px 0px;
+    margin:0px 3px 0px 3px;
 }
 
-#stockSelector, #longAverage, #shortAverage, #plp {
+#stockSelector, #longAverage, #shortAverage, #movingAverage, #standardDeviations {
   width: 90px;
+}
+
+#plp {
+  width: 75px;
+}
+
+#percentage {
+  width: 40px;
+  background-color: white;
 }

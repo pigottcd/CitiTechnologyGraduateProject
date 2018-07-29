@@ -155,29 +155,31 @@
                         '<option>seconds</option>' +
                         '</select>' +
                         '<label for="plp">P/L%:</label>' +
-                        '<input type="number" class="form-control" id="plp"placeholder="Ex: 1" required>' +
+                        '<input type="number" class="form-control" id="plp" placeholder="Ex: 1" required>' +
+                        '<input type="text" class="form-control" id="percentage" value="%" disabled></input>' +
                         '<button type="submit" class="btn">Submit</button>';
                         $("#strategyCreatorStage2").html(selectionMenu);
 
                     }
                     else if (strategy == 'bollingerBands') {
-                    	let selectionMenu = '<label for="amount">Moving Average:</label>' +
-                        '<input type="number" class="form-control" placeholder="Enter an amount." required>' +
+                    	let selectionMenu = '<label for="movingAverage">Moving Average:</label>' +
+                        '<input type="number" class="form-control" id="movingAverage" placeholder="Ex: 3" required>' +
                         '<select class="form-control">' +
                         '<option>hours</option>' +
                         '<option>minutes</option>' +
                         '<option>seconds</option>' +
                         '</select>' +
                         '<label for="standardDeviations">Standard Deviations:</label>' +
-                        '<input type="number" class="form-control" placeholder="Enter an amount." required>' +
+                        '<input type="number" class="form-control" id="standardDeviations" placeholder="Ex: 2" required>' +
                         '<label for="plp">P/L%:</label>' +
-                        '<input type="number" class="form-control" placeholder="Enter a percentage." required>' +
+                        '<input type="number" class="form-control" id="plp" placeholder="Ex: 5" required>' +
+                        '<input type="text" class="form-control" id="percentage" value="%" disabled></input>' +
                         '<button type="submit" class="btn">Submit</button>';
                         $("#strategyCreatorStage2").html(selectionMenu);
 
                     }
                     else if (strategy == 'priceBreakout') {
-                    	let selectionMenu = '<label for="amount">Fixed Period:</label>' +
+                    	let selectionMenu = '<label for="fixedPeriod">Fixed Period:</label>' +
                         '<input type="number" class="form-control" placeholder="Enter an amount." required>' +
                         '<select class="form-control">' +
                         '<option>hours</option>' +
