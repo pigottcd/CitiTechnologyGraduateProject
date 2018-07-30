@@ -73,6 +73,9 @@ public class PriceFeedServiceImpl implements PriceFeedService {
         if ((listing = activeListings.get(ticker)) == null) {
             return new ArrayList<>();
         }
+        if(range > listing.prices.size()) {
+            return new ArrayList<>();
+        }
         return listing.prices.subList(listing.prices.size()-(range +1), listing.prices.size() -1);
     }
 
