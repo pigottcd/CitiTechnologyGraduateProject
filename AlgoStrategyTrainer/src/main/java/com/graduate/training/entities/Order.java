@@ -2,30 +2,33 @@ package com.graduate.training.entities;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
-import org.xml.sax.SAXParseException;
 
-import javax.persistence.MappedSuperclass;
+import javax.persistence.*;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import java.io.ByteArrayInputStream;
-import java.io.UnsupportedEncodingException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+@Entity
+@Table(name = "orders")
 public class Order {
 
-
-    private boolean buy;
+    @Id
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    @Column(name="id")
     private int id;
-    private double price;
-    private int size;
-    private String stock;
-    private LocalDateTime time;
-    private String status;
+
+    @Column(name = "buy")    private boolean buy;
+    @Column(name = "price")  private double price;
+    @Column(name = "size")   private int size;
+    @Column(name = "stock")  private String stock;
+    @Column(name ="time")    private LocalDateTime time;
+    @Column(name = "status") private String status;
+
+    public Order() {}
 
     public Order(boolean buy, int id, double price, int size,
                  String stock, LocalDateTime time) {
