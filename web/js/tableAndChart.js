@@ -1,18 +1,49 @@
-function addData(chart, label, data) {
-    chart.data.labels.push(label);
-    chart.data.datasets.forEach((dataset) => {
-        dataset.data.push(data);
-    });
-    chart.update();
+// returns a html table created from json data
+function createTable(data) {
+    let tableBody = '<table class="table table-striped table-sm"><thead><tr>';
+    for (value in data[0]) {
+        tableBody+='<th>';
+        tableBody+=value;
+        tableBody+='</th>';
+    }
+    tableBody+='</tr></thead><tbody>';
+    for (idx = 0; idx < data.length; idx++) {
+        tableBody += '<tr class="clickableRow">';
+        for (value in data[0]) {
+            tableBody += '<td>';
+            tableBody += data[idx][value];
+            tableBody += '</td>';
+        }
+        tableBody += '</tr>';
+    }
+    tableBody+='</tbody></table>';
+    return tableBody;
 }
 
-function removeData(chart) {
-    chart.data.labels.pop();
-    chart.data.datasets.forEach((dataset) => {
-        dataset.data.pop();
+//returns a 2d list of chart data created from json data
+function createChartData(data) {
+    let chartData =[[],[]];
+    data.forEach(function(elm) {
+        // elm.colName dependent on json data
+        chartData[0].push(elm.name);
+        chartData[1].push(elm.id);
     });
-    chart.update();
+    return chartData;
 }
+
+// returns a 2d list of chart data created from a given row in an html table
+function getRowData(row) {
+    let rowData = $(row).children("td").map(function () {
+        return $(this).text();
+    }).get();
+    let newRowData = [[], []];
+    //categories, rowData[1] is a name
+    newRowData[0].push(rowData[1]);
+    // values, rowData[0] is a number
+    newRowData[1].push(parseInt(rowData[0]));
+    return newRowData;
+}
+
 // run code once the page has loaded
 $(document).ready(function() {
 
@@ -21,46 +52,26 @@ $(document).ready(function() {
         url: "http://localhost:8081/",
         crossOrigin: true
     }).then(function(data) {
+
         // create table
-        let table_body = '<table class="table table-striped table-sm"><thead><tr>';
-        for (value in data[0]) {
-            table_body+='<th>';
-            table_body+=value;
-            table_body+='</th>';
-        }
-        table_body+='</tr></thead><tbody>';
-        for (idx = 0; idx < data.length; idx++) {
-            table_body += '<tr class="clickableRow">';
-            for (value in data[0]) {
-                table_body += '<td>';
-                table_body += data[idx][value];
-                table_body += '</td>';
-            }
-            table_body += '</tr>';
-        }
-        table_body+='</tbody></table>';
+        let tableBody = createTable(data);
 
         // push table to usersTable div tag
-        $('#usersTable').html(table_body);
+        $('#usersTable').html(tableBody);
 
-        // pull data for chart
+        // create data for chart
         // work on implementation here, redundant json processing (already processed for table)
-        let labels = [];
-        let values = [];
-        data.forEach(function(elm) {
-            labels.push(elm.name);
-            values.push(elm.id);
-        });
+        let chartData  = createChartData(data); //categories:chartData[0], values:chartData[1]
 
         // create and push chart to myChart chart tag
-        let ctx = document.getElementById("myChart").getContext('2d');
+        let ctx = $('#myChart')[0].getContext('2d');
         myChart = new Chart(ctx, {
             type: 'bar',
             data: {
-                labels: labels,
+                labels: chartData[0],
                 datasets: [{
                     label: 'User ids',
-                    data: values,
+                    data: chartData[1],
                     backgroundColor: [
                         'rgba(255, 99, 132, 0.2)',
                         'rgba(54, 162, 235, 0.2)',
@@ -91,41 +102,29 @@ $(document).ready(function() {
             }
         });
 
+        // runs when a row is clicked
         $('.clickableRow').click(function() {
-            var tableData = $(this).children("td").map(function () {
-                return $(this).text();
-            }).get();
-            let labels = [];
-            let values = [];
-            labels.push(tableData[1]);
-            values.push(parseInt(tableData[0]));
 
-            //removeData(myChart);
+            // get data from row
+            rowData = getRowData(this);
+
+            // destroys a chart
             myChart.destroy();
-            //addData(myChart, labels, values);
+
+            // create a new chart with data form the clicked row
             let ctx = document.getElementById("myChart").getContext('2d');
             myChart = new Chart(ctx, {
                 type: 'bar',
                 data: {
-                    labels: labels,
+                    labels: rowData[0],
                     datasets: [{
                         label: 'User ids',
-                        data: values,
+                        data: rowData[1],
                         backgroundColor: [
-                            'rgba(255, 99, 132, 0.2)',
-                            'rgba(54, 162, 235, 0.2)',
-                            'rgba(255, 206, 86, 0.2)',
-                            'rgba(75, 192, 192, 0.2)',
-                            'rgba(153, 102, 255, 0.2)',
-                            'rgba(255, 159, 64, 0.2)'
+                            'rgba(255, 99, 132, 0.2)'
                         ],
                         borderColor: [
-                            'rgba(255,99,132,1)',
-                            'rgba(54, 162, 235, 1)',
-                            'rgba(255, 206, 86, 1)',
-                            'rgba(75, 192, 192, 1)',
-                            'rgba(153, 102, 255, 1)',
-                            'rgba(255, 159, 64, 1)'
+                            'rgba(255,99,132,1)'
                         ],
                         borderWidth: 1
                     }]
@@ -141,8 +140,6 @@ $(document).ready(function() {
                 }
             });
 
-
         });
     });
-
 });
