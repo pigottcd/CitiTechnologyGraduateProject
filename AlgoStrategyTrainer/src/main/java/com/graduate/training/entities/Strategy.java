@@ -17,6 +17,14 @@ public class Strategy {
 
     public void runStrategy(ActiveMQSender sender){}
 
+    public Integer getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(Integer quantity) {
+        this.quantity = quantity;
+    }
+
     public int getId() {
         return id;
     }
