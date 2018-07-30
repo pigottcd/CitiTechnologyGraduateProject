@@ -5049,3 +5049,281 @@ Caused by: org.hibernate.AnnotationException: No identifier specified for entity
 	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1624) ~[spring-beans-4.3.14.RELEASE.jar:4.3.14.RELEASE]
 	... 16 common frames omitted
 
+2018-07-30 20:16:37.380 ERROR 3016 --- [main] o.s.b.l.LoggingApplicationListener       : Cannot set level: ${level} for 'com.graduate.training.rest'
+2018-07-30 20:16:37.479  INFO 3016 --- [main] com.graduate.training.AppConfig          : Starting AppConfig on WIN-70OAN17IPPO with PID 3016 (C:\Users\Administrator\Documents\CitiTechnologyGraduateProject\AlgoStrategyTrainer\target\classes started by Administrator in C:\Users\Administrator\Documents\CitiTechnologyGraduateProject\AlgoStrategyTrainer)
+2018-07-30 20:16:37.480  INFO 3016 --- [main] com.graduate.training.AppConfig          : No active profile set, falling back to default profiles: default
+2018-07-30 20:16:37.557  INFO 3016 --- [main] ationConfigEmbeddedWebApplicationContext : Refreshing org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext@6ee12bac: startup date [Mon Jul 30 20:16:37 UTC 2018]; root of context hierarchy
+2018-07-30 20:16:40.887  INFO 3016 --- [main] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration$$EnhancerBySpringCGLIB$$e79cb768] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2018-07-30 20:16:42.118  INFO 3016 --- [main] s.b.c.e.t.TomcatEmbeddedServletContainer : Tomcat initialized with port(s): 8081 (http)
+2018-07-30 20:16:42.139  INFO 3016 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2018-07-30 20:16:42.141  INFO 3016 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet Engine: Apache Tomcat/8.5.27
+2018-07-30 20:16:42.290  INFO 3016 --- [localhost-startStop-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2018-07-30 20:16:42.290  INFO 3016 --- [localhost-startStop-1] o.s.web.context.ContextLoader            : Root WebApplicationContext: initialization completed in 4736 ms
+2018-07-30 20:16:42.509  INFO 3016 --- [localhost-startStop-1] o.s.b.w.servlet.ServletRegistrationBean  : Mapping servlet: 'dispatcherServlet' to [/]
+2018-07-30 20:16:42.515  INFO 3016 --- [localhost-startStop-1] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'characterEncodingFilter' to: [/*]
+2018-07-30 20:16:42.516  INFO 3016 --- [localhost-startStop-1] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'hiddenHttpMethodFilter' to: [/*]
+2018-07-30 20:16:42.517  INFO 3016 --- [localhost-startStop-1] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'httpPutFormContentFilter' to: [/*]
+2018-07-30 20:16:42.518  INFO 3016 --- [localhost-startStop-1] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'requestContextFilter' to: [/*]
+2018-07-30 20:16:43.435  INFO 3016 --- [main] j.LocalContainerEntityManagerFactoryBean : Building JPA container EntityManagerFactory for persistence unit 'default'
+2018-07-30 20:16:43.453  INFO 3016 --- [main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [
+	name: default
+	...]
+2018-07-30 20:16:43.564  INFO 3016 --- [main] org.hibernate.Version                    : HHH000412: Hibernate Core {5.0.12.Final}
+2018-07-30 20:16:43.565  INFO 3016 --- [main] org.hibernate.cfg.Environment            : HHH000206: hibernate.properties not found
+2018-07-30 20:16:43.573  INFO 3016 --- [main] org.hibernate.cfg.Environment            : HHH000021: Bytecode provider name : javassist
+2018-07-30 20:16:43.616  INFO 3016 --- [main] o.hibernate.annotations.common.Version   : HCANN000001: Hibernate Commons Annotations {5.0.1.Final}
+2018-07-30 20:16:43.768  INFO 3016 --- [main] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.MySQL5Dialect
+2018-07-30 20:16:44.288  INFO 3016 --- [main] o.h.h.i.QueryTranslatorFactoryInitiator  : HHH000397: Using ASTQueryTranslatorFactory
+2018-07-30 20:16:44.424  INFO 3016 --- [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2018-07-30 20:16:45.476  INFO 3016 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/],methods=[GET]}" onto java.lang.Iterable<com.graduate.training.entities.User> com.graduate.training.controller.UserController.findAll()
+2018-07-30 20:16:45.479  INFO 3016 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/],methods=[POST]}" onto void com.graduate.training.controller.UserController.addUser(com.graduate.training.entities.User)
+2018-07-30 20:16:45.480  INFO 3016 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/v2/api-docs],methods=[GET]}" onto public org.springframework.http.ResponseEntity<springfox.documentation.spring.web.json.Json> springfox.documentation.swagger2.web.Swagger2Controller.getDocumentation(java.lang.String)
+2018-07-30 20:16:45.482  INFO 3016 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/configuration/security]}" onto org.springframework.http.ResponseEntity<springfox.documentation.swagger.web.SecurityConfiguration> springfox.documentation.swagger.web.ApiResourceController.securityConfiguration()
+2018-07-30 20:16:45.482  INFO 3016 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/swagger-resources]}" onto org.springframework.http.ResponseEntity<java.util.List<springfox.documentation.swagger.web.SwaggerResource>> springfox.documentation.swagger.web.ApiResourceController.swaggerResources()
+2018-07-30 20:16:45.482  INFO 3016 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/configuration/ui]}" onto org.springframework.http.ResponseEntity<springfox.documentation.swagger.web.UiConfiguration> springfox.documentation.swagger.web.ApiResourceController.uiConfiguration()
+2018-07-30 20:16:45.484  INFO 3016 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/error]}" onto public org.springframework.http.ResponseEntity<java.util.Map<java.lang.String, java.lang.Object>> org.springframework.boot.autoconfigure.web.BasicErrorController.error(javax.servlet.http.HttpServletRequest)
+2018-07-30 20:16:45.486  INFO 3016 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/error],produces=[text/html]}" onto public org.springframework.web.servlet.ModelAndView org.springframework.boot.autoconfigure.web.BasicErrorController.errorHtml(javax.servlet.http.HttpServletRequest,javax.servlet.http.HttpServletResponse)
+2018-07-30 20:16:45.902  INFO 3016 --- [main] s.w.s.m.m.a.RequestMappingHandlerAdapter : Looking for @ControllerAdvice: org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext@6ee12bac: startup date [Mon Jul 30 20:16:37 UTC 2018]; root of context hierarchy
+2018-07-30 20:16:45.962  INFO 3016 --- [main] o.s.w.s.handler.SimpleUrlHandlerMapping  : Mapped URL path [/webjars/**] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+2018-07-30 20:16:45.962  INFO 3016 --- [main] o.s.w.s.handler.SimpleUrlHandlerMapping  : Mapped URL path [/**] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+2018-07-30 20:16:46.002  INFO 3016 --- [main] o.s.w.s.handler.SimpleUrlHandlerMapping  : Mapped URL path [/**/favicon.ico] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+2018-07-30 20:16:46.333  INFO 3016 --- [main] o.s.j.e.a.AnnotationMBeanExporter        : Registering beans for JMX exposure on startup
+2018-07-30 20:16:46.575  INFO 3016 --- [main] o.s.c.support.DefaultLifecycleProcessor  : Starting beans in phase 2147483647
+2018-07-30 20:16:46.591  INFO 3016 --- [main] d.s.w.p.DocumentationPluginsBootstrapper : Context refreshed
+2018-07-30 20:16:46.612  INFO 3016 --- [main] d.s.w.p.DocumentationPluginsBootstrapper : Found {0} custom documentation plugin(s)
+2018-07-30 20:16:46.624  INFO 3016 --- [main] s.d.s.w.s.ApiListingReferenceScanner     : Scanning for api listing references
+2018-07-30 20:16:46.629  INFO 3016 --- [main] s.w.ClassOrApiAnnotationResourceGrouping : Group for method findAll was user-controller
+2018-07-30 20:16:46.631  INFO 3016 --- [main] s.d.s.w.s.ApiListingReferenceScanner     : Request mapping: findAll belongs to groups: [[ResourceGroup{groupName='user-controller', position=0, controller=com.graduate.training.controller.UserController}]] 
+2018-07-30 20:16:46.632  INFO 3016 --- [main] s.w.ClassOrApiAnnotationResourceGrouping : Group for method addUser was user-controller
+2018-07-30 20:16:46.633  INFO 3016 --- [main] s.d.s.w.s.ApiListingReferenceScanner     : Request mapping: addUser belongs to groups: [[ResourceGroup{groupName='user-controller', position=0, controller=com.graduate.training.controller.UserController}]] 
+2018-07-30 20:16:46.633  INFO 3016 --- [main] s.w.ClassOrApiAnnotationResourceGrouping : Group for method error was basic-error-controller
+2018-07-30 20:16:46.633  INFO 3016 --- [main] s.d.s.w.s.ApiListingReferenceScanner     : Request mapping: error belongs to groups: [[ResourceGroup{groupName='basic-error-controller', position=0, controller=org.springframework.boot.autoconfigure.web.BasicErrorController}]] 
+2018-07-30 20:16:46.634  INFO 3016 --- [main] s.w.ClassOrApiAnnotationResourceGrouping : Group for method errorHtml was basic-error-controller
+2018-07-30 20:16:46.634  INFO 3016 --- [main] s.d.s.w.s.ApiListingReferenceScanner     : Request mapping: errorHtml belongs to groups: [[ResourceGroup{groupName='basic-error-controller', position=0, controller=org.springframework.boot.autoconfigure.web.BasicErrorController}]] 
+2018-07-30 20:16:46.639  INFO 3016 --- [main] s.d.s.w.s.ApiListingReferenceScanner     : Created resource listing Path: /users/user-controller Description: user-controller Position: 0
+2018-07-30 20:16:46.640  INFO 3016 --- [main] s.d.s.w.s.ApiListingReferenceScanner     : Created resource listing Path: /users/basic-error-controller Description: basic-error-controller Position: 0
+2018-07-30 20:16:46.663  INFO 3016 --- [main] s.d.schema.ModelContextKeyGenerator      : Cache Key Generated: java.util.Map<java.lang.String,java.lang.Object>(true)
+2018-07-30 20:16:46.663  INFO 3016 --- [main] s.d.spring.web.caching.CachingAspect     : Caching aspect applied for cache models with key java.util.Map<java.lang.String,java.lang.Object>(true)
+2018-07-30 20:16:46.671  INFO 3016 --- [main] s.d.schema.ModelContextKeyGenerator      : Cache Key Generated: java.util.Map<java.lang.String,java.lang.Object>(true)
+2018-07-30 20:16:46.672  INFO 3016 --- [main] s.d.spring.web.caching.CachingAspect     : Caching aspect applied for cache modelDependencies with key java.util.Map<java.lang.String,java.lang.Object>(true)
+2018-07-30 20:16:46.719  INFO 3016 --- [main] s.d.spring.web.OperationsKeyGenerator    : Cache key generated: /error.org.springframework.boot.autoconfigure.web.BasicErrorController.error.DefaultGenericTypeNamingStrategy
+2018-07-30 20:16:46.719  INFO 3016 --- [main] s.d.spring.web.caching.CachingAspect     : Caching aspect applied for cache operations with key /error.org.springframework.boot.autoconfigure.web.BasicErrorController.error.DefaultGenericTypeNamingStrategy
+2018-07-30 20:16:46.729  INFO 3016 --- [main] s.w.ClassOrApiAnnotationResourceGrouping : Group for method error was basic-error-controller
+2018-07-30 20:16:46.733  INFO 3016 --- [main] s.w.ClassOrApiAnnotationResourceGrouping : Group for method error was basic-error-controller
+2018-07-30 20:16:46.736  INFO 3016 --- [main] s.w.ClassOrApiAnnotationResourceGrouping : Group for method error was basic-error-controller
+2018-07-30 20:16:46.739  INFO 3016 --- [main] s.w.ClassOrApiAnnotationResourceGrouping : Group for method error was basic-error-controller
+2018-07-30 20:16:46.741  INFO 3016 --- [main] s.w.ClassOrApiAnnotationResourceGrouping : Group for method error was basic-error-controller
+2018-07-30 20:16:46.743  INFO 3016 --- [main] s.w.ClassOrApiAnnotationResourceGrouping : Group for method error was basic-error-controller
+2018-07-30 20:16:46.745  INFO 3016 --- [main] s.w.ClassOrApiAnnotationResourceGrouping : Group for method error was basic-error-controller
+2018-07-30 20:16:46.750  INFO 3016 --- [main] s.w.ClassOrApiAnnotationResourceGrouping : Group for method error was basic-error-controller
+2018-07-30 20:16:46.751  INFO 3016 --- [main] s.w.ClassOrApiAnnotationResourceGrouping : Group for method error was basic-error-controller
+2018-07-30 20:16:46.753  INFO 3016 --- [main] s.w.ClassOrApiAnnotationResourceGrouping : Group for method error was basic-error-controller
+2018-07-30 20:16:46.757  INFO 3016 --- [main] s.w.ClassOrApiAnnotationResourceGrouping : Group for method error was basic-error-controller
+2018-07-30 20:16:46.759  INFO 3016 --- [main] s.w.ClassOrApiAnnotationResourceGrouping : Group for method error was basic-error-controller
+2018-07-30 20:16:46.760  INFO 3016 --- [main] s.w.ClassOrApiAnnotationResourceGrouping : Group for method error was basic-error-controller
+2018-07-30 20:16:46.764  INFO 3016 --- [main] s.w.ClassOrApiAnnotationResourceGrouping : Group for method error was basic-error-controller
+2018-07-30 20:16:46.767  INFO 3016 --- [main] s.w.ClassOrApiAnnotationResourceGrouping : Group for method error was basic-error-controller
+2018-07-30 20:16:46.767  INFO 3016 --- [main] s.w.ClassOrApiAnnotationResourceGrouping : Group for method error was basic-error-controller
+2018-07-30 20:16:46.773  INFO 3016 --- [main] s.d.schema.ModelContextKeyGenerator      : Cache Key Generated: org.springframework.web.servlet.ModelAndView(true)
+2018-07-30 20:16:46.774  INFO 3016 --- [main] s.d.spring.web.caching.CachingAspect     : Caching aspect applied for cache models with key org.springframework.web.servlet.ModelAndView(true)
+2018-07-30 20:16:46.775  INFO 3016 --- [main] s.d.s.p.ModelPropertiesKeyGenerator      : Cache key generated: org.springframework.web.servlet.ModelAndView(true)
+2018-07-30 20:16:46.777  INFO 3016 --- [main] s.d.spring.web.caching.CachingAspect     : Caching aspect applied for cache modelProperties with key org.springframework.web.servlet.ModelAndView(true)
+2018-07-30 20:16:46.813  INFO 3016 --- [main] s.d.schema.ModelContextKeyGenerator      : Cache Key Generated: org.springframework.web.servlet.ModelAndView(true)
+2018-07-30 20:16:46.814  INFO 3016 --- [main] s.d.spring.web.caching.CachingAspect     : Caching aspect applied for cache modelDependencies with key org.springframework.web.servlet.ModelAndView(true)
+2018-07-30 20:16:46.814  INFO 3016 --- [main] s.d.s.p.ModelPropertiesKeyGenerator      : Cache key generated: org.springframework.web.servlet.ModelAndView(true)
+2018-07-30 20:16:46.818  INFO 3016 --- [main] s.d.spring.web.caching.CachingAspect     : Caching aspect applied for cache modelProperties with key org.springframework.web.servlet.ModelAndView(true)
+2018-07-30 20:16:46.819  INFO 3016 --- [main] s.d.s.p.ModelPropertiesKeyGenerator      : Cache key generated: org.springframework.web.servlet.View(true)
+2018-07-30 20:16:46.819  INFO 3016 --- [main] s.d.spring.web.caching.CachingAspect     : Caching aspect applied for cache modelProperties with key org.springframework.web.servlet.View(true)
+2018-07-30 20:16:46.820  INFO 3016 --- [main] s.d.s.p.ModelPropertiesKeyGenerator      : Cache key generated: org.springframework.web.servlet.View(true)
+2018-07-30 20:16:46.821  INFO 3016 --- [main] s.d.spring.web.caching.CachingAspect     : Caching aspect applied for cache modelProperties with key org.springframework.web.servlet.View(true)
+2018-07-30 20:16:46.821  INFO 3016 --- [main] s.d.spring.web.OperationsKeyGenerator    : Cache key generated: /error.org.springframework.boot.autoconfigure.web.BasicErrorController.errorHtml.DefaultGenericTypeNamingStrategy
+2018-07-30 20:16:46.821  INFO 3016 --- [main] s.d.spring.web.caching.CachingAspect     : Caching aspect applied for cache operations with key /error.org.springframework.boot.autoconfigure.web.BasicErrorController.errorHtml.DefaultGenericTypeNamingStrategy
+2018-07-30 20:16:46.822  INFO 3016 --- [main] s.w.ClassOrApiAnnotationResourceGrouping : Group for method errorHtml was basic-error-controller
+2018-07-30 20:16:46.824  INFO 3016 --- [main] s.w.ClassOrApiAnnotationResourceGrouping : Group for method errorHtml was basic-error-controller
+2018-07-30 20:16:46.825  INFO 3016 --- [main] s.w.ClassOrApiAnnotationResourceGrouping : Group for method errorHtml was basic-error-controller
+2018-07-30 20:16:46.826  INFO 3016 --- [main] s.w.ClassOrApiAnnotationResourceGrouping : Group for method errorHtml was basic-error-controller
+2018-07-30 20:16:46.827  INFO 3016 --- [main] s.w.ClassOrApiAnnotationResourceGrouping : Group for method errorHtml was basic-error-controller
+2018-07-30 20:16:46.829  INFO 3016 --- [main] s.w.ClassOrApiAnnotationResourceGrouping : Group for method errorHtml was basic-error-controller
+2018-07-30 20:16:46.832  INFO 3016 --- [main] s.w.ClassOrApiAnnotationResourceGrouping : Group for method errorHtml was basic-error-controller
+2018-07-30 20:16:46.833  INFO 3016 --- [main] s.w.ClassOrApiAnnotationResourceGrouping : Group for method errorHtml was basic-error-controller
+2018-07-30 20:16:46.833  INFO 3016 --- [main] s.w.ClassOrApiAnnotationResourceGrouping : Group for method errorHtml was basic-error-controller
+2018-07-30 20:16:46.835  INFO 3016 --- [main] s.w.ClassOrApiAnnotationResourceGrouping : Group for method errorHtml was basic-error-controller
+2018-07-30 20:16:46.837  INFO 3016 --- [main] s.w.ClassOrApiAnnotationResourceGrouping : Group for method errorHtml was basic-error-controller
+2018-07-30 20:16:46.837  INFO 3016 --- [main] s.w.ClassOrApiAnnotationResourceGrouping : Group for method errorHtml was basic-error-controller
+2018-07-30 20:16:46.840  INFO 3016 --- [main] s.w.ClassOrApiAnnotationResourceGrouping : Group for method errorHtml was basic-error-controller
+2018-07-30 20:16:46.841  INFO 3016 --- [main] s.w.ClassOrApiAnnotationResourceGrouping : Group for method errorHtml was basic-error-controller
+2018-07-30 20:16:46.843  INFO 3016 --- [main] s.w.ClassOrApiAnnotationResourceGrouping : Group for method errorHtml was basic-error-controller
+2018-07-30 20:16:46.843  INFO 3016 --- [main] s.w.ClassOrApiAnnotationResourceGrouping : Group for method errorHtml was basic-error-controller
+2018-07-30 20:16:46.863  INFO 3016 --- [main] s.d.schema.ModelContextKeyGenerator      : Cache Key Generated: com.graduate.training.entities.User(false)
+2018-07-30 20:16:46.863  INFO 3016 --- [main] s.d.spring.web.caching.CachingAspect     : Caching aspect applied for cache models with key com.graduate.training.entities.User(false)
+2018-07-30 20:16:46.865  INFO 3016 --- [main] s.d.s.p.ModelPropertiesKeyGenerator      : Cache key generated: com.graduate.training.entities.User(false)
+2018-07-30 20:16:46.866  INFO 3016 --- [main] s.d.spring.web.caching.CachingAspect     : Caching aspect applied for cache modelProperties with key com.graduate.training.entities.User(false)
+2018-07-30 20:16:46.870  INFO 3016 --- [main] s.d.schema.ModelContextKeyGenerator      : Cache Key Generated: com.graduate.training.entities.User(false)
+2018-07-30 20:16:46.870  INFO 3016 --- [main] s.d.spring.web.caching.CachingAspect     : Caching aspect applied for cache modelDependencies with key com.graduate.training.entities.User(false)
+2018-07-30 20:16:46.870  INFO 3016 --- [main] s.d.s.p.ModelPropertiesKeyGenerator      : Cache key generated: com.graduate.training.entities.User(false)
+2018-07-30 20:16:46.871  INFO 3016 --- [main] s.d.spring.web.caching.CachingAspect     : Caching aspect applied for cache modelProperties with key com.graduate.training.entities.User(false)
+2018-07-30 20:16:46.871  INFO 3016 --- [main] s.d.schema.ModelContextKeyGenerator      : Cache Key Generated: java.lang.Void(true)
+2018-07-30 20:16:46.871  INFO 3016 --- [main] s.d.spring.web.caching.CachingAspect     : Caching aspect applied for cache models with key java.lang.Void(true)
+2018-07-30 20:16:46.871  INFO 3016 --- [main] s.d.schema.ModelContextKeyGenerator      : Cache Key Generated: java.lang.Void(true)
+2018-07-30 20:16:46.871  INFO 3016 --- [main] s.d.spring.web.caching.CachingAspect     : Caching aspect applied for cache modelDependencies with key java.lang.Void(true)
+2018-07-30 20:16:46.872  INFO 3016 --- [main] s.d.spring.web.OperationsKeyGenerator    : Cache key generated: /.com.graduate.training.controller.UserController.addUser.DefaultGenericTypeNamingStrategy
+2018-07-30 20:16:46.872  INFO 3016 --- [main] s.d.spring.web.caching.CachingAspect     : Caching aspect applied for cache operations with key /.com.graduate.training.controller.UserController.addUser.DefaultGenericTypeNamingStrategy
+2018-07-30 20:16:46.880  INFO 3016 --- [main] s.w.ClassOrApiAnnotationResourceGrouping : Group for method addUser was user-controller
+2018-07-30 20:16:46.881  INFO 3016 --- [main] s.w.ClassOrApiAnnotationResourceGrouping : Group for method addUser was user-controller
+2018-07-30 20:16:46.883  INFO 3016 --- [main] s.d.schema.ModelContextKeyGenerator      : Cache Key Generated: java.lang.Iterable<com.graduate.training.entities.User>(true)
+2018-07-30 20:16:46.883  INFO 3016 --- [main] s.d.spring.web.caching.CachingAspect     : Caching aspect applied for cache models with key java.lang.Iterable<com.graduate.training.entities.User>(true)
+2018-07-30 20:16:46.883  INFO 3016 --- [main] s.d.s.p.ModelPropertiesKeyGenerator      : Cache key generated: java.lang.Iterable<com.graduate.training.entities.User>(true)
+2018-07-30 20:16:46.883  INFO 3016 --- [main] s.d.spring.web.caching.CachingAspect     : Caching aspect applied for cache modelProperties with key java.lang.Iterable<com.graduate.training.entities.User>(true)
+2018-07-30 20:16:46.884  INFO 3016 --- [main] s.d.schema.ModelContextKeyGenerator      : Cache Key Generated: java.lang.Iterable<com.graduate.training.entities.User>(true)
+2018-07-30 20:16:46.884  INFO 3016 --- [main] s.d.spring.web.caching.CachingAspect     : Caching aspect applied for cache modelDependencies with key java.lang.Iterable<com.graduate.training.entities.User>(true)
+2018-07-30 20:16:46.884  INFO 3016 --- [main] s.d.s.p.ModelPropertiesKeyGenerator      : Cache key generated: com.graduate.training.entities.User(true)
+2018-07-30 20:16:46.884  INFO 3016 --- [main] s.d.spring.web.caching.CachingAspect     : Caching aspect applied for cache modelProperties with key com.graduate.training.entities.User(true)
+2018-07-30 20:16:46.894  INFO 3016 --- [main] s.d.s.p.ModelPropertiesKeyGenerator      : Cache key generated: java.lang.Iterable<com.graduate.training.entities.User>(true)
+2018-07-30 20:16:46.907  INFO 3016 --- [main] s.d.spring.web.caching.CachingAspect     : Caching aspect applied for cache modelProperties with key java.lang.Iterable<com.graduate.training.entities.User>(true)
+2018-07-30 20:16:46.908  INFO 3016 --- [main] s.d.s.p.ModelPropertiesKeyGenerator      : Cache key generated: com.graduate.training.entities.User(true)
+2018-07-30 20:16:46.908  INFO 3016 --- [main] s.d.spring.web.caching.CachingAspect     : Caching aspect applied for cache modelProperties with key com.graduate.training.entities.User(true)
+2018-07-30 20:16:46.908  INFO 3016 --- [main] s.d.spring.web.OperationsKeyGenerator    : Cache key generated: /.com.graduate.training.controller.UserController.findAll.DefaultGenericTypeNamingStrategy
+2018-07-30 20:16:46.908  INFO 3016 --- [main] s.d.spring.web.caching.CachingAspect     : Caching aspect applied for cache operations with key /.com.graduate.training.controller.UserController.findAll.DefaultGenericTypeNamingStrategy
+2018-07-30 20:16:46.910  INFO 3016 --- [main] s.w.ClassOrApiAnnotationResourceGrouping : Group for method findAll was user-controller
+2018-07-30 20:16:46.919  INFO 3016 --- [main] s.w.ClassOrApiAnnotationResourceGrouping : Group for method findAll was user-controller
+2018-07-30 20:16:47.140  INFO 3016 --- [main] s.b.c.e.t.TomcatEmbeddedServletContainer : Tomcat started on port(s): 8081 (http)
+2018-07-30 20:16:47.153  INFO 3016 --- [main] com.graduate.training.AppConfig          : Started AppConfig in 10.085 seconds (JVM running for 10.728)
+2018-07-30 20:18:50.315 ERROR 4004 --- [main] o.s.b.l.LoggingApplicationListener       : Cannot set level: ${level} for 'com.graduate.training.rest'
+2018-07-30 20:18:50.443  INFO 4004 --- [main] com.graduate.training.AppConfig          : Starting AppConfig on WIN-70OAN17IPPO with PID 4004 (C:\Users\Administrator\Documents\CitiTechnologyGraduateProject\AlgoStrategyTrainer\target\classes started by Administrator in C:\Users\Administrator\Documents\CitiTechnologyGraduateProject\AlgoStrategyTrainer)
+2018-07-30 20:18:50.444  INFO 4004 --- [main] com.graduate.training.AppConfig          : No active profile set, falling back to default profiles: default
+2018-07-30 20:18:50.518  INFO 4004 --- [main] ationConfigEmbeddedWebApplicationContext : Refreshing org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext@6ee12bac: startup date [Mon Jul 30 20:18:50 UTC 2018]; root of context hierarchy
+2018-07-30 20:18:53.095  INFO 4004 --- [main] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration$$EnhancerBySpringCGLIB$$dc978d4c] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2018-07-30 20:18:54.575  INFO 4004 --- [main] s.b.c.e.t.TomcatEmbeddedServletContainer : Tomcat initialized with port(s): 8081 (http)
+2018-07-30 20:18:54.590  INFO 4004 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2018-07-30 20:18:54.592  INFO 4004 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet Engine: Apache Tomcat/8.5.27
+2018-07-30 20:18:54.759  INFO 4004 --- [localhost-startStop-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2018-07-30 20:18:54.759  INFO 4004 --- [localhost-startStop-1] o.s.web.context.ContextLoader            : Root WebApplicationContext: initialization completed in 4244 ms
+2018-07-30 20:18:55.041  INFO 4004 --- [localhost-startStop-1] o.s.b.w.servlet.ServletRegistrationBean  : Mapping servlet: 'dispatcherServlet' to [/]
+2018-07-30 20:18:55.048  INFO 4004 --- [localhost-startStop-1] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'characterEncodingFilter' to: [/*]
+2018-07-30 20:18:55.049  INFO 4004 --- [localhost-startStop-1] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'hiddenHttpMethodFilter' to: [/*]
+2018-07-30 20:18:55.050  INFO 4004 --- [localhost-startStop-1] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'httpPutFormContentFilter' to: [/*]
+2018-07-30 20:18:55.051  INFO 4004 --- [localhost-startStop-1] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'requestContextFilter' to: [/*]
+2018-07-30 20:18:55.914  INFO 4004 --- [main] j.LocalContainerEntityManagerFactoryBean : Building JPA container EntityManagerFactory for persistence unit 'default'
+2018-07-30 20:18:55.931  INFO 4004 --- [main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [
+	name: default
+	...]
+2018-07-30 20:18:56.012  INFO 4004 --- [main] org.hibernate.Version                    : HHH000412: Hibernate Core {5.0.12.Final}
+2018-07-30 20:18:56.013  INFO 4004 --- [main] org.hibernate.cfg.Environment            : HHH000206: hibernate.properties not found
+2018-07-30 20:18:56.021  INFO 4004 --- [main] org.hibernate.cfg.Environment            : HHH000021: Bytecode provider name : javassist
+2018-07-30 20:18:56.068  INFO 4004 --- [main] o.hibernate.annotations.common.Version   : HCANN000001: Hibernate Commons Annotations {5.0.1.Final}
+2018-07-30 20:18:56.230  INFO 4004 --- [main] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.MySQL5Dialect
+2018-07-30 20:18:56.708  INFO 4004 --- [main] o.h.h.i.QueryTranslatorFactoryInitiator  : HHH000397: Using ASTQueryTranslatorFactory
+2018-07-30 20:18:56.840  INFO 4004 --- [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2018-07-30 20:18:57.799  INFO 4004 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/],methods=[GET]}" onto java.lang.Iterable<com.graduate.training.entities.User> com.graduate.training.controller.UserController.findAll()
+2018-07-30 20:18:57.802  INFO 4004 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/],methods=[POST]}" onto void com.graduate.training.controller.UserController.addUser(com.graduate.training.entities.User)
+2018-07-30 20:18:57.803  INFO 4004 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/v2/api-docs],methods=[GET]}" onto public org.springframework.http.ResponseEntity<springfox.documentation.spring.web.json.Json> springfox.documentation.swagger2.web.Swagger2Controller.getDocumentation(java.lang.String)
+2018-07-30 20:18:57.806  INFO 4004 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/configuration/security]}" onto org.springframework.http.ResponseEntity<springfox.documentation.swagger.web.SecurityConfiguration> springfox.documentation.swagger.web.ApiResourceController.securityConfiguration()
+2018-07-30 20:18:57.809  INFO 4004 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/configuration/ui]}" onto org.springframework.http.ResponseEntity<springfox.documentation.swagger.web.UiConfiguration> springfox.documentation.swagger.web.ApiResourceController.uiConfiguration()
+2018-07-30 20:18:57.810  INFO 4004 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/swagger-resources]}" onto org.springframework.http.ResponseEntity<java.util.List<springfox.documentation.swagger.web.SwaggerResource>> springfox.documentation.swagger.web.ApiResourceController.swaggerResources()
+2018-07-30 20:18:57.812  INFO 4004 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/error]}" onto public org.springframework.http.ResponseEntity<java.util.Map<java.lang.String, java.lang.Object>> org.springframework.boot.autoconfigure.web.BasicErrorController.error(javax.servlet.http.HttpServletRequest)
+2018-07-30 20:18:57.812  INFO 4004 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/error],produces=[text/html]}" onto public org.springframework.web.servlet.ModelAndView org.springframework.boot.autoconfigure.web.BasicErrorController.errorHtml(javax.servlet.http.HttpServletRequest,javax.servlet.http.HttpServletResponse)
+2018-07-30 20:18:58.290  INFO 4004 --- [main] s.w.s.m.m.a.RequestMappingHandlerAdapter : Looking for @ControllerAdvice: org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext@6ee12bac: startup date [Mon Jul 30 20:18:50 UTC 2018]; root of context hierarchy
+2018-07-30 20:18:58.367  INFO 4004 --- [main] o.s.w.s.handler.SimpleUrlHandlerMapping  : Mapped URL path [/webjars/**] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+2018-07-30 20:18:58.368  INFO 4004 --- [main] o.s.w.s.handler.SimpleUrlHandlerMapping  : Mapped URL path [/**] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+2018-07-30 20:18:58.414  INFO 4004 --- [main] o.s.w.s.handler.SimpleUrlHandlerMapping  : Mapped URL path [/**/favicon.ico] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+2018-07-30 20:18:58.789  INFO 4004 --- [main] o.s.j.e.a.AnnotationMBeanExporter        : Registering beans for JMX exposure on startup
+2018-07-30 20:18:59.037  INFO 4004 --- [main] o.s.c.support.DefaultLifecycleProcessor  : Starting beans in phase 2147483647
+2018-07-30 20:18:59.057  INFO 4004 --- [main] d.s.w.p.DocumentationPluginsBootstrapper : Context refreshed
+2018-07-30 20:18:59.077  INFO 4004 --- [main] d.s.w.p.DocumentationPluginsBootstrapper : Found {0} custom documentation plugin(s)
+2018-07-30 20:18:59.085  INFO 4004 --- [main] s.d.s.w.s.ApiListingReferenceScanner     : Scanning for api listing references
+2018-07-30 20:18:59.089  INFO 4004 --- [main] s.w.ClassOrApiAnnotationResourceGrouping : Group for method findAll was user-controller
+2018-07-30 20:18:59.091  INFO 4004 --- [main] s.d.s.w.s.ApiListingReferenceScanner     : Request mapping: findAll belongs to groups: [[ResourceGroup{groupName='user-controller', position=0, controller=com.graduate.training.controller.UserController}]] 
+2018-07-30 20:18:59.092  INFO 4004 --- [main] s.w.ClassOrApiAnnotationResourceGrouping : Group for method addUser was user-controller
+2018-07-30 20:18:59.092  INFO 4004 --- [main] s.d.s.w.s.ApiListingReferenceScanner     : Request mapping: addUser belongs to groups: [[ResourceGroup{groupName='user-controller', position=0, controller=com.graduate.training.controller.UserController}]] 
+2018-07-30 20:18:59.093  INFO 4004 --- [main] s.w.ClassOrApiAnnotationResourceGrouping : Group for method error was basic-error-controller
+2018-07-30 20:18:59.093  INFO 4004 --- [main] s.d.s.w.s.ApiListingReferenceScanner     : Request mapping: error belongs to groups: [[ResourceGroup{groupName='basic-error-controller', position=0, controller=org.springframework.boot.autoconfigure.web.BasicErrorController}]] 
+2018-07-30 20:18:59.093  INFO 4004 --- [main] s.w.ClassOrApiAnnotationResourceGrouping : Group for method errorHtml was basic-error-controller
+2018-07-30 20:18:59.094  INFO 4004 --- [main] s.d.s.w.s.ApiListingReferenceScanner     : Request mapping: errorHtml belongs to groups: [[ResourceGroup{groupName='basic-error-controller', position=0, controller=org.springframework.boot.autoconfigure.web.BasicErrorController}]] 
+2018-07-30 20:18:59.100  INFO 4004 --- [main] s.d.s.w.s.ApiListingReferenceScanner     : Created resource listing Path: /users/user-controller Description: user-controller Position: 0
+2018-07-30 20:18:59.101  INFO 4004 --- [main] s.d.s.w.s.ApiListingReferenceScanner     : Created resource listing Path: /users/basic-error-controller Description: basic-error-controller Position: 0
+2018-07-30 20:18:59.120  INFO 4004 --- [main] s.d.schema.ModelContextKeyGenerator      : Cache Key Generated: java.util.Map<java.lang.String,java.lang.Object>(true)
+2018-07-30 20:18:59.120  INFO 4004 --- [main] s.d.spring.web.caching.CachingAspect     : Caching aspect applied for cache models with key java.util.Map<java.lang.String,java.lang.Object>(true)
+2018-07-30 20:18:59.128  INFO 4004 --- [main] s.d.schema.ModelContextKeyGenerator      : Cache Key Generated: java.util.Map<java.lang.String,java.lang.Object>(true)
+2018-07-30 20:18:59.129  INFO 4004 --- [main] s.d.spring.web.caching.CachingAspect     : Caching aspect applied for cache modelDependencies with key java.util.Map<java.lang.String,java.lang.Object>(true)
+2018-07-30 20:18:59.136  INFO 4004 --- [main] s.d.spring.web.OperationsKeyGenerator    : Cache key generated: /error.org.springframework.boot.autoconfigure.web.BasicErrorController.error.DefaultGenericTypeNamingStrategy
+2018-07-30 20:18:59.136  INFO 4004 --- [main] s.d.spring.web.caching.CachingAspect     : Caching aspect applied for cache operations with key /error.org.springframework.boot.autoconfigure.web.BasicErrorController.error.DefaultGenericTypeNamingStrategy
+2018-07-30 20:18:59.146  INFO 4004 --- [main] s.w.ClassOrApiAnnotationResourceGrouping : Group for method error was basic-error-controller
+2018-07-30 20:18:59.150  INFO 4004 --- [main] s.w.ClassOrApiAnnotationResourceGrouping : Group for method error was basic-error-controller
+2018-07-30 20:18:59.159  INFO 4004 --- [main] s.w.ClassOrApiAnnotationResourceGrouping : Group for method error was basic-error-controller
+2018-07-30 20:18:59.162  INFO 4004 --- [main] s.w.ClassOrApiAnnotationResourceGrouping : Group for method error was basic-error-controller
+2018-07-30 20:18:59.164  INFO 4004 --- [main] s.w.ClassOrApiAnnotationResourceGrouping : Group for method error was basic-error-controller
+2018-07-30 20:18:59.166  INFO 4004 --- [main] s.w.ClassOrApiAnnotationResourceGrouping : Group for method error was basic-error-controller
+2018-07-30 20:18:59.168  INFO 4004 --- [main] s.w.ClassOrApiAnnotationResourceGrouping : Group for method error was basic-error-controller
+2018-07-30 20:18:59.174  INFO 4004 --- [main] s.w.ClassOrApiAnnotationResourceGrouping : Group for method error was basic-error-controller
+2018-07-30 20:18:59.174  INFO 4004 --- [main] s.w.ClassOrApiAnnotationResourceGrouping : Group for method error was basic-error-controller
+2018-07-30 20:18:59.176  INFO 4004 --- [main] s.w.ClassOrApiAnnotationResourceGrouping : Group for method error was basic-error-controller
+2018-07-30 20:18:59.180  INFO 4004 --- [main] s.w.ClassOrApiAnnotationResourceGrouping : Group for method error was basic-error-controller
+2018-07-30 20:18:59.181  INFO 4004 --- [main] s.w.ClassOrApiAnnotationResourceGrouping : Group for method error was basic-error-controller
+2018-07-30 20:18:59.183  INFO 4004 --- [main] s.w.ClassOrApiAnnotationResourceGrouping : Group for method error was basic-error-controller
+2018-07-30 20:18:59.184  INFO 4004 --- [main] s.w.ClassOrApiAnnotationResourceGrouping : Group for method error was basic-error-controller
+2018-07-30 20:18:59.186  INFO 4004 --- [main] s.w.ClassOrApiAnnotationResourceGrouping : Group for method error was basic-error-controller
+2018-07-30 20:18:59.187  INFO 4004 --- [main] s.w.ClassOrApiAnnotationResourceGrouping : Group for method error was basic-error-controller
+2018-07-30 20:18:59.194  INFO 4004 --- [main] s.d.schema.ModelContextKeyGenerator      : Cache Key Generated: org.springframework.web.servlet.ModelAndView(true)
+2018-07-30 20:18:59.195  INFO 4004 --- [main] s.d.spring.web.caching.CachingAspect     : Caching aspect applied for cache models with key org.springframework.web.servlet.ModelAndView(true)
+2018-07-30 20:18:59.196  INFO 4004 --- [main] s.d.s.p.ModelPropertiesKeyGenerator      : Cache key generated: org.springframework.web.servlet.ModelAndView(true)
+2018-07-30 20:18:59.196  INFO 4004 --- [main] s.d.spring.web.caching.CachingAspect     : Caching aspect applied for cache modelProperties with key org.springframework.web.servlet.ModelAndView(true)
+2018-07-30 20:18:59.234  INFO 4004 --- [main] s.d.schema.ModelContextKeyGenerator      : Cache Key Generated: org.springframework.web.servlet.ModelAndView(true)
+2018-07-30 20:18:59.234  INFO 4004 --- [main] s.d.spring.web.caching.CachingAspect     : Caching aspect applied for cache modelDependencies with key org.springframework.web.servlet.ModelAndView(true)
+2018-07-30 20:18:59.234  INFO 4004 --- [main] s.d.s.p.ModelPropertiesKeyGenerator      : Cache key generated: org.springframework.web.servlet.ModelAndView(true)
+2018-07-30 20:18:59.235  INFO 4004 --- [main] s.d.spring.web.caching.CachingAspect     : Caching aspect applied for cache modelProperties with key org.springframework.web.servlet.ModelAndView(true)
+2018-07-30 20:18:59.235  INFO 4004 --- [main] s.d.s.p.ModelPropertiesKeyGenerator      : Cache key generated: org.springframework.web.servlet.View(true)
+2018-07-30 20:18:59.235  INFO 4004 --- [main] s.d.spring.web.caching.CachingAspect     : Caching aspect applied for cache modelProperties with key org.springframework.web.servlet.View(true)
+2018-07-30 20:18:59.238  INFO 4004 --- [main] s.d.s.p.ModelPropertiesKeyGenerator      : Cache key generated: org.springframework.web.servlet.View(true)
+2018-07-30 20:18:59.239  INFO 4004 --- [main] s.d.spring.web.caching.CachingAspect     : Caching aspect applied for cache modelProperties with key org.springframework.web.servlet.View(true)
+2018-07-30 20:18:59.239  INFO 4004 --- [main] s.d.spring.web.OperationsKeyGenerator    : Cache key generated: /error.org.springframework.boot.autoconfigure.web.BasicErrorController.errorHtml.DefaultGenericTypeNamingStrategy
+2018-07-30 20:18:59.239  INFO 4004 --- [main] s.d.spring.web.caching.CachingAspect     : Caching aspect applied for cache operations with key /error.org.springframework.boot.autoconfigure.web.BasicErrorController.errorHtml.DefaultGenericTypeNamingStrategy
+2018-07-30 20:18:59.249  INFO 4004 --- [main] s.w.ClassOrApiAnnotationResourceGrouping : Group for method errorHtml was basic-error-controller
+2018-07-30 20:18:59.252  INFO 4004 --- [main] s.w.ClassOrApiAnnotationResourceGrouping : Group for method errorHtml was basic-error-controller
+2018-07-30 20:18:59.253  INFO 4004 --- [main] s.w.ClassOrApiAnnotationResourceGrouping : Group for method errorHtml was basic-error-controller
+2018-07-30 20:18:59.254  INFO 4004 --- [main] s.w.ClassOrApiAnnotationResourceGrouping : Group for method errorHtml was basic-error-controller
+2018-07-30 20:18:59.255  INFO 4004 --- [main] s.w.ClassOrApiAnnotationResourceGrouping : Group for method errorHtml was basic-error-controller
+2018-07-30 20:18:59.256  INFO 4004 --- [main] s.w.ClassOrApiAnnotationResourceGrouping : Group for method errorHtml was basic-error-controller
+2018-07-30 20:18:59.262  INFO 4004 --- [main] s.w.ClassOrApiAnnotationResourceGrouping : Group for method errorHtml was basic-error-controller
+2018-07-30 20:18:59.263  INFO 4004 --- [main] s.w.ClassOrApiAnnotationResourceGrouping : Group for method errorHtml was basic-error-controller
+2018-07-30 20:18:59.264  INFO 4004 --- [main] s.w.ClassOrApiAnnotationResourceGrouping : Group for method errorHtml was basic-error-controller
+2018-07-30 20:18:59.267  INFO 4004 --- [main] s.w.ClassOrApiAnnotationResourceGrouping : Group for method errorHtml was basic-error-controller
+2018-07-30 20:18:59.269  INFO 4004 --- [main] s.w.ClassOrApiAnnotationResourceGrouping : Group for method errorHtml was basic-error-controller
+2018-07-30 20:18:59.270  INFO 4004 --- [main] s.w.ClassOrApiAnnotationResourceGrouping : Group for method errorHtml was basic-error-controller
+2018-07-30 20:18:59.277  INFO 4004 --- [main] s.w.ClassOrApiAnnotationResourceGrouping : Group for method errorHtml was basic-error-controller
+2018-07-30 20:18:59.278  INFO 4004 --- [main] s.w.ClassOrApiAnnotationResourceGrouping : Group for method errorHtml was basic-error-controller
+2018-07-30 20:18:59.280  INFO 4004 --- [main] s.w.ClassOrApiAnnotationResourceGrouping : Group for method errorHtml was basic-error-controller
+2018-07-30 20:18:59.281  INFO 4004 --- [main] s.w.ClassOrApiAnnotationResourceGrouping : Group for method errorHtml was basic-error-controller
+2018-07-30 20:18:59.319  INFO 4004 --- [main] s.d.schema.ModelContextKeyGenerator      : Cache Key Generated: com.graduate.training.entities.User(false)
+2018-07-30 20:18:59.320  INFO 4004 --- [main] s.d.spring.web.caching.CachingAspect     : Caching aspect applied for cache models with key com.graduate.training.entities.User(false)
+2018-07-30 20:18:59.320  INFO 4004 --- [main] s.d.s.p.ModelPropertiesKeyGenerator      : Cache key generated: com.graduate.training.entities.User(false)
+2018-07-30 20:18:59.321  INFO 4004 --- [main] s.d.spring.web.caching.CachingAspect     : Caching aspect applied for cache modelProperties with key com.graduate.training.entities.User(false)
+2018-07-30 20:18:59.325  INFO 4004 --- [main] s.d.schema.ModelContextKeyGenerator      : Cache Key Generated: com.graduate.training.entities.User(false)
+2018-07-30 20:18:59.325  INFO 4004 --- [main] s.d.spring.web.caching.CachingAspect     : Caching aspect applied for cache modelDependencies with key com.graduate.training.entities.User(false)
+2018-07-30 20:18:59.326  INFO 4004 --- [main] s.d.s.p.ModelPropertiesKeyGenerator      : Cache key generated: com.graduate.training.entities.User(false)
+2018-07-30 20:18:59.326  INFO 4004 --- [main] s.d.spring.web.caching.CachingAspect     : Caching aspect applied for cache modelProperties with key com.graduate.training.entities.User(false)
+2018-07-30 20:18:59.326  INFO 4004 --- [main] s.d.schema.ModelContextKeyGenerator      : Cache Key Generated: java.lang.Void(true)
+2018-07-30 20:18:59.326  INFO 4004 --- [main] s.d.spring.web.caching.CachingAspect     : Caching aspect applied for cache models with key java.lang.Void(true)
+2018-07-30 20:18:59.327  INFO 4004 --- [main] s.d.schema.ModelContextKeyGenerator      : Cache Key Generated: java.lang.Void(true)
+2018-07-30 20:18:59.327  INFO 4004 --- [main] s.d.spring.web.caching.CachingAspect     : Caching aspect applied for cache modelDependencies with key java.lang.Void(true)
+2018-07-30 20:18:59.331  INFO 4004 --- [main] s.d.spring.web.OperationsKeyGenerator    : Cache key generated: /.com.graduate.training.controller.UserController.addUser.DefaultGenericTypeNamingStrategy
+2018-07-30 20:18:59.331  INFO 4004 --- [main] s.d.spring.web.caching.CachingAspect     : Caching aspect applied for cache operations with key /.com.graduate.training.controller.UserController.addUser.DefaultGenericTypeNamingStrategy
+2018-07-30 20:18:59.337  INFO 4004 --- [main] s.w.ClassOrApiAnnotationResourceGrouping : Group for method addUser was user-controller
+2018-07-30 20:18:59.338  INFO 4004 --- [main] s.w.ClassOrApiAnnotationResourceGrouping : Group for method addUser was user-controller
+2018-07-30 20:18:59.339  INFO 4004 --- [main] s.d.schema.ModelContextKeyGenerator      : Cache Key Generated: java.lang.Iterable<com.graduate.training.entities.User>(true)
+2018-07-30 20:18:59.342  INFO 4004 --- [main] s.d.spring.web.caching.CachingAspect     : Caching aspect applied for cache models with key java.lang.Iterable<com.graduate.training.entities.User>(true)
+2018-07-30 20:18:59.342  INFO 4004 --- [main] s.d.s.p.ModelPropertiesKeyGenerator      : Cache key generated: java.lang.Iterable<com.graduate.training.entities.User>(true)
+2018-07-30 20:18:59.342  INFO 4004 --- [main] s.d.spring.web.caching.CachingAspect     : Caching aspect applied for cache modelProperties with key java.lang.Iterable<com.graduate.training.entities.User>(true)
+2018-07-30 20:18:59.343  INFO 4004 --- [main] s.d.schema.ModelContextKeyGenerator      : Cache Key Generated: java.lang.Iterable<com.graduate.training.entities.User>(true)
+2018-07-30 20:18:59.347  INFO 4004 --- [main] s.d.spring.web.caching.CachingAspect     : Caching aspect applied for cache modelDependencies with key java.lang.Iterable<com.graduate.training.entities.User>(true)
+2018-07-30 20:18:59.347  INFO 4004 --- [main] s.d.s.p.ModelPropertiesKeyGenerator      : Cache key generated: com.graduate.training.entities.User(true)
+2018-07-30 20:18:59.347  INFO 4004 --- [main] s.d.spring.web.caching.CachingAspect     : Caching aspect applied for cache modelProperties with key com.graduate.training.entities.User(true)
+2018-07-30 20:18:59.350  INFO 4004 --- [main] s.d.s.p.ModelPropertiesKeyGenerator      : Cache key generated: java.lang.Iterable<com.graduate.training.entities.User>(true)
+2018-07-30 20:18:59.357  INFO 4004 --- [main] s.d.spring.web.caching.CachingAspect     : Caching aspect applied for cache modelProperties with key java.lang.Iterable<com.graduate.training.entities.User>(true)
+2018-07-30 20:18:59.357  INFO 4004 --- [main] s.d.s.p.ModelPropertiesKeyGenerator      : Cache key generated: com.graduate.training.entities.User(true)
+2018-07-30 20:18:59.357  INFO 4004 --- [main] s.d.spring.web.caching.CachingAspect     : Caching aspect applied for cache modelProperties with key com.graduate.training.entities.User(true)
+2018-07-30 20:18:59.358  INFO 4004 --- [main] s.d.spring.web.OperationsKeyGenerator    : Cache key generated: /.com.graduate.training.controller.UserController.findAll.DefaultGenericTypeNamingStrategy
+2018-07-30 20:18:59.358  INFO 4004 --- [main] s.d.spring.web.caching.CachingAspect     : Caching aspect applied for cache operations with key /.com.graduate.training.controller.UserController.findAll.DefaultGenericTypeNamingStrategy
+2018-07-30 20:18:59.360  INFO 4004 --- [main] s.w.ClassOrApiAnnotationResourceGrouping : Group for method findAll was user-controller
+2018-07-30 20:18:59.363  INFO 4004 --- [main] s.w.ClassOrApiAnnotationResourceGrouping : Group for method findAll was user-controller
+2018-07-30 20:18:59.448  INFO 4004 --- [main] s.b.c.e.t.TomcatEmbeddedServletContainer : Tomcat started on port(s): 8081 (http)
+2018-07-30 20:18:59.509  INFO 4004 --- [main] com.graduate.training.AppConfig          : Started AppConfig in 9.531 seconds (JVM running for 10.081)

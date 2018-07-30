@@ -1,5 +1,6 @@
 package com.graduate.training.service;
 
+import org.springframework.context.annotation.Scope;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
@@ -7,6 +8,7 @@ import org.springframework.web.client.RestTemplate;
 import java.util.*;
 
 @Service
+@Scope(value = "singleton")
 public class PriceFeedServiceImpl implements PriceFeedService {
 
     class PriceListing {

@@ -2,18 +2,20 @@ package com.graduate.training.entities;
 
 import com.graduate.training.messaging.ActiveMQSender;
 
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "strategy")
 
 public class Strategy {
+    @Id
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    @Column(name="id")
     private int id;
-    private String type;
-    private String ticker;
-    private Boolean active;
-    private Integer quantity;
+    @Column(name = "type")     private String type;
+    @Column(name = "ticker")   private String ticker;
+    @Column(name = "active")   private Boolean active;
+    @Column(name = "quantity") private Integer quantity;
 
     public void runStrategy(ActiveMQSender sender){}
 
