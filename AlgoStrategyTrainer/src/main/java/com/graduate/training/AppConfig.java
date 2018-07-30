@@ -1,7 +1,11 @@
 package com.graduate.training;
 
 import com.graduate.training.entities.Order;
+import com.graduate.training.entities.Strategy;
+import com.graduate.training.entities.TwoMovingAverages;
 import com.graduate.training.messaging.ActiveMQSender;
+import com.graduate.training.service.PriceFeedService;
+import com.graduate.training.service.StrategyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
@@ -40,6 +44,8 @@ public class AppConfig {
     public static void main(String[] args) throws InterruptedException {
         FileSystemUtils.deleteRecursively(new File("activemq-data"));
         ConfigurableApplicationContext context = SpringApplication.run(AppConfig.class, args);
+        StrategyService s = context.getBean(StrategyService.class);
+        s.addStrategy(new TwoMovingAverages(context.getBean(PriceFeedService.class)));
         /*ActiveMQSender sender = context.getBean(ActiveMQSender.class);
         Order newOrder = new Order(true, 1, 10.1, 120,
                 "GE", LocalDateTime.now());

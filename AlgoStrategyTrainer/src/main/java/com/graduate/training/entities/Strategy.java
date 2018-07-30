@@ -17,6 +17,16 @@ public class Strategy {
     @Column(name = "active")   private Boolean active;
     @Column(name = "quantity") private Integer quantity;
 
+    public Strategy() {}
+
+    public Strategy(int id, String type, String ticker, Boolean active, Integer quantity) {
+        this.id = id;
+        this.type = type;
+        this.ticker = ticker;
+        this.active = active;
+
+    }
+
     public void runStrategy(ActiveMQSender sender){}
 
     public Integer getQuantity() {

@@ -1,9 +1,6 @@
 package com.graduate.training.entities;
 import com.graduate.training.messaging.ActiveMQSender;
 import com.graduate.training.service.PriceFeedService;
-import com.graduate.training.quantitative.MovingAverage;
-import com.graduate.training.service.PriceFeedServiceImpl;
-import com.graduate.training.service.PriceFeedService;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.time.LocalDateTime;
@@ -11,12 +8,19 @@ import java.util.List;
 
 public class TwoMovingAverages extends Strategy {
 
-    @Autowired
+
     PriceFeedService priceFeed;
+
     private int shortPeriod = 2;
     private int longPeriod = 10;
-    private double longAverage;
-    private double shortAverage;
+    private double longAverage = 0;
+    private double shortAverage = 0;
+
+    @Autowired
+    public TwoMovingAverages(PriceFeedService feed) {
+        this.priceFeed = feed;
+    }
+
     public void runStrategy(ActiveMQSender sender) {
         //initially check the status of your position
         //if you hit the P/L threshold
@@ -26,28 +30,31 @@ public class TwoMovingAverages extends Strategy {
 
         String ticker = getTicker();
         priceFeed.register(ticker);
-        double price = priceFeed.getCurrentPrice(ticker);
+
 
         List<Double> currentShortRange = priceFeed.getPriceRange(ticker, shortPeriod);
         List<Double> currentLongRange = priceFeed.getPriceRange(ticker, longPeriod);
-        if (currentLongRange.size() < longPeriod) {return;}
+        if (currentLongRange.size() < longPeriod) {
+            System.out.println("warming up, currentLongRangeSize(): " + currentLongRange.size());
+            return;
+        }
 
         //get Averages
-        double currentShortAverage = getSum(currentShortRange);
-        double currentLongAverage = getSum(currentLongRange);
+        double currentShortAverage = getAverage(currentShortRange);
+        double currentLongAverage = getAverage(currentLongRange);
+        System.out.println("shortAverage: " + currentShortAverage + ", longAverage: " + currentLongAverage);
 
-        //Option 1
-        //if range size < 10 then return;
-
-        //Option 2
+        double price = priceFeed.getCurrentPrice(ticker);
         if ((shortAverage > longAverage)&&(currentShortAverage < currentLongAverage)){
             Order newSellOrder = new Order(false, 1, price,100, ticker, LocalDateTime.now());
+            System.out.println("New Sell Order:" + newSellOrder.toString());
             sender.send(newSellOrder.toString());
         }
 
-        //Option 3
+
         if ((longAverage > shortAverage)&&(currentLongAverage < currentShortAverage)) {
             Order newBuyOrder = new Order(true, 2, price, 100, ticker, LocalDateTime.now());
+            System.out.println("New Buy Order:" + newBuyOrder.toString());
             sender.send(newBuyOrder.toString());
         }
         
@@ -55,11 +62,14 @@ public class TwoMovingAverages extends Strategy {
         longAverage = currentLongAverage;
     }
 
-    public double getSum (List<Double> range){
+    public double getAverage (List<Double> range){
+        if (range.size() == 0) {
+            return 0;
+        }
         double sum = 0.0;
         for (double price : range){
             sum += price;
         }
-        return sum;
+        return sum/range.size();
     }
 }
