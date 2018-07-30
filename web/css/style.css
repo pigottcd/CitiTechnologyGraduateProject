@@ -2,10 +2,7 @@ body {
   padding-top: 5rem;
   padding-bottom: 2rem;
 }
-.starter-template {
-  padding: 3rem 1.5rem;
-  text-align: center;
-}
+
 h3 {
   margin-top: 2rem;
 }
@@ -29,20 +26,30 @@ hr {
   margin-bottom: 2rem;
 }
 
-
 .form-inline * {
     margin:0px 3px 0px 3px;
 }
 
-#stockSelector, #longAverage, #shortAverage, #movingAverage, #standardDeviations {
+#stockSelector, #longAverage, #shortAverage, #movingAverage, #standardDeviations, #fixedPeriod, #amountOfShares {
   width: 90px;
 }
 
-#plp {
+#plp, #fitOccurances {
   width: 75px;
+}
+
+#percentage, #shares, #occurances {
+  background-color: white;
 }
 
 #percentage {
   width: 40px;
-  background-color: white;
+}
+
+#shares {
+  width: 70px;
+}
+
+#occurances {
+  width: 107px;
 }

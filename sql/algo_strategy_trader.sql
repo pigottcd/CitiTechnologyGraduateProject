@@ -1,5 +1,4 @@
 -- MySQL dump 10.13  Distrib 5.7.12, for Win64 (x86_64)
---
 -- Host: localhost    Database: algo_strategy_trader
 -- ------------------------------------------------------
 -- Server version	5.7.14-log
@@ -78,5 +77,3 @@ UNLOCK TABLES;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
-
--- Dump completed on 2018-07-30 15:36:26

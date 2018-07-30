@@ -4,10 +4,7 @@ package com.graduate.training.controller;
 import com.graduate.training.entities.User;
 import com.graduate.training.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 
@@ -21,4 +18,7 @@ public class UserController {
     Iterable<User> findAll() {
         return service.getUsers();
     }
+
+    @RequestMapping(method = RequestMethod.POST)
+    void addUser(@RequestBody User user) {service.addToCatalog(user);}
 }
