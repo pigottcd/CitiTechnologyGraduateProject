@@ -22,5 +22,8 @@ public class UserServiceImpl implements UserService {
         return dao.findAll();
     }
 
+    @Transactional (propagation = Propagation.REQUIRED)
+    public void addToCatalog(User user) {dao.save(user);}
+
 
 }

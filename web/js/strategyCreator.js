@@ -87,13 +87,14 @@ $(document).ready(function() {
        let name = $('#stockTag').val();
        let username = $('#username').val();
        let password = $('#password').val();
-       data = '{ "name":"'+name+'", "username":"'+username+'", "password":"'+password+'" }';
+       let data = '{ "id":2 "name":"'+name+'", "username":"'+username+'", "password":"'+password+'" }';
 
        $.ajax({
            url: "http://localhost:8081",
            crossOrigin: true,
-           type: PUT,
-           data: JSON.parse(data)
+           type: POST,
+           data: JSON.parse(data),
+           contentType: "application/json"
        })
     });
 
