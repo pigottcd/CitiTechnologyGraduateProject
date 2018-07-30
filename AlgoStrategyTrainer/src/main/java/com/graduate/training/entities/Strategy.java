@@ -1,5 +1,7 @@
 package com.graduate.training.entities;
 
+import com.graduate.training.messaging.ActiveMQSender;
+
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
@@ -13,7 +15,7 @@ public class Strategy {
     private Boolean active;
     private Integer quantity;
 
-    public void runStrategy(){}
+    public void runStrategy(ActiveMQSender sender){}
 
     public int getId() {
         return id;
