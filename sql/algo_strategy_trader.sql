@@ -1,3 +1,5 @@
+CREATE DATABASE  IF NOT EXISTS `algo_strategy_trader` /*!40100 DEFAULT CHARACTER SET utf8 */;
+USE `algo_strategy_trader`;
 -- MySQL dump 10.13  Distrib 5.7.12, for Win64 (x86_64)
 --
 -- Host: localhost    Database: algo_strategy_trader
@@ -106,4 +108,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-07-30 20:34:33
+-- Dump completed on 2018-07-30 20:37:41
