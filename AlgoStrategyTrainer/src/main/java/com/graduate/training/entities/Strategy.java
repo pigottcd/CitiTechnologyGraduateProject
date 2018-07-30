@@ -1,19 +1,19 @@
 package com.graduate.training.entities;
 
+import javax.persistence.Entity;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "strategy")
+
 public class Strategy {
     private int id;
     private String type;
     private String ticker;
     private Boolean active;
-    private double initialPrice;
+    private Integer quantity;
 
-    public double getInitialPrice() {
-        return initialPrice;
-    }
-
-    public void setInitialPrice(double initialPrice) {
-        this.initialPrice = initialPrice;
-    }
+    public void runStrategy(){}
 
     public int getId() {
         return id;

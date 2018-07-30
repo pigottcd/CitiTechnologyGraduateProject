@@ -40,7 +40,7 @@ public class AppConfig {
     public static void main(String[] args) throws InterruptedException {
         FileSystemUtils.deleteRecursively(new File("activemq-data"));
         ConfigurableApplicationContext context = SpringApplication.run(AppConfig.class, args);
-        ActiveMQSender sender = context.getBean(ActiveMQSender.class);
+        /*ActiveMQSender sender = context.getBean(ActiveMQSender.class);
         Order newOrder = new Order(true, 1, 10.1, 120,
                 "GE", LocalDateTime.now());
         Thread.sleep(10000);
@@ -50,7 +50,7 @@ public class AppConfig {
         sender.send(newOrder.toString());
         newOrder = new Order(true, 3, 10.1, 120,
                 "GE", LocalDateTime.now());
-        sender.send(newOrder.toString());
+        sender.send(newOrder.toString());*/
 
     }
 
