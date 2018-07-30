@@ -13,15 +13,17 @@ $(document).ready(function() {
             table_body+=value;
             table_body+='</th>';
         }
-        table_body+='</tr></thead><tbody><tr>';
+        table_body+='</tr></thead><tbody>';
         for (idx = 0; idx < data.length; idx++) {
+            table_body += '<tr>';
             for (value in data[0]) {
                 table_body += '<td>';
                 table_body += data[idx][value];
                 table_body += '</td>';
             }
+            table_body += '</tr>';
         }
-        table_body+='</tr></tbody></table>';
+        table_body+='</tbody></table>';
 
         // push table to usersTable div tag
         $('#usersTable').html(table_body);
