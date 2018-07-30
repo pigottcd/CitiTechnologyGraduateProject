@@ -74,15 +74,15 @@
                 <div class="col-md-12">
 
                 	<!-- Strategy Creator-->
-                    <form>
+                    <form id="strategyCreatorForm">
                        	<div class="form-inline">
                       		
                        		<!-- first stage of inputs -->
                             <div class="form-group">
                                	
                                	<!-- stock selection -->
-                                <label for="stockSelector">Stock:</label>
-                                <input type="text" class="form-control" id="stockSelector" placeholder="Ex: AMD" required>
+                                <label for="stockTag">Stock:</label>
+                                <input type="text" class="form-control" id="stockTag" placeholder="Ex: AMD" required>
                                 	
                                 <!-- strategy selection -->
                                 <label for="strategySelector">Strategy:</label>
@@ -91,6 +91,7 @@
                                     <option value="twoMovingAverage">Two Moving Averages</option>
                                     <option value="bollingerBands">Bollinger Bands</option>
                                     <option value="priceBreakout">Price Breakout</option>
+                                    <option value="user">user</option>
                                 </select>
 
                             </div>
@@ -131,152 +132,10 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
 
-        <!-- strategy creatorscript -->
-        <script>
-            $(document).ready(function() {
-                $("#strategySelector").change(function() {
+        <!-- strategy creator script -->
+        <script src="./js/strategyCreator.js"></script>
 
-                	let strategy = $("#strategySelector :selected").val();
-
-                    // populate selection menu
-                    if (strategy =='twoMovingAverage') {
-                    	let selectionMenu = '<label for="longAverage">Long Average:</label>' +
-                        '<input type="number" class="form-control" id="longAverage" placeholder="Ex: 3" required>' +
-                        '<select class="form-control">' +
-                        '<option>hours</option>' +
-                        '<option>minutes</option>' +
-                        '<option>seconds</option>' +
-                        '</select>' +
-                        '<label for="shortAverage">Short Average:</label>' +
-                        '<input type="number" class="form-control" id="shortAverage" placeholder="Ex: 30" required>' +
-                        '<select class="form-control">' +
-                        '<option>hours</option>' +
-                        '<option selected>minutes</option>' +
-                        '<option>seconds</option>' +
-                        '</select>' +
-                        '<label for="plp">P/L%:</label>' +
-                        '<input type="number" class="form-control" id="plp" placeholder="Ex: 1" required>' +
-                        '<input type="text" class="form-control" id="percentage" value="%" disabled></input>' +
-                        '<button type="submit" class="btn">Submit</button>';
-                        $("#strategyCreatorStage2").html(selectionMenu);
-
-                    }
-                    else if (strategy == 'bollingerBands') {
-                    	let selectionMenu = '<label for="movingAverage">Moving Average:</label>' +
-                        '<input type="number" class="form-control" id="movingAverage" placeholder="Ex: 3" required>' +
-                        '<select class="form-control">' +
-                        '<option>hours</option>' +
-                        '<option>minutes</option>' +
-                        '<option>seconds</option>' +
-                        '</select>' +
-                        '<label for="standardDeviations">Standard Deviations:</label>' +
-                        '<input type="number" class="form-control" id="standardDeviations" placeholder="Ex: 2" required>' +
-                        '<label for="plp">P/L%:</label>' +
-                        '<input type="number" class="form-control" id="plp" placeholder="Ex: 5" required>' +
-                        '<input type="text" class="form-control" id="percentage" value="%" disabled></input>' +
-                        '<button type="submit" class="btn">Submit</button>';
-                        $("#strategyCreatorStage2").html(selectionMenu);
-
-                    }
-                    else if (strategy == 'priceBreakout') {
-                    	let selectionMenu = '<label for="fixedPeriod">Fixed Period:</label>' +
-                        '<input type="number" class="form-control" placeholder="Enter an amount." required>' +
-                        '<select class="form-control">' +
-                        '<option>hours</option>' +
-                        '<option>minutes</option>' +
-                        '<option>seconds</option>' +
-                        '</select>' +
-                        '<label for="fitOccurances">Fit Occurances:</label>' +
-                        '<input type="number" class="form-control" placeholder="Enter an amount." required>' +
-                        '<label for="stock">P/L%:</label>' +
-                        '<input type="number" class="form-control" placeholder="Enter a percentage." required>' +
-                        '<button type="submit" class="btn">Submit</button>';
-                        $("#strategyCreatorStage2").html(selectionMenu);
-
-                    }
-                })
-            })
-        </script>
-
-        <!-- Script to populate table and chart, might want to put in a separate .js file -->
-        <script>
-            // run code once the page has loaded
-            $(document).ready(function() {
-
-                // start ajax call, then process the data
-                $.ajax({
-                    url: "http://localhost:8081/",
-                    crossOrigin: true
-                }).then(function(data) {
-                    // create table
-                    let table_body = '<table class="table table-striped table-sm"><thead><tr>';
-                    for (value in data[0]) {
-                        table_body+='<th>';
-                        table_body+=value;
-                        table_body+='</th>';
-                    }
-                    table_body+='</tr></thead><tbody><tr>';
-                    for (idx = 0; idx < data.length; idx++) {
-                        for (value in data[0]) {
-                            table_body += '<td>';
-                            table_body += data[idx][value];
-                            table_body += '</td>';
-                        }
-                    }
-                    table_body+='</tr></tbody></table>';
-
-                    // push table to usersTable div tag
-                    $('#usersTable').html(table_body);
-
-                    // pull data for chart
-                    // work on implementation here, redundant json processing (already processed for table)
-                    let labels = [];
-                    let values = [];
-                    data.forEach(function(elm) {
-                        labels.push(elm.name);
-                        values.push(elm.id);
-                    });
-
-                    // create and push chart to myChart chart tag
-                    let ctx = document.getElementById("myChart").getContext('2d');
-                    let myChart = new Chart(ctx, {
-                        type: 'bar',
-                        data: {
-                            labels: labels,
-                            datasets: [{
-                                label: 'User ids',
-                                data: values,
-                                backgroundColor: [
-                                    'rgba(255, 99, 132, 0.2)',
-                                    'rgba(54, 162, 235, 0.2)',
-                                    'rgba(255, 206, 86, 0.2)',
-                                    'rgba(75, 192, 192, 0.2)',
-                                    'rgba(153, 102, 255, 0.2)',
-                                    'rgba(255, 159, 64, 0.2)'
-                                ],
-                                borderColor: [
-                                    'rgba(255,99,132,1)',
-                                    'rgba(54, 162, 235, 1)',
-                                    'rgba(255, 206, 86, 1)',
-                                    'rgba(75, 192, 192, 1)',
-                                    'rgba(153, 102, 255, 1)',
-                                    'rgba(255, 159, 64, 1)'
-                                ],
-                                borderWidth: 1
-                            }]
-                        },
-                        options: {
-                            scales: {
-                                yAxes: [{
-                                    ticks: {
-                                        beginAtZero:true
-                                    }
-                                }]
-                            }
-                        }
-                    });
-                });
-            });
-        </script>
+        <!-- Script to populate table and chart -->
+        <script src="./js/tableAndChart.js"></script>
     </body>
 </html>
