@@ -36,7 +36,7 @@ hr {
 #timeSelector1, #timeSelector2 {
   width: 110px;
 }
-#plp, #fitOccurances {
+#profitLossPercentage, #fitOccurrences {
   width: 75px;
 }
 
@@ -50,7 +50,7 @@ hr {
   background-color: white;
 }
 
-#occurances {
+#occurrences {
   width: 107px;
   background-color: white;
 }
