@@ -24,7 +24,7 @@ public class Strategy {
         this.type = type;
         this.ticker = ticker;
         this.active = active;
-
+        this.quantity = quantity;
     }
 
     public void runStrategy(ActiveMQSender sender){}

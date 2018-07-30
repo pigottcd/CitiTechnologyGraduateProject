@@ -17,7 +17,8 @@ public class TwoMovingAverages extends Strategy {
     private double shortAverage = 0;
 
     @Autowired
-    public TwoMovingAverages(PriceFeedService feed) {
+    public TwoMovingAverages(PriceFeedService feed, int id, String ticker, Integer quantity) {
+        super(id, "TwoMovingAverages", ticker, true, quantity);
         this.priceFeed = feed;
     }
 

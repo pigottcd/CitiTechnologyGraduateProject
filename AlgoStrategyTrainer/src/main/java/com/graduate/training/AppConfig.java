@@ -45,7 +45,7 @@ public class AppConfig {
         FileSystemUtils.deleteRecursively(new File("activemq-data"));
         ConfigurableApplicationContext context = SpringApplication.run(AppConfig.class, args);
         StrategyService s = context.getBean(StrategyService.class);
-        s.addStrategy(new TwoMovingAverages(context.getBean(PriceFeedService.class)));
+        s.addStrategy(new TwoMovingAverages(context.getBean(PriceFeedService.class), 1, "GE", 100));
         /*ActiveMQSender sender = context.getBean(ActiveMQSender.class);
         Order newOrder = new Order(true, 1, 10.1, 120,
                 "GE", LocalDateTime.now());
