@@ -12,33 +12,36 @@ $(document).ready(function() {
         if (strategy =='twoMovingAverages') {
             
             // create rest of selection menu
-            let selectionMenu = '<label for="longAverage">Long Average:</label>' +
+            let parameter1 = '<label for="longAverage">Long Average:</label>' +
                 '<input type="number" class="form-control" id="longAverage" placeholder="Ex: 3" required>' +
                 '<select class="form-control" id="longAverageTimeUnit">' +
                 '<option>hours</option>' +
                 '<option>minutes</option>' +
                 '<option>seconds</option>' +
-                '</select>' +
-                '<label for="shortAverage">Short Average:</label>' +
+                '</select>';
+            let parameter2 = '<label for="shortAverage">Short Average:</label>' +
                 '<input type="number" class="form-control" id="shortAverage" placeholder="Ex: 30" required>' +
                 '<select class="form-control" id="shortAverageTimeUnit">' +
                 '<option>hours</option>' +
                 '<option selected>minutes</option>' +
                 '<option>seconds</option>' +
-                '</select>' +
-                '<label for="profitLossPercentage">P/L%:</label>' +
+                '</select>';
+            let pnl = '<label for="profitLossPercentage">P/L%:</label>' +
                 '<input type="number" class="form-control" id="profitLossPercentage" placeholder="Ex: 1" required>' +
-                '<input type="text" class="form-control" id="percentage" value="%" disabled>' +
-                '<label for="amountOfShares">Shares:</label>' +
+                '<input type="text" class="form-control" id="percentage" value="%" disabled>';
+            let amount = '<label for="amountOfShares">Shares:</label>' +
                 '<input type="number" class="form-control" id="amountOfShares" placeholder="Ex: 50" required>' +
-                '<input type="text" class="form-control" id="shares" value="shares" disabled>' +
-                '<button type="submit" class="btn">Submit</button>';
+                '<input type="text" class="form-control" id="shares" value="shares" disabled>';
+            let submit = '<button type="submit" class="btn">Submit</button>';
             
             // push rest of selection menu
-            $("#strategyCreatorStage2").html(selectionMenu);
+            $("#parameter1").html(parameter1);
+            $("#parameter2").html(parameter2);
+            $("#pnl").html(pnl);
+            $("#amount").html(amount);
+            $("#submit").html(submit);
 
             $('#strategyCreatorForm').submit(function() {
-                console.log("submission");
 
                 if (strategy=='twoMovingAverages') {
                     // pull inputs

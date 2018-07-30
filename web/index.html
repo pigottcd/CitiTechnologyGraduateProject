@@ -22,18 +22,21 @@
         <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
 
         	<!-- navbar title -->
-            <a class="navbar-brand" href="">AlgoStrategyTrader</a>
+            <a class="navbar-brand mx-auto" href="">AlgoStrategyTrader</a>
 
             <!-- navbar dropdown when screen size is small -->
+            <!--
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
 
             <!-- navbar items -->
+            <!--
             <div class="collapse navbar-collapse">
                 <ul class="navbar-nav mr-auto">
 
                 	<!-- strategy options -->
+                    <!--
                     <li class="nav-item dropdown active">
                         <a class="nav-link dropdown-toggle" href="" id="strategyDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Strategies</a>
                         <div class="dropdown-menu" aria-labelledby="strategyDropdown">
@@ -43,6 +46,7 @@
                     </li>
 
                     <!-- graph options -->
+                    <!--
                     <li class="nav-item dropdown active">
                         <a class="nav-link dropdown-toggle" href="" id="graphDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Graphs</a>
                         <div class="dropdown-menu" aria-labelledby="graphDropdown">
@@ -52,6 +56,7 @@
                     </li>
 
                     <!-- order options -->
+                    <!--
                     <li class="nav-item dropdown active">
                         <a class="nav-link dropdown-toggle" href="" id="orderDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Orders</a>
                         <div class="dropdown-menu" aria-labelledby="orderDropdown">
@@ -62,48 +67,82 @@
 
                 </ul>
             </div>
+            -->
         </nav>
 
         <!-- main page -->
-        <main role="main" class="container-fluid">
-
-        	<!-- Strategy Creator row -->
-            <div class="row">
-
-            	<!-- Strategy Creator col (might need to split up form into cols for mobile use) -->
-                <div class="col-md-12">
-
+        <main role="main">
+            <div class="container">
                 	<!-- Strategy Creator-->
                     <form id="strategyCreatorForm" action="javascript:void(0)">
-                       	<div class="form-inline">
-                      		
-                       		<!-- first stage of inputs -->
-                            <div class="form-group">
-                               	
-                               	<!-- stock selection -->
+                        <div class="row">
+                            <div class="col-2 col-xl-2 form-inline" id="stockTagDiv">
+                                <div class="mx-auto form-inline">
                                 <label for="stockTag">Stock:</label>
                                 <input type="text" class="form-control" id="stockTag" placeholder="Ex: AMD" required>
-                                	
-                                <!-- strategy selection -->
-                                <label for="strategySelector">Strategy:</label>
-                                <select class="form-control" id="strategySelector">
-                                    <option disabled selected hidden>Select a strategy.</option>
-                                    <option value="twoMovingAverages">Two Moving Averages</option>
-                                    <option value="bollingerBands">Bollinger Bands</option>
-                                    <option value="priceBreakout">Price Breakout</option>
-                                    <option value="user">user</option>
-                                </select>
-
+                                </div>
                             </div>
-
-                            <!-- second stage of inputs (generated after user inputs first stage) -->
-                            <div class="form-group" id="strategyCreatorStage2"></div>
-
+                            <div class="col-4 col-xl-4 form-inline">
+                                <div class="mx-auto form-inline">
+                                    <label for="strategySelector">Strategy:</label>
+                                    <select class="form-control" id="strategySelector">
+                                        <!--<option disabled selected hidden>Select a strategy.</option>-->
+                                        <option value="twoMovingAverages" selected>Two Moving Averages</option>
+                                        <option value="bollingerBands">Bollinger Bands</option>
+                                        <option value="priceBreakout">Price Breakout</option>
+                                        <option value="user">user</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-3 col-xl-3 form-inline">
+                                <div class="mx-auto form-inline" id="pnl"
+                                    <label for="profitLossPercentage">P/L%:</label>
+                                    <input type="number" class="form-control" id="profitLossPercentage" placeholder="Ex: 1" required>
+                                    <input type="text" class="form-control" id="percentage" value="%" disabled>
+                                </div>
+                            </div>
+                            <div class="col-3 col-xl-3 form-inline">
+                                <div class="mx-auto form-inline" id="amount">
+                                    <label for="amountOfShares">Shares:</label>
+                                    <input type="number" class="form-control" id="amountOfShares" placeholder="Ex: 50" required>
+                                    <input type="text" class="form-control" id="shares" value="shares" disabled>
+                                </div>
+                            </div>
                         </div>
-                    </form>
-                </div>
-            </div>
+                        <div class="row">
+                            <div class="col-5 col-xl-5 form-inline">
+                                <div class="mx-auto form-inline" id="parameter1">
+                                    <label for="longAverage">Long Average:</label>
+                                    <input type="number" class="form-control" id="longAverage" placeholder="Ex: 3" required>
+                                    <select class="form-control" id="longAverageTimeUnit">
+                                        <option>hours</option>
+                                        <option>minutes</option>
+                                        <option>seconds</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-5 col-xl-5 form-inline">
+                                <div class="mx-auto form-inline" id="parameter2">
 
+                                    <label for="shortAverage">Short Average:</label>
+                                    <input type="number" class="form-control" id="shortAverage" placeholder="Ex: 30" required>
+                                    <select class="form-control" id="shortAverageTimeUnit">
+                                        <option>hours</option>
+                                        <option selected>minutes</option>
+                                        <option>seconds</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-2 col-xl-2 form-inline">
+                                <div class="mx-auto form-inline" id="submit">
+                                    <button type="submit" class="btn">Submit</button>
+                                </div>
+                            </div>
+                        </div>
+
+                    </form>
+            </div>
+            <div class="container-fluid">
             <!-- graph and table row -->
             <div class="row">
 
@@ -122,6 +161,7 @@
                     <div class="table-responsive" id="usersTable"></div>
 
                 </div>
+            </div>
             </div>
 
         </main>
