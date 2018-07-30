@@ -30,26 +30,27 @@ hr {
     margin:0px 3px 0px 3px;
 }
 
-#stockSelector, #longAverage, #shortAverage, #movingAverage, #standardDeviations, #fixedPeriod, #amountOfShares {
+#stockTag, #longAverage, #shortAverage, #movingAverage, #standardDeviations, #fixedPeriod, #amountOfShares {
   width: 90px;
 }
-
+#timeSelector1, #timeSelector2 {
+  width: 110px;
+}
 #plp, #fitOccurances {
   width: 75px;
 }
 
-#percentage, #shares, #occurances {
-  background-color: white;
-}
-
 #percentage {
   width: 40px;
+  background-color: white;
 }
 
 #shares {
   width: 70px;
+  background-color: white;
 }
 
 #occurances {
   width: 107px;
+  background-color: white;
 }

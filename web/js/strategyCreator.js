@@ -11,14 +11,14 @@ $(document).ready(function() {
         if (strategy =='twoMovingAverage') {
             let selectionMenu = '<label for="longAverage">Long Average:</label>' +
                 '<input type="number" class="form-control" id="longAverage" placeholder="Ex: 3" required>' +
-                '<select class="form-control">' +
+                '<select class="form-control" id="timeSelector1">' +
                 '<option>hours</option>' +
                 '<option>minutes</option>' +
                 '<option>seconds</option>' +
                 '</select>' +
                 '<label for="shortAverage">Short Average:</label>' +
                 '<input type="number" class="form-control" id="shortAverage" placeholder="Ex: 30" required>' +
-                '<select class="form-control">' +
+                '<select class="form-control" id="timeSelector2">' +
                 '<option>hours</option>' +
                 '<option selected>minutes</option>' +
                 '<option>seconds</option>' +
@@ -36,7 +36,7 @@ $(document).ready(function() {
         else if (strategy == 'bollingerBands') {
             let selectionMenu = '<label for="movingAverage">Moving Average:</label>' +
                 '<input type="number" class="form-control" id="movingAverage" placeholder="Ex: 3" required>' +
-                '<select class="form-control">' +
+                '<select class="form-control" id="timeSelector1">' +
                 '<option>hours</option>' +
                 '<option>minutes</option>' +
                 '<option>seconds</option>' +
@@ -56,7 +56,7 @@ $(document).ready(function() {
         else if (strategy == 'priceBreakout') {
             let selectionMenu = '<label for="fixedPeriod">Fixed Period:</label>' +
                 '<input type="number" class="form-control" id="fixedPeriod" placeholder="Ex: 30" required>' +
-                '<select class="form-control">' +
+                '<select class="form-control" id="timeSelector1">' +
                 '<option>hours</option>' +
                 '<option selected>minutes</option>' +
                 '<option>seconds</option>' +
