@@ -169,7 +169,13 @@
                 <div class="col-md-6">
 
                 	<!-- graph rendered by chart.js and json data from api -->
-                    <canvas class="my-4 w-100 chartjs-render-monitor" id="strategyGraph" width="575" height="242" style="display: block; width: 575px; height: 242px;"></canvas>
+                    <canvas class="w-100 chartjs-render-monitor" id="strategyGraph" width="575" height="242" style="display: block; width: 575px; height: 242px;"></canvas>
+                    <div class="form-inline pb-2">
+                    <form id="deleteStrategy" class="mx-auto">
+                        <button type="submit" class="btn">Delete</button>
+                    </form>
+                    <button class="btn mx-auto " id="cloneStrategy">Clone</button>
+                    </div>
 
                 </div>
 
@@ -197,5 +203,8 @@
         <!-- Script to populate table and chart -->
         <!--
         <script src="./js/tableAndChart.js"></script>-->
+
+        <script src="./js/strategyTable.js"></script>
+        <script src="./js/strategyGraph.js"></script>
     </body>
 </html>
