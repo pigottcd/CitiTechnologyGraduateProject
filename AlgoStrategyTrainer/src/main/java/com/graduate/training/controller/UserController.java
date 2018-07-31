@@ -14,6 +14,7 @@ public class UserController {
 
     @Autowired
     private UserService service;
+
     @RequestMapping(method = RequestMethod.GET)
     Iterable<User> findAll() {
         return service.getUsers();
