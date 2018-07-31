@@ -32,8 +32,11 @@ CREATE TABLE `orders` (
   `stock` varchar(45) NOT NULL,
   `time` blob,
   `status` varchar(45) DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
+  `strategy_id` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `_idx` (`strategy_id`),
+  CONSTRAINT `strategy_id` FOREIGN KEY (`strategy_id`) REFERENCES `strategy` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -42,7 +45,7 @@ CREATE TABLE `orders` (
 
 LOCK TABLES `orders` WRITE;
 /*!40000 ALTER TABLE `orders` DISABLE KEYS */;
-INSERT INTO `orders` VALUES (4,'',10.1,120,'GE','¬\í\0sr\0\rjava.time.Ser•]„º\"H²\0\0xpw\0\0\â\"\nn\0x','FILLED'),(5,'',10.1,72,'GE','¬\í\0sr\0\rjava.time.Ser•]„º\"H²\0\0xpw\0\0\â\"\èƒ@x','PARTIALLY_FILLED'),(6,'',10.1,120,'GE','¬\í\0sr\0\rjava.time.Ser•]„º\"H²\0\0xpw\0\0\â\"\à\r€x','REJECTED');
+INSERT INTO `orders` VALUES (1,'',11,1,'C',NULL,'FILLED',2),(16,'',95.95,100,'C','¬\í\0sr\0\rjava.time.Ser•]„º\"H²\0\0xpw\0\0\â5)V‘Àx',NULL,3);
 /*!40000 ALTER TABLE `orders` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -59,8 +62,10 @@ CREATE TABLE `strategy` (
   `ticker` varchar(45) NOT NULL,
   `active` bit(1) NOT NULL,
   `quantity` varchar(45) NOT NULL,
+  `short_period` int(11) DEFAULT NULL,
+  `long_period` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -69,7 +74,7 @@ CREATE TABLE `strategy` (
 
 LOCK TABLES `strategy` WRITE;
 /*!40000 ALTER TABLE `strategy` DISABLE KEYS */;
-INSERT INTO `strategy` VALUES (1,'TwoMovingAverages','GE','','100');
+INSERT INTO `strategy` VALUES (1,'TwoMovingAverages','GE','','100',NULL,NULL),(2,'TwoMovingAverages','C','','100',2,10),(3,'TwoMovingAverages','C','','100',2,10);
 /*!40000 ALTER TABLE `strategy` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -108,4 +113,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-07-30 20:44:10
+-- Dump completed on 2018-07-31 16:58:14
