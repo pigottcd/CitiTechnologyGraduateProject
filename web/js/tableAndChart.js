@@ -56,8 +56,8 @@ $(document).ready(function() {
         // create table
         let tableBody = createTable(data);
 
-        // push table to usersTable div tag
-        $('#usersTable').html(tableBody);
+        // push table to strategyTable div tag
+        $('#strategyTable').html(tableBody);
 
         // create data for chart
         // work on implementation here, redundant json processing (already processed for table)
