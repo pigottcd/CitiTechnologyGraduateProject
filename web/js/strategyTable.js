@@ -33,5 +33,8 @@ $(document).ready(function() {
 
         // push table to usersTable div tag
         $('#strategyTableDiv').html(tableBody);
+
+        // make it interactive
+        $('#strategyTable').DataTable();
     })
 });
