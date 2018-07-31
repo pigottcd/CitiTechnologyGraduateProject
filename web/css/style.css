@@ -50,7 +50,7 @@ hr {
   background-color: white;
 }
 
-#occurrences {
+#occurrences, #deviations {
   width: 107px;
   background-color: white;
 }

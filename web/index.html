@@ -72,45 +72,60 @@
 
         <!-- main page -->
         <main role="main">
+
+            <!-- strategy creator container -->
             <div class="container">
-                	<!-- Strategy Creator-->
+
+                	<!-- Strategy Creator form-->
                     <form id="strategyCreatorForm" action="javascript:void(0)">
+
                         <div class="row">
-                            <div class="col-2 col-xl-2 form-inline" id="stockTagDiv">
+
+                            <!-- stock tag input -->
+                            <div class="col-xl-2 form-inline" id="stockTagDiv">
                                 <div class="mx-auto form-inline">
-                                <label for="stockTag">Stock:</label>
-                                <input type="text" class="form-control" id="stockTag" placeholder="Ex: AMD" required>
+                                    <label for="stockTag">Stock:</label>
+                                    <input type="text" class="form-control" id="stockTag" placeholder="Ex: AMD" required>
                                 </div>
                             </div>
-                            <div class="col-4 col-xl-4 form-inline">
+
+                            <!-- strategy selector -->
+                            <div class="col-xl-4 form-inline">
                                 <div class="mx-auto form-inline">
                                     <label for="strategySelector">Strategy:</label>
                                     <select class="form-control" id="strategySelector">
                                         <!--<option disabled selected hidden>Select a strategy.</option>-->
-                                        <option value="twoMovingAverages" selected>Two Moving Averages</option>
+                                        <option value="twoMovingAverages">Two Moving Averages</option>
                                         <option value="bollingerBands">Bollinger Bands</option>
                                         <option value="priceBreakout">Price Breakout</option>
                                         <option value="user">user</option>
                                     </select>
                                 </div>
                             </div>
-                            <div class="col-3 col-xl-3 form-inline">
-                                <div class="mx-auto form-inline" id="pnl"
+
+                            <!-- profit loss percentage input -->
+                            <div class="col-xl-3 form-inline">
+                                <div class="mx-auto form-inline" id="pnl">
                                     <label for="profitLossPercentage">P/L%:</label>
                                     <input type="number" class="form-control" id="profitLossPercentage" placeholder="Ex: 1" required>
                                     <input type="text" class="form-control" id="percentage" value="%" disabled>
                                 </div>
                             </div>
-                            <div class="col-3 col-xl-3 form-inline">
+
+                            <!-- amount of shares input -->
+                            <div class="col-xl-3 form-inline">
                                 <div class="mx-auto form-inline" id="amount">
                                     <label for="amountOfShares">Shares:</label>
                                     <input type="number" class="form-control" id="amountOfShares" placeholder="Ex: 50" required>
                                     <input type="text" class="form-control" id="shares" value="shares" disabled>
                                 </div>
                             </div>
+
                         </div>
                         <div class="row">
-                            <div class="col-5 col-xl-5 form-inline">
+
+                            <!-- parameter 1 input -->
+                            <div class="col-xl-5 form-inline">
                                 <div class="mx-auto form-inline" id="parameter1">
                                     <label for="longAverage">Long Average:</label>
                                     <input type="number" class="form-control" id="longAverage" placeholder="Ex: 3" required>
@@ -121,9 +136,10 @@
                                     </select>
                                 </div>
                             </div>
-                            <div class="col-5 col-xl-5 form-inline">
-                                <div class="mx-auto form-inline" id="parameter2">
 
+                            <!-- parameter 2 input -->
+                            <div class="col-xl-5 form-inline">
+                                <div class="mx-auto form-inline" id="parameter2">
                                     <label for="shortAverage">Short Average:</label>
                                     <input type="number" class="form-control" id="shortAverage" placeholder="Ex: 30" required>
                                     <select class="form-control" id="shortAverageTimeUnit">
@@ -133,11 +149,14 @@
                                     </select>
                                 </div>
                             </div>
-                            <div class="col-2 col-xl-2 form-inline">
+
+                            <!-- submit input -->
+                            <div class="col-xl-2 form-inline">
                                 <div class="mx-auto form-inline" id="submit">
                                     <button type="submit" class="btn">Submit</button>
                                 </div>
                             </div>
+
                         </div>
 
                     </form>
@@ -176,6 +195,7 @@
         <script src="./js/strategyCreator.js"></script>
 
         <!-- Script to populate table and chart -->
-        <script src="./js/tableAndChart.js"></script>
+        <!--
+        <script src="./js/tableAndChart.js"></script>-->
     </body>
 </html>
