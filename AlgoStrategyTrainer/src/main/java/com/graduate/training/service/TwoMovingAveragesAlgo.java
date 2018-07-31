@@ -1,34 +1,26 @@
-package com.graduate.training.entities;
-import com.graduate.training.messaging.ActiveMQSender;
-import com.graduate.training.service.PriceFeedService;
-import org.springframework.beans.factory.annotation.Autowired;
+package com.graduate.training.service;
+
+import com.graduate.training.entities.Order;
+import com.graduate.training.entities.Strategy;
 
 import java.time.LocalDateTime;
 import java.util.List;
 
-public class TwoMovingAverages extends Strategy {
+public class TwoMovingAveragesAlgo extends StrategyAlgo {
 
-
-    PriceFeedService priceFeed;
-
-    private int shortPeriod = 2;
-    private int longPeriod = 10;
+    private int shortPeriod;
+    private int longPeriod;
     private double longAverage = 0;
     private double shortAverage = 0;
 
-    @Autowired
-    public TwoMovingAverages(PriceFeedService feed, int id, String ticker, Integer quantity) {
-        super(id, "TwoMovingAverages", ticker, true, quantity);
-        this.priceFeed = feed;
+    public TwoMovingAveragesAlgo(Strategy strategy, int shortPeriod, int longPeriod) {
+        super(strategy);
+        this.shortPeriod = shortPeriod;
+        this.longPeriod = longPeriod;
     }
 
-    public void runStrategy(ActiveMQSender sender) {
-        //initially check the status of your position
-        //if you hit the P/L threshold
-            //  close out position
-            //  set active status to false
-            //  deregister
-
+    Order runStrategy(PriceFeedService priceFeed) {
+        Order newOrder = null;
         String ticker = getTicker();
         priceFeed.register(ticker);
 
@@ -37,7 +29,7 @@ public class TwoMovingAverages extends Strategy {
         List<Double> currentLongRange = priceFeed.getPriceRange(ticker, longPeriod);
         if (currentLongRange.size() < longPeriod) {
             System.out.println("warming up, currentLongRangeSize(): " + currentLongRange.size());
-            return;
+            return newOrder;
         }
 
         //get Averages
@@ -47,23 +39,19 @@ public class TwoMovingAverages extends Strategy {
 
         double price = priceFeed.getCurrentPrice(ticker);
         if ((shortAverage > longAverage)&&(currentShortAverage < currentLongAverage)){
-            Order newSellOrder = new Order(false, 1, price,100, ticker, LocalDateTime.now());
-            System.out.println("New Sell Order:" + newSellOrder.toString());
-            sender.send(newSellOrder.toString());
+            newOrder = new Order(false, 1, price,100, ticker, LocalDateTime.now());
+            System.out.println("New Sell Order:" + newOrder.toString());
         }
-
-
         if ((longAverage > shortAverage)&&(currentLongAverage < currentShortAverage)) {
-            Order newBuyOrder = new Order(true, 2, price, 100, ticker, LocalDateTime.now());
-            System.out.println("New Buy Order:" + newBuyOrder.toString());
-            sender.send(newBuyOrder.toString());
+            newOrder = new Order(true, 2, price, 100, ticker, LocalDateTime.now());
+            System.out.println("New Buy Order:" + newOrder.toString());
         }
-        
+
         shortAverage = currentShortAverage;
         longAverage = currentLongAverage;
+        return newOrder;
     }
-
-    public double getAverage (List<Double> range){
+    private double getAverage (List<Double> range){
         if (range.size() == 0) {
             return 0;
         }

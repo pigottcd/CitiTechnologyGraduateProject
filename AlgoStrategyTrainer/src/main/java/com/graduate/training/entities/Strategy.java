@@ -1,6 +1,7 @@
 package com.graduate.training.entities;
 
 import com.graduate.training.messaging.ActiveMQSender;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.*;
 
@@ -18,16 +19,12 @@ public class Strategy {
     @Column(name = "quantity") private Integer quantity;
 
     public Strategy() {}
-
-    public Strategy(int id, String type, String ticker, Boolean active, Integer quantity) {
-        this.id = id;
+    public Strategy(String type, String ticker, Boolean active, Integer quantity) {
         this.type = type;
         this.ticker = ticker;
         this.active = active;
         this.quantity = quantity;
     }
-
-    public void runStrategy(ActiveMQSender sender){}
 
     public Integer getQuantity() {
         return quantity;
