@@ -22,15 +22,14 @@ import java.util.List;
 public class StrategyServiceImpl implements StrategyService {
 
     private PriceFeedService feed;
-    private ActiveMQSender sender;
+    private OrderService orderService;
     private List<StrategyAlgo> strategies;
     private StrategyRepository dao;
-    @PersistenceContext
-    private EntityManager em;
+
     @Autowired
-    public StrategyServiceImpl(ActiveMQSender sender, PriceFeedService feed, StrategyRepository dao) {
+    public StrategyServiceImpl(OrderService orderService, PriceFeedService feed, StrategyRepository dao) {
         this.feed = feed;
-        this.sender = sender;
+        this.orderService = orderService;
         this.dao = dao;
         strategies = new ArrayList<>();
     }
@@ -63,7 +62,7 @@ public class StrategyServiceImpl implements StrategyService {
             //pass all orders into a new stratalgo function "calculateExit"
             Order newOrder = s.runStrategy(feed);
             if(newOrder != null) {
-                sender.send(newOrder);
+                orderService.addOrder(newOrder);
             }
         }
     }
