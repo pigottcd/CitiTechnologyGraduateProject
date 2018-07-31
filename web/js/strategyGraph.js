@@ -55,6 +55,13 @@ function writeGraph(canvas, data) {
     strategyGraph = new Chart(canvas, config);
 
 }
+function writeButtons() {
+    let buttons = '<form id="deleteStrategy" class="mx-auto">' +
+        '<button type="submit" class="btn">Delete</button>' +
+        '</form>' +
+        '<button class="btn mx-auto " id="cloneStrategy">Clone</button>';
+    $('#graphButtons').html(buttons);
+}
 // run code once the page has loaded
 $(document).ready(function() {
 
@@ -65,6 +72,7 @@ $(document).ready(function() {
         let graphData = getRowData(firstRow); //categories:chartData[0], values:chartData[1]
         let graphCanvas = $('#strategyGraph')[0].getContext('2d');
         writeGraph(graphCanvas, graphData);
+        writeButtons();
 
         // runs when a row is clicked
         $('.clickableRow').click(function () {
