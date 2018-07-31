@@ -1,6 +1,6 @@
 // returns a html table created from json data
 function createTable(data) {
-    let tableBody = '<table class="table table-striped table-sm"><thead><tr>';
+    let tableBody = '<table class="table table-striped table-sm" id="strategyTable"><thead><tr>';
     for (value in data[0]) {
         tableBody+='<th>';
         tableBody+=value;
@@ -32,6 +32,9 @@ $(document).ready(function() {
         let tableBody = createTable(data);
 
         // push table to usersTable div tag
-        $('#strategyTable').html(tableBody);
+        $('#strategyTableDiv').html(tableBody);
+
+        // make it interactive
+        $('#strategyTable').DataTable();
     })
 });

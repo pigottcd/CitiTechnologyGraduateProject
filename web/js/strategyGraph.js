@@ -55,22 +55,43 @@ function writeGraph(canvas, data) {
     strategyGraph = new Chart(canvas, config);
 
 }
+
+function writeButtons() {
+    let buttons = '<form id="deleteStrategy" class="mx-auto">' +
+        '<button type="submit" class="btn">Delete</button>' +
+        '</form>' +
+        '<button class="btn mx-auto " id="cloneStrategy">Clone</button>';
+    $('#graphButtons').html(buttons);
+}
+
 // run code once the page has loaded
 $(document).ready(function() {
 
     if ($('#strategyTable').length) {
-        // create data for chart
-        // work on implementation here, redundant json processing (already processed for table)
+
+        // graph first row on page load (might want last row, for when a user adds a new strategy)
+        // pull first row DOM object
         let firstRow = $('#strategyTable tr:first');
+
+        // grab data from row
         let graphData = getRowData(firstRow); //categories:chartData[0], values:chartData[1]
+
+        // pull graph canvas DOM object
         let graphCanvas = $('#strategyGraph')[0].getContext('2d');
+
+        // push the graph
         writeGraph(graphCanvas, graphData);
+
+        // push clone and delete buttons
+        writeButtons();
 
         // runs when a row is clicked
         $('.clickableRow').click(function () {
 
-            // get data from row
+            // get data from clicked row
             let graphData = getRowData(this);
+
+            // pull graph canvas DOM object
             let graphCanvas = $('#strategyGraph')[0].getContext('2d');
 
             // clear chart
@@ -79,5 +100,7 @@ $(document).ready(function() {
             // create a new chart with data form the clicked row
             writeGraph(graphCanvas, graphData);
 
-        });
-    }});
+            });
+        }
+    }
+);
