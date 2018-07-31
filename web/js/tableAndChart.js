@@ -1,6 +1,6 @@
 // returns a html table created from json data
-function createTable(data) {
-    let tableBody = '<table class="table table-sm" id="strategyTable"><caption>Strategies</caption><thead><tr>';
+function createTable(data, tableName) {
+    let tableBody = '<table class="table table-sm" id="'+tableName+'"><thead><tr>';
     for (value in data[0]) {
         tableBody+='<th>';
         tableBody+=value;
@@ -49,12 +49,12 @@ $(document).ready(function() {
 
     // start ajax call, then process the data
     $.ajax({
-        url: "http://localhost:8081/strat/",
+        url: "http://localhost:8081/strategies/",
         crossOrigin: true
     }).then(function(data) {
 
         // create table
-        let tableBody = createTable(data);
+        let tableBody = createTable(data, "strategyTable");
 
         // push table to strategyTable div tag
         $('#strategyTableDiv').html(tableBody);
@@ -102,9 +102,34 @@ $(document).ready(function() {
                 }
             }
         });
+        // generate orders table
+        let url = "http://localhost:8081/orders/strategy_id/5";
+
+
+        $.ajax({
+            url: url,
+            crossOrigin: true
+        }).then(function(data) {
+
+            // create table
+            let tableBody = createTable(data, "orderTable");
+
+
+            $('#orderTableDiv').html(tableBody);
+            $('#orderTable').DataTable().column(0).visible(false);
+        });
+
+        var tabletest = $('#orderTable');
+        $('#orderTable tbody').on('click', 'tr', function() {
+            console.log(tabletest.row(this).data());
+        });
+
+
 
         // runs when a row is clicked
         $('.clickableRow').click(function() {
+            console.log(this);
+            console.log($('#orderTable').DataTable().row(0).data());
 
             // get data from row
             rowData = getRowData(this);
@@ -141,6 +166,26 @@ $(document).ready(function() {
                 }
             });
 
+            // generate orders table
+            let url = "http://localhost:8081/orders/strategy_id/" + rowData[1].toString();
+
+
+            $.ajax({
+                url: url,
+                crossOrigin: true
+            }).then(function(data) {
+
+                // create table
+                let tableBody = createTable(data, "orderTable");
+
+
+                $('#orderTableDiv').html(tableBody);
+                $('#orderTable').DataTable().column(0).visible(false);
+            });
+
+
         });
     });
+
+
 });
