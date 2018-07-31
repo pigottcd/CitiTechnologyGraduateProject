@@ -33,8 +33,9 @@ hr {
 #stockTag, #longAverage, #shortAverage, #movingAverage, #standardDeviations, #fixedPeriod, #amountOfShares {
   width: 90px;
 }
-#timeSelector1, #timeSelector2 {
-  width: 110px;
+
+#movingAverageTimeUnit, #longAverageTimeUnit, #shortAverageTimeUnit, #fixedPeriodTimeUnit {
+  width: 105px;
 }
 #profitLossPercentage, #fitOccurrences {
   width: 75px;
@@ -46,11 +47,16 @@ hr {
 }
 
 #shares {
-  width: 70px;
+  width: 71px;
   background-color: white;
 }
 
-#occurrences, #deviations {
-  width: 107px;
+#deviations {
+  width: 100px;
+  background-color: white;
+}
+
+#occurrences {
+  width: 110px;
   background-color: white;
 }
