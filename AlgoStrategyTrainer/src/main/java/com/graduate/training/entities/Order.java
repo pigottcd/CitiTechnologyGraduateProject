@@ -27,18 +27,19 @@ public class Order {
     @Column(name = "stock")  private String stock;
     @Column(name ="time")    private LocalDateTime time;
     @Column(name = "status") private String status;
+    @Column(name = "strategy_id") private int strategyId;
 
     public Order() {}
 
-    public Order(boolean buy, int id, double price, int size,
-                 String stock, LocalDateTime time) {
+    public Order(boolean buy, double price, int size,
+                 String stock, LocalDateTime time, int strategyId) {
         this.buy = buy;
-        this.id = id;
         this.price = price;
         this.size = size;
         this.stock = stock;
         this.time = time;
         this.status = null;
+        this.strategyId = strategyId;
     }
 
     public Order(String executionXML) throws ParserConfigurationException,

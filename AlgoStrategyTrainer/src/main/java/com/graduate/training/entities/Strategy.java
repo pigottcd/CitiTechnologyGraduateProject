@@ -13,17 +13,22 @@ public class Strategy {
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     @Column(name="id")
     private int id;
-    @Column(name = "type")     private String type;
-    @Column(name = "ticker")   private String ticker;
-    @Column(name = "active")   private Boolean active;
-    @Column(name = "quantity") private Integer quantity;
+    @Column(name = "type")         private String type;
+    @Column(name = "ticker")       private String ticker;
+    @Column(name = "active")       private Boolean active;
+    @Column(name = "quantity")     private Integer quantity;
+    @Column(name = "short_period") private Integer shortPeriod;
+    @Column(name = "long_period")  private Integer longPeriod;
 
     public Strategy() {}
-    public Strategy(String type, String ticker, Boolean active, Integer quantity) {
+    public Strategy(String type, String ticker, Boolean active, Integer quantity,
+                    Integer shortPeriod, Integer longPeriod) {
         this.type = type;
         this.ticker = ticker;
         this.active = active;
         this.quantity = quantity;
+        this.shortPeriod = shortPeriod;
+        this.longPeriod = longPeriod;
     }
 
     public Integer getQuantity() {
@@ -64,5 +69,21 @@ public class Strategy {
 
     public void setActive(Boolean active) {
         this.active = active;
+    }
+
+    public Integer getShortPeriod() {
+        return shortPeriod;
+    }
+
+    public void setShortPeriod(Integer shortPeriod) {
+        this.shortPeriod = shortPeriod;
+    }
+
+    public Integer getLongPeriod() {
+        return longPeriod;
+    }
+
+    public void setLongPeriod(Integer longPeriod) {
+        this.longPeriod = longPeriod;
     }
 }

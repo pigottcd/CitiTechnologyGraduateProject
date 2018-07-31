@@ -39,11 +39,11 @@ public class TwoMovingAveragesAlgo extends StrategyAlgo {
 
         double price = priceFeed.getCurrentPrice(ticker);
         if ((shortAverage > longAverage)&&(currentShortAverage < currentLongAverage)){
-            newOrder = new Order(false, 1, price,100, ticker, LocalDateTime.now());
+            newOrder = new Order(false, price,100, ticker, LocalDateTime.now(), getId());
             System.out.println("New Sell Order:" + newOrder.toString());
         }
         if ((longAverage > shortAverage)&&(currentLongAverage < currentShortAverage)) {
-            newOrder = new Order(true, 2, price, 100, ticker, LocalDateTime.now());
+            newOrder = new Order(true, price, 100, ticker, LocalDateTime.now(), getId());
             System.out.println("New Buy Order:" + newOrder.toString());
         }
 

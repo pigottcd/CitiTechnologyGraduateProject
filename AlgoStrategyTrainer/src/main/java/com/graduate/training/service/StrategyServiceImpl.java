@@ -1,5 +1,6 @@
 package com.graduate.training.service;
 
+import com.graduate.training.dao.StrategyRepository;
 import com.graduate.training.entities.Order;
 import com.graduate.training.entities.Strategy;
 import com.graduate.training.messaging.ActiveMQSender;
@@ -23,18 +24,29 @@ public class StrategyServiceImpl implements StrategyService {
     private PriceFeedService feed;
     private ActiveMQSender sender;
     private List<StrategyAlgo> strategies;
-
+    private StrategyRepository dao;
     @PersistenceContext
     private EntityManager em;
     @Autowired
-    public StrategyServiceImpl(ActiveMQSender sender, PriceFeedService feed) {
+    public StrategyServiceImpl(ActiveMQSender sender, PriceFeedService feed, StrategyRepository dao) {
         this.feed = feed;
         this.sender = sender;
+        this.dao = dao;
         strategies = new ArrayList<>();
     }
 
-    public void addStrategy(StrategyAlgo s) {
-        strategies.add(s);
+    public void addStrategy(Strategy s) {
+        StrategyAlgo algo = null;
+        switch(s.getType()) {
+            case "TwoMovingAverages":
+                algo = new TwoMovingAveragesAlgo(s,s.getShortPeriod(), s.getLongPeriod());
+        }
+        if (algo == null) {
+            System.out.println("ERROR: expected valid strategy type got: " + s.getType());
+            return;
+        }
+        strategies.add(algo);
+        dao.save(s);
     }
 
     @Scheduled(fixedDelay = 2000)
@@ -46,9 +58,12 @@ public class StrategyServiceImpl implements StrategyService {
         //send any generated trades
         for(StrategyAlgo s : strategies) {
             System.out.println("Running strat: " + s.getId());
+            //get all orders per strat id from dao
+
+            //pass all orders into a new stratalgo function "calculateExit"
             Order newOrder = s.runStrategy(feed);
             if(newOrder != null) {
-                sender.send(newOrder.toString());
+                sender.send(newOrder);
             }
         }
     }

@@ -12,21 +12,17 @@ import javax.persistence.PersistenceContext;
 @Component
 public class ActiveMQReceiver {
 
-    @PersistenceContext
-    private EntityManager em;
+
     @JmsListener(destination = "OrderBroker_Reply", containerFactory = "initJmsContainerF")
-    @Transactional
     public void receive(String message) {
 
         System.out.println("Got: " + message);
         try {
-
             Order o = new Order(message);
             System.out.println(o.toString());
-            em.merge(o);
+
         } catch (Exception e) {
             e.printStackTrace();
-            return;
         }
     }
 }
