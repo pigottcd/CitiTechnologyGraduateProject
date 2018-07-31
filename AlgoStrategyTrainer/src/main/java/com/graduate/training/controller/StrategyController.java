@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/")
+@RequestMapping("/strategies/")
 @CrossOrigin
 public class StrategyController {
 
@@ -15,7 +15,11 @@ public class StrategyController {
     @RequestMapping(method = RequestMethod.GET)
     Iterable<Strategy> findAll() {return service.getStrategies();}
 
-    @PostMapping(value = "/strategies")
+    @GetMapping(value = "active/")
+    Iterable<Strategy> findAllActive() {return service.getActiveStrategies();}
+
+    @PostMapping
     void addStrategy(@RequestBody Strategy strategy) {service.addStrategy(strategy);}
+
 
 }   

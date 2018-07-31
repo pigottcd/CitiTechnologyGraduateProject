@@ -9,4 +9,5 @@ import org.springframework.transaction.annotation.Transactional;
 @Repository
 @Transactional(propagation = Propagation.REQUIRED)
 public interface StrategyRepository extends CrudRepository<Strategy,Integer> {
+    Iterable<Strategy> findByActiveIsTrue();
 }
