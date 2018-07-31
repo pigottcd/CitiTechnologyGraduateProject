@@ -1,6 +1,6 @@
 // returns a html table created from json data
 function createTable(data) {
-    let tableBody = '<table class="table table-striped table-sm"><thead><tr>';
+    let tableBody = '<table class="table table-sm" id="strategyTable"><caption>Strategies</caption><thead><tr>';
     for (value in data[0]) {
         tableBody+='<th>';
         tableBody+=value;
@@ -25,7 +25,7 @@ function createChartData(data) {
     let chartData =[[],[]];
     data.forEach(function(elm) {
         // elm.colName dependent on json data
-        chartData[0].push(elm.name);
+        chartData[0].push(elm.ticker);
         chartData[1].push(elm.id);
     });
     return chartData;
@@ -38,7 +38,7 @@ function getRowData(row) {
     }).get();
     let newRowData = [[], []];
     //categories, rowData[1] is a name
-    newRowData[0].push(rowData[1]);
+    newRowData[0].push(rowData[2]);
     // values, rowData[0] is a number
     newRowData[1].push(parseInt(rowData[0]));
     return newRowData;
@@ -49,7 +49,7 @@ $(document).ready(function() {
 
     // start ajax call, then process the data
     $.ajax({
-        url: "http://localhost:8081/",
+        url: "http://localhost:8081/strat/",
         crossOrigin: true
     }).then(function(data) {
 
@@ -57,14 +57,15 @@ $(document).ready(function() {
         let tableBody = createTable(data);
 
         // push table to strategyTable div tag
-        $('#strategyTable').html(tableBody);
+        $('#strategyTableDiv').html(tableBody);
+        $('#strategyTable').DataTable();
 
         // create data for chart
         // work on implementation here, redundant json processing (already processed for table)
         let chartData  = createChartData(data); //categories:chartData[0], values:chartData[1]
 
         // create and push chart to myChart chart tag
-        let ctx = $('#myChart')[0].getContext('2d');
+        let ctx = $('#strategyGraph')[0].getContext('2d');
         myChart = new Chart(ctx, {
             type: 'bar',
             data: {
@@ -112,13 +113,13 @@ $(document).ready(function() {
             myChart.destroy();
 
             // create a new chart with data form the clicked row
-            let ctx = document.getElementById("myChart").getContext('2d');
+            let ctx = document.getElementById("strategyGraph").getContext('2d');
             myChart = new Chart(ctx, {
                 type: 'bar',
                 data: {
                     labels: rowData[0],
                     datasets: [{
-                        label: 'User ids',
+                        label: 'Ticker ID',
                         data: rowData[1],
                         backgroundColor: [
                             'rgba(255, 99, 132, 0.2)'
