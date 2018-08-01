@@ -14,18 +14,27 @@ public class StrategyController {
 
     @Autowired
     private StrategyService service;
-    @RequestMapping(method = RequestMethod.GET)
+    @GetMapping
     Iterable<Strategy> findAll() {return service.getStrategies();}
 
     @GetMapping(value = "active/")
     List<Strategy> findAllActive() {return service.getActiveStrategies();}
 
+    @GetMapping(value = "strategy_id/{id}")
+    public Strategy getStrategyById(@PathVariable Integer id){
+        return service.getStrategyById(id);
+    }
+
     @PostMapping
     void addStrategy(@RequestBody Strategy strategy) {
-        System.out.println(strategy.getQuantity());
-        System.out.println(strategy.getType());
-        System.out.println(strategy.getPAndL());
         service.addStrategy(strategy);
     }
+
+    @DeleteMapping(value = "strategy_id/{id}")
+    public void deactivateStrategy(@RequestBody Integer id){
+        service.deactivateStrategy(id);
+    }
+
+
 
 }   

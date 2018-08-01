@@ -59,6 +59,10 @@ public class StrategyServiceImpl implements StrategyService {
         return dao.findByActiveIsTrue();
     }
 
+    public Strategy getStrategyById(Integer id) { return dao.findById(id);}
+
+    //Charles's Deactivate Strategy
+
     @Scheduled(fixedDelay = 2000)
     @Transactional(propagation = Propagation.REQUIRED)
     public void runStrategies() {

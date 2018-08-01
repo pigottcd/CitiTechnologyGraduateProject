@@ -12,4 +12,5 @@ import java.util.List;
 @Transactional(propagation = Propagation.REQUIRED)
 public interface StrategyRepository extends CrudRepository<Strategy,Integer> {
     List<Strategy> findByActiveIsTrue();
+    Strategy findById(Integer id);
 }
