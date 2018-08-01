@@ -37,8 +37,12 @@ function populateStrategyCreatorFields (strategyData) {
     }
 }
 function terminateStrategy(data) {
-    console.log(data);
-
+    let url = 'http://localhost:8081/strategies/strategy_id/' + data['id'].toString();
+    console.log(url);
+    $.ajax({
+        url: url,
+        type: 'DELETE'
+    })
 }
 function dateTimeToDates(elm) {
     let year = elm.time.year;
@@ -81,7 +85,7 @@ $(document).ready(function() {
                     "defaultContent": "",
                     "render": function(data, type, row) {
                         if (data['active']==true) {
-                            return "<div class='form-inline mx-auto'><button class='cloneStrategyButton'>Clone</button><form class='terminateStrategyButton' action='javascript:void(0)'><button type='submit'>Terminate</button></form></div>";
+                            return "<div class='form-inline mx-auto'><button class='cloneStrategyButton'>Clone</button><button class='terminateStrategyButton'>Terminate</button></div>";
                         }
                         else {
                             return "<div class='form-inline mx-auto'><button class='cloneStrategyButton'>Clone</button></div>";
@@ -90,6 +94,8 @@ $(document).ready(function() {
 
                 }
             ],
+            "scrollY": "300px",
+            "paging": false,
             data: strategyData,
             columns: [
                 { data: 'id', title: 'ID' },
@@ -109,9 +115,16 @@ $(document).ready(function() {
             populateStrategyCreatorFields(strategyDataFromRow);
         });
 
-        $('.terminateStrategyButton').submit(function () {
+        $('.terminateStrategyButton').click(function () {
             let strategyDataFromRow = strategyTable.row($(this).parents("tr")).data();
-            terminateStrategy(strategyDataFromRow);
+            let url = 'http://localhost:8081/strategies/strategy_id/' + strategyDataFromRow['id'].toString();
+            console.log(url);
+            $.ajax({
+                url: url,
+                type: 'DELETE'
+            }).then(function() {
+                location.reload();
+            })
         });
 
         // get latest strategy id
@@ -125,15 +138,17 @@ $(document).ready(function() {
 
 
             let orderTable = $('#orderTable').DataTable({
+                "scrollY": "300px",
+                "paging": false,
                 data: orderData,
                 columns: [
-                    { data: 'id', title: 'id' },
-                    { data: 'buy', title: 'buy' },
-                    { data: 'price', title: 'price' },
-                    { data: 'size', title: 'size' },
-                    { data: 'stock', title: 'stock' },
-                    { data: 'time', title: 'time' },
-                    { data: 'status', title: 'status' },
+                    { data: 'id', title: 'ID' },
+                    { data: 'buy', title: 'Buy/Sell' },
+                    { data: 'price', title: 'Price' },
+                    { data: 'size', title: 'Size' },
+                    { data: 'stock', title: 'Ticker Symbol' },
+                    { data: 'time', title: 'Time' },
+                    { data: 'status', title: 'Status' },
                 ]
             });
 
