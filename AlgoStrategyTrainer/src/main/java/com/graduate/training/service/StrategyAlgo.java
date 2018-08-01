@@ -21,9 +21,11 @@ public abstract class StrategyAlgo {
     String getTicker() {
         return strategy.getTicker();
     }
-
+    void setActive(boolean active) { strategy.setActive(active); }
     abstract Order runStrategy(PriceFeedService priceFeed);
-
+    Strategy getStrategy() {
+        return strategy;
+    }
     Order calculateExit(double price, List<Order> orders) {
         if (orders.size() == 0) {
             return null;
@@ -49,6 +51,7 @@ public abstract class StrategyAlgo {
             if (totalQuantity > 0) {
                 return new Order(false, price, strategy.getQuantity(), getTicker(), LocalDateTime.now(), getId());
             }
+            return new Order(true, price, strategy.getQuantity(), getTicker(), LocalDateTime.now(), getId());
         }
         return null;
     }
