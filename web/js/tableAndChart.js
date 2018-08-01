@@ -1,3 +1,17 @@
+function timeInSecondsToInUnit (time) {
+    if (time/60 < 1) {
+        return [time, "seconds"];
+    }
+    else {
+        if (time/3600 < 1) {
+            return [time/60, "minutes"];
+        }
+        else {
+            return [time/3600, "hours"];
+        }
+    }
+
+}
 function populateStrategyCreatorFields (strategyData) {
     let strategyType = strategyData['type'];
     let stockTag = strategyData['ticker'];
@@ -10,8 +24,21 @@ function populateStrategyCreatorFields (strategyData) {
 
     if (strategyType=='TwoMovingAverages') {
         $('#strategySelector').val("twoMovingAverages");
-        $('#longAverage').val(30);
+
+        let longAverageInSeconds = strategyData['longPeriod'];
+        let longAverageParams = timeInSecondsToInUnit(longAverageInSeconds);
+        $('#longAverage').val(longAverageParams[0]);
+        $('#longAverageTimeUnit').val(longAverageParams[1]);
+
+        let shortAverageInSeconds = strategyData['shortPeriod'];
+        let shortAverageParams = timeInSecondsToInUnit(shortAverageInSeconds);
+        $('#shortAverage').val(shortAverageParams[0]);
+        $('#shortAverageTimeUnit').val(shortAverageParams[1]);
     }
+}
+function terminateStrategy(data) {
+    console.log(data);
+
 }
 function dateTimeToDates(elm) {
     let year = elm.time.year;
@@ -54,10 +81,10 @@ $(document).ready(function() {
                     "defaultContent": "",
                     "render": function(data, type, row) {
                         if (data['active']==true) {
-                            return "<div class='form-inline mx-auto'><button class='cloneStrategyButton'>Clone</button><form id='terminate'></form><button>Terminate</button></div>";
+                            return "<div class='form-inline mx-auto'><button class='cloneStrategyButton'>Clone</button><form class='terminateStrategyButton' action='javascript:void(0)'><button type='submit'>Terminate</button></form></div>";
                         }
                         else {
-                            return "<div class='form-inline mx-auto'><button>Clone</button><form id='terminate'></form></div>";
+                            return "<div class='form-inline mx-auto'><button class='cloneStrategyButton'>Clone</button></div>";
                         }
                     }
 
@@ -80,6 +107,11 @@ $(document).ready(function() {
         $('.cloneStrategyButton').click(function() {
             let strategyDataFromRow = strategyTable.row($(this).parents("tr")).data();
             populateStrategyCreatorFields(strategyDataFromRow);
+        });
+
+        $('.terminateStrategyButton').submit(function () {
+            let strategyDataFromRow = strategyTable.row($(this).parents("tr")).data();
+            terminateStrategy(strategyDataFromRow);
         });
 
         // get latest strategy id
