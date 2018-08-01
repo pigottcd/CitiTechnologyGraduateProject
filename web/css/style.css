@@ -37,7 +37,7 @@ hr {
 }
 
 #movingAverageTimeUnit, #longAverageTimeUnit, #shortAverageTimeUnit, #fixedPeriodTimeUnit {
-  width: 105px;
+  width: 110px;
 }
 #profitLossPercentage, #fitOccurrences {
   width: 75px;
