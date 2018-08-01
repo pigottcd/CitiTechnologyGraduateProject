@@ -1,3 +1,18 @@
+function populateStrategyCreatorFields (strategyData) {
+    let strategyType = strategyData['type'];
+    let stockTag = strategyData['ticker'];
+    let profitLossPercentage = strategyData['pandL'];
+    let amountOfShares = strategyData['quantity'];
+
+    $('#stockTag').val(stockTag);
+    $('#profitLossPercentage').val(profitLossPercentage*100);
+    $('#amountOfShares').val(amountOfShares);
+
+    if (strategyType=='TwoMovingAverages') {
+        $('#strategySelector').val("twoMovingAverages");
+        $('#longAverage').val(30);
+    }
+}
 function dateTimeToDates(elm) {
     let year = elm.time.year;
     let month = elm.time.monthValue;
@@ -38,9 +53,8 @@ $(document).ready(function() {
                     "data": null,
                     "defaultContent": "",
                     "render": function(data, type, row) {
-                        console.log(row, data);
                         if (data['active']==true) {
-                            return "<div class='form-inline mx-auto'><button>Clone</button><form id='terminate'></form><button>Terminate</button></div>";
+                            return "<div class='form-inline mx-auto'><button class='cloneStrategyButton'>Clone</button><form id='terminate'></form><button>Terminate</button></div>";
                         }
                         else {
                             return "<div class='form-inline mx-auto'><button>Clone</button><form id='terminate'></form></div>";
@@ -61,6 +75,11 @@ $(document).ready(function() {
                 { data: 'pandL', title: 'P/L' },
                 { data: null, "width": "150px"}
             ]
+        });
+
+        $('.cloneStrategyButton').click(function() {
+            let strategyDataFromRow = strategyTable.row($(this).parents("tr")).data();
+            populateStrategyCreatorFields(strategyDataFromRow);
         });
 
         // get latest strategy id
