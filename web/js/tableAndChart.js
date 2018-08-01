@@ -58,6 +58,9 @@ function dateTimeToDates(elm) {
 function priceToPrices(elm) {
     return elm.price;
 }
+function timeToTimes(elm) {
+    return elm.time;
+}
 $(document).ready(function() {
     // strategy table
     $.ajax({
@@ -135,9 +138,26 @@ $(document).ready(function() {
             url: "http://localhost:8081/orders/strategy_id/"+lastRowID.toString(),
             crossOrigin: true
         }).then(function(orderData) {
-
+            // convert times to JS Date()'s
+            for (idx = 0; idx < orderData.length; idx++) {
+                orderData[idx].time = dateTimeToDates(orderData[idx]);
+            }
 
             let orderTable = $('#orderTable').DataTable({
+                "columnDefs": [
+                    {
+                        "targets": [1],
+                        "render": function(data, type, row) {
+                            if (data['buy']==true) {
+                                return "Buy";
+                            }
+                            else {
+                                return "Sell";
+                            }
+                        }
+
+                    }
+                ],
                 "scrollY": "300px",
                 "paging": false,
                 data: orderData,
@@ -153,7 +173,8 @@ $(document).ready(function() {
             });
 
             // graph
-            let dates = orderData.map(dateTimeToDates);
+            //let dates = orderData.map(dateTimeToDates);
+            let dates = orderData.map(timeToTimes);
             let prices = orderData.map(priceToPrices);
 
             let ctx = $('#priceChart')[0].getContext('2d');
