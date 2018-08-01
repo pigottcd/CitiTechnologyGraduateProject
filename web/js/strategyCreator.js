@@ -184,8 +184,7 @@ $(document).ready(function() {
     });
 
     // runs when form is submitted
-    $('#strategyCreatorForm').submit(function(ev) {
-        ev.preventDefault();
+    $('#strategyCreatorForm').submit(function() {
         // build json data from the form
         data = buildJSONFromForm(selectedStrategy);
 
