@@ -4,11 +4,12 @@ import com.graduate.training.messaging.ActiveMQSender;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity
 @Table(name = "strategy")
 
-public class Strategy {
+public class Strategy implements Serializable {
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     @Column(name="id")
@@ -19,8 +20,6 @@ public class Strategy {
     @Column(name = "quantity")     private Integer quantity;
     @Column(name = "short_period") private Integer shortPeriod;
     @Column(name = "long_period")  private Integer longPeriod;
-
-
     @Column(name = "p_and_l")      private Double pAndL;
 
     public Strategy() {}
@@ -94,4 +93,6 @@ public class Strategy {
     public Double getPAndL() {
         return pAndL;
     }
+
+    public void setPAndL(double pAndL) { this.pAndL = pAndL; }
 }
