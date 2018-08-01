@@ -20,7 +20,7 @@ $(document).ready(function() {
     }).then(function(strategyData){
         let strategyTable = $('#strategyTable').DataTable({
             "createdRow": function(row, data) {
-                console.log(data);
+
                 if (data['active']==true) {
                     $(row).addClass("table-success");
                 }
@@ -28,6 +28,27 @@ $(document).ready(function() {
                     $(row).addClass("table-danger");
                 }
             },
+            "columnDefs": [
+                {
+                    "targets": [3],
+                    "visible": false
+                },
+                {
+                    "targets": [-1],
+                    "data": null,
+                    "defaultContent": "",
+                    "render": function(data, type, row) {
+                        console.log(row, data);
+                        if (data['active']==true) {
+                            return "<div class='form-inline mx-auto'><button>Clone</button><form id='terminate'></form><button>Terminate</button></div>";
+                        }
+                        else {
+                            return "<div class='form-inline mx-auto'><button>Clone</button><form id='terminate'></form></div>";
+                        }
+                    }
+
+                }
+            ],
             data: strategyData,
             columns: [
                 { data: 'id', title: 'ID' },
@@ -38,14 +59,14 @@ $(document).ready(function() {
                 { data: 'shortPeriod', title: 'Short Period' },
                 { data: 'longPeriod', title: 'Long Period' },
                 { data: 'pandL', title: 'P/L' },
-
+                { data: null, "width": "150px"}
             ]
         });
 
         // get latest strategy id
         let lastRowID = strategyTable.row( ':last', {order: 'applied'}).data()['id'];
 
-        // order table and pnl graph
+        // order table and graph
         $.ajax({
             url: "http://localhost:8081/orders/strategy_id/"+lastRowID.toString(),
             crossOrigin: true

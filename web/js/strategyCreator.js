@@ -139,7 +139,6 @@ function buildJSONFromForm(strategy) {
             '", "password":"' + password +
             '" }';
     }
-    console.log(data);
     return data;
 }
 
@@ -182,7 +181,7 @@ $(document).ready(function() {
 
         // build json data from the form
         data = buildJSONFromForm(selectedStrategy);
-        console.log(data);
+
         // send it to the rest api
         sendJSONToAPI(selectedStrategy, data);
     });
