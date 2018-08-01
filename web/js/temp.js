@@ -38,7 +38,6 @@ function populateStrategyCreatorFields (strategyData) {
 }
 function terminateStrategy(data) {
     let url = 'http://localhost:8081/strategies/strategy_id/' + data['id'].toString();
-    console.log(url);
     $.ajax({
         url: url,
         type: 'DELETE'
@@ -111,13 +110,11 @@ $(document).ready(function() {
             {data: null, "width": "150px"}
         ],
         "initComplete": function(settings, json) {
-            console.log(1);
             $('.cloneStrategyButton').click(function () {
                 let strategyDataFromRow = strategyTable.row($(this).parents("tr")).data();
                 populateStrategyCreatorFields(strategyDataFromRow);
             });
 
-            console.log(2);
             $('.terminateStrategyButton').click(function () {
                 let strategyDataFromRow = strategyTable.row($(this).parents("tr")).data();
                 let url = 'http://localhost:8081/strategies/strategy_id/' + strategyDataFromRow['id'].toString();
@@ -126,75 +123,49 @@ $(document).ready(function() {
                     url: url,
                     type: 'DELETE'
                 }).then(function () {
-                    strategyTable.ajax.reload();
+                    strategyTable.ajax.reload(null, false);
                 })
             });
 
-            console.log(3);
             // get latest strategy id
-            //let lastRowID = strategyTable.row( ':last', {order: 'applied'}).data()['id'];
+            let lastRowID = strategyTable.row( ':last', {order: 'applied'}).data()['id'];
+            let orderTableAJAXURL = "http://localhost:8081/orders/strategy_id/"+lastRowID.toString()+"/";
+            let orderTable = $('#orderTable').DataTable({
+                "ajax":{
+                    "url":orderTableAJAXURL,
+                    "dataSrc":""
+                },
+                "columnDefs": [
+                    {
+                        "targets": [1],
+                        "render": function(data, type, row) {
+                            if (data['buy']==true) {
+                                return "Buy";
+                            }
+                            else {
+                                return "Sell";
+                            }
+                        }
 
-            console.log(strategyTable.row(':last', {order: 'applied'}).data()['id']);
+                    }
+                ],
+                "scrollY": "300px",
+                "paging": false,
+                columns: [
+                    { data: 'id', title: 'ID' },
+                    { data: 'buy', title: 'Buy/Sell' },
+                    { data: 'price', title: 'Price' },
+                    { data: 'size', title: 'Size' },
+                    { data: 'stock', title: 'Ticker Symbol' },
+                    { data: 'time', title: 'Time' },
+                    { data: 'status', title: 'Status' },
+                ]
+            });
+            setInterval(function() {
+                orderTable.ajax.reload();
+                console.log("reloaded")
+            }, 5000);
 
         }
-    });
-
+    })
 });
-
-/*
-    console.log(4);
-    let orderTable = $('#orderTable').DataTable({
-        "ajax":{
-            "url":"http://localhost:8081/orders/strategy_id/35/",
-            "dataSrc":""
-        },
-        "columnDefs": [
-            {
-                "targets": [1],
-                "render": function(data, type, row) {
-                    if (data['buy']==true) {
-                        return "Buy";
-                    }
-                    else {
-                        return "Sell";
-                    }
-                }
-
-            }
-        ],
-        "scrollY": "300px",
-        "paging": false,
-        columns: [
-            { data: 'id', title: 'ID' },
-            { data: 'buy', title: 'Buy/Sell' },
-            { data: 'price', title: 'Price' },
-            { data: 'size', title: 'Size' },
-            { data: 'stock', title: 'Ticker Symbol' },
-            { data: 'time', title: 'Time' },
-            { data: 'status', title: 'Status' },
-        ]
-    });
-
-});
-
-/*
-    orderTable = $('#orderTable').DataTable({
-    "ajax":{
-        "url":"http://localhost:8081/orders/strategy_id/35",
-        "dataSrc":""
-    },
-    columns: [
-        { data: 'id', title: 'id' },
-        { data: 'buy', title: 'buy' },
-        { data: 'price', title: 'price' },
-        { data: 'size', title: 'size' },
-        { data: 'stock', title: 'stock' },
-        { data: 'time', title: 'time' },
-        { data: 'status', title: 'status' },
-    ]
-});
-setInterval(function() {
-    orderTable.ajax.reload();
-    console.log("reloaded")
-}, 5000);
-*/
