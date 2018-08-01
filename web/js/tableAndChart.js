@@ -103,7 +103,7 @@ $(document).ready(function() {
             }
         });
         // generate orders table
-        let url = "http://localhost:8081/orders/strategy_id/5";
+        let url = "http://localhost:8081/orders/strategy_id/19";
 
 
         $.ajax({
@@ -119,16 +119,16 @@ $(document).ready(function() {
             $('#orderTable').DataTable().column(0).visible(false);
         });
 
+        /*
         var tabletest = $('#orderTable');
         $('#orderTable tbody').on('click', 'tr', function() {
             console.log(tabletest.row(this).data());
-        });
+        });*/
 
 
 
         // runs when a row is clicked
         $('.clickableRow').click(function() {
-            console.log(this);
             console.log($('#orderTable').DataTable().row(0).data());
 
             // get data from row
