@@ -58,31 +58,42 @@ function generateStrategySelectionParameters(strategy) {
         $("#parameter2").html(parameter2HTML);
 
 }
+function timeInUnitToInSeconds(time, timeUnit) {
+    if (timeUnit=='seconds') {
+        return time;
+    }
+    else if (timeUnit=='minutes') {
+        return time*60;
+    }
+    else if (timeUnit=='hours') {
+        return time*60*60;
+    }
+}
 function buildJSONFromForm(strategy) {
     // pull inputs
     let data = '';
     let stockTag = $('#stockTag').val();
-    let profitLossPercentge = $('#profitLossPercentage').val();
+    let profitLossPercentge = $('#profitLossPercentage').val()/100;
     let amountOfShares = $('#amountOfShares').val();
 
     if (strategy == 'twoMovingAverages') {
         let longAverage = $('#longAverage').val();
         // could just send longAverage in seconds, or send to business layer with time unit
         let longAverageTimeUnit = $('#longAverageTimeUnit').val();
+        let longAverageInSeconds = timeInUnitToInSeconds(longAverage, longAverageTimeUnit);
         let shortAverage = $('#shortAverage').val();
         // could just send shortAverage in seconds, or send to business layer with time unit
         let shortAverageTimeUnit = $('#shortAverageTimeUnit').val();
+        let shortAverageInSeconds = timeInUnitToInSeconds(shortAverage, shortAverageTimeUnit);
 
         // build json string
-        data = '{ "stockTag":"' + stockTag +
-            '", "strategy":"' + strategy +
-            '", "longAverage":"' + longAverage +
-            '", "longAverageTimeUnit":"' + longAverageTimeUnit +
-            '", "shortAverage":"' + shortAverage +
-            '", "shortAverageTimeUnit":"' + shortAverageTimeUnit +
-            '", "profitLossPercentage":"' + profitLossPercentge +
-            '", "amountOfShares":"' + amountOfShares +
-            '" }';
+        data = '{ "type":"TwoMovingAverages",' +
+            ' "ticker":"' + stockTag + '",' +
+            ' "active":'+ true + ',' +
+            ' "quantity":' + amountOfShares + ',' +
+            ' "shortPeriod":' + shortAverageInSeconds + ',' +
+            ' "longPeriod":' + longAverageInSeconds + ',' +
+            ' "pandL":' + profitLossPercentge + ' }';
     }
     else if (strategy == 'bollingerBands') {
         let movingAverage = $('#movingAverage').val();
@@ -128,7 +139,7 @@ function buildJSONFromForm(strategy) {
             '", "password":"' + password +
             '" }';
     }
-
+    console.log(data);
     return data;
 }
 
@@ -136,10 +147,10 @@ function sendJSONToAPI(strategy, data) {
     let url = 'http:localhost:8081/';
 
     if (strategy!='user') {
-        url += 'strat/'
+        url += 'strategies/'
     }
     else {
-        url += 'user/'
+        url += 'users/'
     }
     // strategy will be used to route to the right url
     $.ajax({
