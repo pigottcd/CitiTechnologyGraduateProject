@@ -117,16 +117,19 @@ $(document).ready(function() {
 
             $('.terminateStrategyButton').click(function () {
                 let strategyDataFromRow = strategyTable.row($(this).parents("tr")).data();
-                let url = 'http://localhost:8081/strategies/strategy_id/' + strategyDataFromRow['id'].toString();
+                let deleteUrl = 'http://localhost:8081/strategies/strategy_id/' + strategyDataFromRow['id'].toString();
 
                 $.ajax({
-                    url: url,
+                    url: deleteUrl,
                     type: 'DELETE'
                 }).then(function () {
                     strategyTable.ajax.reload(null, false);
                 })
             });
 
+            $('#strategyTable').on("click", "tr", function() {
+                console.log("works after");
+            });
             $('#strategyTable tr').click(function() {
                 console.log("clicked");
                 let rowID = strategyTable.row(this).data()['id'];

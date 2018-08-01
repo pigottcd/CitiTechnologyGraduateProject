@@ -160,11 +160,6 @@ function sendJSONToAPI(strategy, data) {
         contentType: "application/json"
     }).then(function() {
         $('#strategyTable').DataTable().ajax.reload();
-        $('#strategyTable tr').click(function() {
-            console.log("clicked");
-            let rowID = strategyTable.row(this).data()['id'];
-            orderTable.ajax.url("http://localhost:8081/orders/strategy_id/"+rowID.toString()+"/").load();
-        });
     });
 }
 
@@ -185,6 +180,7 @@ $(document).ready(function() {
 
     // runs when form is submitted
     $('#strategyCreatorForm').submit(function() {
+
         // build json data from the form
         data = buildJSONFromForm(selectedStrategy);
 
