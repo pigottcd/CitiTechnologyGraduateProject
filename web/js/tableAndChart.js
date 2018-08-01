@@ -1,3 +1,49 @@
+function timeInSecondsToInUnit (time) {
+    if (time/60 < 1) {
+        return [time, "seconds"];
+    }
+    else {
+        if (time/3600 < 1) {
+            return [time/60, "minutes"];
+        }
+        else {
+            return [time/3600, "hours"];
+        }
+    }
+
+}
+function populateStrategyCreatorFields (strategyData) {
+    let strategyType = strategyData['type'];
+    let stockTag = strategyData['ticker'];
+    let profitLossPercentage = strategyData['pandL'];
+    let amountOfShares = strategyData['quantity'];
+
+    $('#stockTag').val(stockTag);
+    $('#profitLossPercentage').val(profitLossPercentage*100);
+    $('#amountOfShares').val(amountOfShares);
+
+    if (strategyType=='TwoMovingAverages') {
+        $('#strategySelector').val("twoMovingAverages");
+
+        let longAverageInSeconds = strategyData['longPeriod'];
+        let longAverageParams = timeInSecondsToInUnit(longAverageInSeconds);
+        $('#longAverage').val(longAverageParams[0]);
+        $('#longAverageTimeUnit').val(longAverageParams[1]);
+
+        let shortAverageInSeconds = strategyData['shortPeriod'];
+        let shortAverageParams = timeInSecondsToInUnit(shortAverageInSeconds);
+        $('#shortAverage').val(shortAverageParams[0]);
+        $('#shortAverageTimeUnit').val(shortAverageParams[1]);
+    }
+}
+function terminateStrategy(data) {
+    let url = 'http://localhost:8081/strategies/strategy_id/' + data['id'].toString();
+    console.log(url);
+    $.ajax({
+        url: url,
+        type: 'DELETE'
+    })
+}
 function dateTimeToDates(elm) {
     let year = elm.time.year;
     let month = elm.time.monthValue;
@@ -38,17 +84,18 @@ $(document).ready(function() {
                     "data": null,
                     "defaultContent": "",
                     "render": function(data, type, row) {
-                        console.log(row, data);
                         if (data['active']==true) {
-                            return "<div class='form-inline mx-auto'><button>Clone</button><form id='terminate'></form><button>Terminate</button></div>";
+                            return "<div class='form-inline mx-auto'><button class='cloneStrategyButton'>Clone</button><button class='terminateStrategyButton'>Terminate</button></div>";
                         }
                         else {
-                            return "<div class='form-inline mx-auto'><button>Clone</button><form id='terminate'></form></div>";
+                            return "<div class='form-inline mx-auto'><button class='cloneStrategyButton'>Clone</button></div>";
                         }
                     }
 
                 }
             ],
+            "scrollY": "300px",
+            "paging": false,
             data: strategyData,
             columns: [
                 { data: 'id', title: 'ID' },
@@ -63,6 +110,23 @@ $(document).ready(function() {
             ]
         });
 
+        $('.cloneStrategyButton').click(function() {
+            let strategyDataFromRow = strategyTable.row($(this).parents("tr")).data();
+            populateStrategyCreatorFields(strategyDataFromRow);
+        });
+
+        $('.terminateStrategyButton').click(function () {
+            let strategyDataFromRow = strategyTable.row($(this).parents("tr")).data();
+            let url = 'http://localhost:8081/strategies/strategy_id/' + strategyDataFromRow['id'].toString();
+            console.log(url);
+            $.ajax({
+                url: url,
+                type: 'DELETE'
+            }).then(function() {
+                location.reload();
+            })
+        });
+
         // get latest strategy id
         let lastRowID = strategyTable.row( ':last', {order: 'applied'}).data()['id'];
 
@@ -74,15 +138,17 @@ $(document).ready(function() {
 
 
             let orderTable = $('#orderTable').DataTable({
+                "scrollY": "300px",
+                "paging": false,
                 data: orderData,
                 columns: [
-                    { data: 'id', title: 'id' },
-                    { data: 'buy', title: 'buy' },
-                    { data: 'price', title: 'price' },
-                    { data: 'size', title: 'size' },
-                    { data: 'stock', title: 'stock' },
-                    { data: 'time', title: 'time' },
-                    { data: 'status', title: 'status' },
+                    { data: 'id', title: 'ID' },
+                    { data: 'buy', title: 'Buy/Sell' },
+                    { data: 'price', title: 'Price' },
+                    { data: 'size', title: 'Size' },
+                    { data: 'stock', title: 'Ticker Symbol' },
+                    { data: 'time', title: 'Time' },
+                    { data: 'status', title: 'Status' },
                 ]
             });
 
