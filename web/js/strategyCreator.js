@@ -133,9 +133,17 @@ function buildJSONFromForm(strategy) {
 }
 
 function sendJSONToAPI(strategy, data) {
+    let url = 'http:localhost:8081/';
+
+    if (strategy!='user') {
+        url += 'strat/'
+    }
+    else {
+        url += 'user/'
+    }
     // strategy will be used to route to the right url
     $.ajax({
-        url: "http://localhost:8081",
+        url: url,
         crossOrigin: true,
         type: "POST",
         data: data,

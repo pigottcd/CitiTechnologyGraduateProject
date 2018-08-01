@@ -17,10 +17,12 @@ h3 {
 [class*="col-"] {
   padding-top: .5rem;
   padding-bottom: .5rem;
-  background-color: rgba(86, 61, 124, .15);
+  background-color: rgba(72, 77, 83, .15);
+  border: 1px solid rgba(72, 77, 83, .2);
+}
+.border {
   border: 1px solid rgba(86, 61, 124, .2);
 }
-
 hr {
   margin-top: 2rem;
   margin-bottom: 2rem;

@@ -7,13 +7,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-
-@RequestMapping("/")
+@RequestMapping("/users/")
 @CrossOrigin
 public class UserController {
 
     @Autowired
     private UserService service;
+
     @RequestMapping(method = RequestMethod.GET)
     Iterable<User> findAll() {
         return service.getUsers();

@@ -1,6 +1,6 @@
 // returns a html table created from json data
-function createTable(data) {
-    let tableBody = '<table class="table table-striped table-sm"><thead><tr>';
+function createTable(data, tableName) {
+    let tableBody = '<table class="table table-sm" id="'+tableName+'"><thead><tr>';
     for (value in data[0]) {
         tableBody+='<th>';
         tableBody+=value;
@@ -25,7 +25,7 @@ function createChartData(data) {
     let chartData =[[],[]];
     data.forEach(function(elm) {
         // elm.colName dependent on json data
-        chartData[0].push(elm.name);
+        chartData[0].push(elm.ticker);
         chartData[1].push(elm.id);
     });
     return chartData;
@@ -38,7 +38,7 @@ function getRowData(row) {
     }).get();
     let newRowData = [[], []];
     //categories, rowData[1] is a name
-    newRowData[0].push(rowData[1]);
+    newRowData[0].push(rowData[2]);
     // values, rowData[0] is a number
     newRowData[1].push(parseInt(rowData[0]));
     return newRowData;
@@ -49,22 +49,23 @@ $(document).ready(function() {
 
     // start ajax call, then process the data
     $.ajax({
-        url: "http://localhost:8081/",
+        url: "http://localhost:8081/strategies/",
         crossOrigin: true
     }).then(function(data) {
 
         // create table
-        let tableBody = createTable(data);
+        let tableBody = createTable(data, "strategyTable");
 
         // push table to strategyTable div tag
-        $('#strategyTable').html(tableBody);
+        $('#strategyTableDiv').html(tableBody);
+        $('#strategyTable').DataTable();
 
         // create data for chart
         // work on implementation here, redundant json processing (already processed for table)
         let chartData  = createChartData(data); //categories:chartData[0], values:chartData[1]
 
         // create and push chart to myChart chart tag
-        let ctx = $('#myChart')[0].getContext('2d');
+        let ctx = $('#strategyGraph')[0].getContext('2d');
         myChart = new Chart(ctx, {
             type: 'bar',
             data: {
@@ -101,9 +102,34 @@ $(document).ready(function() {
                 }
             }
         });
+        // generate orders table
+        let url = "http://localhost:8081/orders/strategy_id/5";
+
+
+        $.ajax({
+            url: url,
+            crossOrigin: true
+        }).then(function(data) {
+
+            // create table
+            let tableBody = createTable(data, "orderTable");
+
+
+            $('#orderTableDiv').html(tableBody);
+            $('#orderTable').DataTable().column(0).visible(false);
+        });
+
+        var tabletest = $('#orderTable');
+        $('#orderTable tbody').on('click', 'tr', function() {
+            console.log(tabletest.row(this).data());
+        });
+
+
 
         // runs when a row is clicked
         $('.clickableRow').click(function() {
+            console.log(this);
+            console.log($('#orderTable').DataTable().row(0).data());
 
             // get data from row
             rowData = getRowData(this);
@@ -112,13 +138,13 @@ $(document).ready(function() {
             myChart.destroy();
 
             // create a new chart with data form the clicked row
-            let ctx = document.getElementById("myChart").getContext('2d');
+            let ctx = document.getElementById("strategyGraph").getContext('2d');
             myChart = new Chart(ctx, {
                 type: 'bar',
                 data: {
                     labels: rowData[0],
                     datasets: [{
-                        label: 'User ids',
+                        label: 'Ticker ID',
                         data: rowData[1],
                         backgroundColor: [
                             'rgba(255, 99, 132, 0.2)'
@@ -140,6 +166,26 @@ $(document).ready(function() {
                 }
             });
 
+            // generate orders table
+            let url = "http://localhost:8081/orders/strategy_id/" + rowData[1].toString();
+
+
+            $.ajax({
+                url: url,
+                crossOrigin: true
+            }).then(function(data) {
+
+                // create table
+                let tableBody = createTable(data, "orderTable");
+
+
+                $('#orderTableDiv').html(tableBody);
+                $('#orderTable').DataTable().column(0).visible(false);
+            });
+
+
         });
     });
+
+
 });

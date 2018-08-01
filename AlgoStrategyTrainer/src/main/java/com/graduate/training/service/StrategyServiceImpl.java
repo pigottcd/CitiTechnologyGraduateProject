@@ -51,6 +51,14 @@ public class StrategyServiceImpl implements StrategyService {
         dao.save(s);
     }
 
+    public Iterable<Strategy> getStrategies(){
+        return dao.findAll();
+    }
+
+    public Iterable<Strategy> getActiveStrategies(){
+        return dao.findByActiveIsTrue();
+    }
+
     @Scheduled(fixedDelay = 2000)
     @Transactional(propagation = Propagation.REQUIRED)
     public void runStrategies() {
