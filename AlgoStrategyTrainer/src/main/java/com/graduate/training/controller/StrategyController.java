@@ -5,6 +5,8 @@ import com.graduate.training.service.StrategyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/strategies/")
 @CrossOrigin
@@ -16,7 +18,7 @@ public class StrategyController {
     Iterable<Strategy> findAll() {return service.getStrategies();}
 
     @GetMapping(value = "active/")
-    Iterable<Strategy> findAllActive() {return service.getActiveStrategies();}
+    List<Strategy> findAllActive() {return service.getActiveStrategies();}
 
     @PostMapping
     void addStrategy(@RequestBody Strategy strategy) {service.addStrategy(strategy);}

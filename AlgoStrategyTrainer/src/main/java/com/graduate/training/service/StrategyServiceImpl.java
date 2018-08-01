@@ -55,7 +55,7 @@ public class StrategyServiceImpl implements StrategyService {
         return dao.findAll();
     }
 
-    public Iterable<Strategy> getActiveStrategies(){
+    public List<Strategy> getActiveStrategies(){
         return dao.findByActiveIsTrue();
     }
 

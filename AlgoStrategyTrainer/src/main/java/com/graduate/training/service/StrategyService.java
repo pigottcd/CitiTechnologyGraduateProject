@@ -7,5 +7,5 @@ public interface StrategyService {
     void addStrategy(Strategy s);
     void runStrategies();
     Iterable<Strategy> getStrategies();
-    Iterable<Strategy> getActiveStrategies();
+    List<Strategy> getActiveStrategies();
 }

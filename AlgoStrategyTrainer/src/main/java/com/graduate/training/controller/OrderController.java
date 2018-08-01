@@ -5,6 +5,8 @@ import com.graduate.training.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 //@RequestMapping("/orders/")
 @CrossOrigin
@@ -14,9 +16,8 @@ public class OrderController {
     private OrderService service;
 
     @GetMapping(value = "/orders/strategy_id/{id}")
-    public Iterable<Order> findOrdersByStrategyId(@PathVariable Integer id){
-        Iterable<Order> orderIterables = service.getOrderByStrategyID(id);
-        return orderIterables;
+    public List<Order> findOrdersByStrategyId(@PathVariable Integer id){
+        return service.getOrderByStrategyID(id);
     }
     // Need to implement requests
 }
