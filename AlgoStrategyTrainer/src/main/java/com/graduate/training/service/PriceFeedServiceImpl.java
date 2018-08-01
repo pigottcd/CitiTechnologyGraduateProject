@@ -55,7 +55,7 @@ public class PriceFeedServiceImpl implements PriceFeedService {
             return;
         }
         listing.activeCount--;
-        if(listing.activeCount >= 0) {
+        if(listing.activeCount <= 0) {
             activeListings.remove(ticker);
         }
     }

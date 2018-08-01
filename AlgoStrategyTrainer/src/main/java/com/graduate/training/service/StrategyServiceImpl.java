@@ -50,6 +50,20 @@ public class StrategyServiceImpl implements StrategyService {
         strategies.add(algo);
         dao.save(s);
     }
+    public void removeStrategy(int id){
+        Iterator<StrategyAlgo> i = strategies.iterator();
+        while (i.hasNext()) {
+            StrategyAlgo s = i.next();
+            if(s.getId() == id){
+                feed.deregister(s.getTicker());
+                s.setActive(false);
+                dao.save(s.getStrategy());
+                System.out.println("Exiting Strategy " + s.getId());
+                i.remove();
+                return;
+            }
+        }
+    }
 
     public Iterable<Strategy> getStrategies(){
         return dao.findAll();
@@ -67,6 +81,7 @@ public class StrategyServiceImpl implements StrategyService {
         //run all active strats
         //send any generated trades
         Iterator<StrategyAlgo> i = strategies.iterator();
+        List<Integer> removeIds = new ArrayList<>();
         while (i.hasNext()) {
             StrategyAlgo s = i.next();
             System.out.println("Running strat: " + s.getId());
@@ -76,11 +91,7 @@ public class StrategyServiceImpl implements StrategyService {
             );
             if(exitingOrder != null) {
                 orderService.addOrder(exitingOrder);
-                feed.deregister(s.getTicker());
-                s.setActive(false);
-                dao.save(s.getStrategy());
-                System.out.println("Exiting Strategy " + s.getId());
-                i.remove();
+                removeIds.add(s.getId());
                 continue;
             }
             //pass all orders into a new stratalgo function "calculateExit"
@@ -89,6 +100,9 @@ public class StrategyServiceImpl implements StrategyService {
                 orderService.addOrder(newOrder);
             }
 
+        }
+        for(int idToRemove : removeIds) {
+            removeStrategy(idToRemove);
         }
     }
 }
