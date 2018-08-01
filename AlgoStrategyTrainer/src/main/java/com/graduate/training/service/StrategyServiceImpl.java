@@ -14,7 +14,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import java.sql.SQLOutput;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 @EnableScheduling
@@ -44,6 +46,7 @@ public class StrategyServiceImpl implements StrategyService {
             System.out.println("ERROR: expected valid strategy type got: " + s.getType());
             return;
         }
+        feed.register(s.getTicker());
         strategies.add(algo);
         dao.save(s);
     }
@@ -55,15 +58,27 @@ public class StrategyServiceImpl implements StrategyService {
         //db query for active strats
         //run all active strats
         //send any generated trades
-        for(StrategyAlgo s : strategies) {
+        Iterator<StrategyAlgo> i = strategies.iterator();
+        while (i.hasNext()) {
+            StrategyAlgo s = i.next();
             System.out.println("Running strat: " + s.getId());
             //get all orders per strat id from dao
-
+            Order exitingOrder = s.calculateExit(
+                    feed.getCurrentPrice(s.getTicker()), orderService.getOrderByStrategyID(s.getId())
+            );
+            if(exitingOrder != null) {
+                orderService.addOrder(exitingOrder);
+                feed.deregister(s.getTicker());
+                System.out.println("Exiting Strategy " + s.getId());
+                i.remove();
+                continue;
+            }
             //pass all orders into a new stratalgo function "calculateExit"
             Order newOrder = s.runStrategy(feed);
             if(newOrder != null) {
                 orderService.addOrder(newOrder);
             }
+
         }
     }
 }

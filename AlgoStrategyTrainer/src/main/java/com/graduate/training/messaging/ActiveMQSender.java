@@ -15,14 +15,11 @@ import java.util.UUID;
 @Component
 public class ActiveMQSender {
     private JmsTemplate jmsTemplate;
-    @PersistenceContext
-    private EntityManager em;
     @Autowired
     public ActiveMQSender(JmsTemplate template) {
         this.jmsTemplate = template;
     }
     public void send(Order message) {
-        em.persist(message);
         jmsTemplate.send("OrderBroker",
                 (Session session)-> {
                     Message m = session.createTextMessage(message.toString());

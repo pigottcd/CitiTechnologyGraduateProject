@@ -20,15 +20,19 @@ public class Strategy {
     @Column(name = "short_period") private Integer shortPeriod;
     @Column(name = "long_period")  private Integer longPeriod;
 
+
+    @Column(name = "p_and_l")      private Double pAndL;
+
     public Strategy() {}
     public Strategy(String type, String ticker, Boolean active, Integer quantity,
-                    Integer shortPeriod, Integer longPeriod) {
+                    Integer shortPeriod, Integer longPeriod, double pAndL) {
         this.type = type;
         this.ticker = ticker;
         this.active = active;
         this.quantity = quantity;
         this.shortPeriod = shortPeriod;
         this.longPeriod = longPeriod;
+        this.pAndL = pAndL;
     }
 
     public Integer getQuantity() {
@@ -85,5 +89,9 @@ public class Strategy {
 
     public void setLongPeriod(Integer longPeriod) {
         this.longPeriod = longPeriod;
+    }
+
+    public Double getPAndL() {
+        return pAndL;
     }
 }
