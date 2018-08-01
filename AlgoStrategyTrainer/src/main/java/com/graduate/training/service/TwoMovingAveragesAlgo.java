@@ -53,14 +53,4 @@ public class TwoMovingAveragesAlgo extends StrategyAlgo {
         longAverage = currentLongAverage;
         return newOrder;
     }
-    private double getAverage (List<Double> range){
-        if (range.size() == 0) {
-            return 0;
-        }
-        double sum = 0.0;
-        for (double price : range){
-            sum += price;
-        }
-        return sum/range.size();
-    }
 }
