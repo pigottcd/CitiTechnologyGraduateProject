@@ -31,7 +31,7 @@ public class StrategyController {
     }
 
     @DeleteMapping(value = "strategy_id/{id}")
-    public void deactivateStrategy(@RequestBody Integer id){
+    public void deactivateStrategy(@PathVariable Integer id){
         service.deactivateStrategy(id);
     }
 

@@ -50,7 +50,7 @@ public class StrategyServiceImpl implements StrategyService {
         strategies.add(algo);
         dao.save(s);
     }
-    public void removeStrategy(int id){
+    public void deactivateStrategy(Integer id){
         Iterator<StrategyAlgo> i = strategies.iterator();
         while (i.hasNext()) {
             StrategyAlgo s = i.next();
@@ -106,7 +106,7 @@ public class StrategyServiceImpl implements StrategyService {
 
         }
         for(int idToRemove : removeIds) {
-            removeStrategy(idToRemove);
+            deactivateStrategy(idToRemove);
         }
     }
 }
