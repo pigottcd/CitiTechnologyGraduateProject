@@ -127,12 +127,17 @@ $(document).ready(function() {
                 })
             });
 
+            $('#strategyTable tr').click(function() {
+                console.log("clicked");
+                let rowID = strategyTable.row(this).data()['id'];
+                orderTable.ajax.url("http://localhost:8081/orders/strategy_id/"+rowID.toString()+"/").load();
+            });
+
             // get latest strategy id
             let lastRowID = strategyTable.row( ':last', {order: 'applied'}).data()['id'];
-            let orderTableAJAXURL = "http://localhost:8081/orders/strategy_id/"+lastRowID.toString()+"/";
             let orderTable = $('#orderTable').DataTable({
                 "ajax":{
-                    "url":orderTableAJAXURL,
+                    "url":"http://localhost:8081/orders/strategy_id/"+lastRowID.toString()+"/",
                     "dataSrc":""
                 },
                 "columnDefs": [
@@ -163,7 +168,6 @@ $(document).ready(function() {
             });
             setInterval(function() {
                 orderTable.ajax.reload();
-                console.log("reloaded")
             }, 5000);
 
         }
