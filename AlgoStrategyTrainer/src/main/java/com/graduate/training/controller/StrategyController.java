@@ -21,7 +21,11 @@ public class StrategyController {
     List<Strategy> findAllActive() {return service.getActiveStrategies();}
 
     @PostMapping
-    void addStrategy(@RequestBody Strategy strategy) {service.addStrategy(strategy);}
-
+    void addStrategy(@RequestBody Strategy strategy) {
+        System.out.println(strategy.getQuantity());
+        System.out.println(strategy.getType());
+        System.out.println(strategy.getPAndL());
+        service.addStrategy(strategy);
+    }
 
 }   
