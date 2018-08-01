@@ -77,6 +77,8 @@ public class StrategyServiceImpl implements StrategyService {
             if(exitingOrder != null) {
                 orderService.addOrder(exitingOrder);
                 feed.deregister(s.getTicker());
+                s.setActive(false);
+                dao.save(s.getStrategy());
                 System.out.println("Exiting Strategy " + s.getId());
                 i.remove();
                 continue;

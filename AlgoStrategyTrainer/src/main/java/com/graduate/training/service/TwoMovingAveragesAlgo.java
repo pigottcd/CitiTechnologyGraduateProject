@@ -3,10 +3,13 @@ package com.graduate.training.service;
 import com.graduate.training.entities.Order;
 import com.graduate.training.entities.Strategy;
 
+
 import java.time.LocalDateTime;
 import java.util.List;
 
+
 public class TwoMovingAveragesAlgo extends StrategyAlgo {
+
 
     private int shortPeriod;
     private int longPeriod;
