@@ -8,4 +8,6 @@ public interface StrategyService {
     void runStrategies();
     Iterable<Strategy> getStrategies();
     List<Strategy> getActiveStrategies();
+    Strategy getStrategyById(Integer id);
+    void deactivateStrategy(Integer id);
 }
