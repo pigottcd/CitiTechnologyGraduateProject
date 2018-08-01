@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface OrderService {
     Order getOrderByID(Integer id);
-    Iterable<Order> getOrderByStrategyID(Integer strategyID);
+    List<Order> getOrderByStrategyID(Integer strategyID);
     void addOrder(Order order);
 
 }

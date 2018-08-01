@@ -24,7 +24,7 @@ public class OrderServiceImpl implements OrderService {
         return dao.findById(id);
     }
 
-    public Iterable<Order> getOrderByStrategyID(Integer strategyID){
+    public List<Order> getOrderByStrategyID(Integer strategyID){
         return dao.findByStrategyId(strategyID);
     }
 

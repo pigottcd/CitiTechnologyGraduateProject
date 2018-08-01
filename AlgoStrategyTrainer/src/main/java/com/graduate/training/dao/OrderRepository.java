@@ -11,6 +11,6 @@ import java.util.List;
 @Repository
 @Transactional(propagation = Propagation.REQUIRED)
 public interface OrderRepository extends CrudRepository<Order, Integer> {
-    Iterable<Order> findByStrategyId(Integer strategyId);
+    List<Order> findByStrategyId(Integer strategyId);
     Order findById(Integer id);
 }

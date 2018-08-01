@@ -19,33 +19,7 @@ public class TwoMovingAveragesAlgo extends StrategyAlgo {
         this.longPeriod = longPeriod;
     }
 
-    Order calculateExit(double price, List<Order> orders) {
-        if (orders.size() == 0) {
-            return null;
-        }
-        int totalQuantity = 0;
-        double totalOutstanding = 0;
-        for (Order o : orders) {
-            if (o.isBuy()) {
-                totalQuantity += o.getSize();
-                totalOutstanding += o.getSize() * o.getPrice();
-            }
-            else {
-                totalQuantity -= o.getSize();
-                totalOutstanding -= o.getSize() * o.getPrice();
-            }
-        }
-        System.out.println("TOTAL QUANTITY: " + totalQuantity);
-        totalOutstanding -= totalQuantity * price;
-        System.out.println("Total Outstanding: " + totalOutstanding + ", Limit: " +
-                getPAndL() * getQuantity() * orders.get(0).getPrice());
-        if (Math.abs(totalOutstanding) > Math.abs(getPAndL() * getQuantity() * orders.get(0).getPrice())) {
-            if (totalQuantity > 0) {
-                return new Order(false, price, getQuantity(), getTicker(), LocalDateTime.now(), getId());
-            }
-        }
-        return null;
-    }
+
     Order runStrategy(PriceFeedService priceFeed) {
         Order newOrder = null;
         String ticker = getTicker();
