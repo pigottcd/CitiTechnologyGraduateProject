@@ -73,6 +73,8 @@ function dateTimeToDate(obj) {
 }
 $(document).ready(function() {
 
+    strategyTableRowClicked = false;
+
     let strategyTable = $('#strategyTable').DataTable({
         "ajax": {
             "url": "http://localhost:8081/strategies/",
@@ -86,8 +88,19 @@ $(document).ready(function() {
             else {
                 $(row).addClass("table-danger");
             }
+
+            if (strategyTableRowClicked) {
+                if (data['id'] == rowID) {
+                    $(row).css({"outline-style":"solid", "outline-color":"rgba(0, 0, 0, 0.275)", "outline-offset":"-3px"});
+                    $(row).addClass("outlined");
+                }
+            }
         },
         "columnDefs": [
+            {
+                "width": "10px",
+                "targets": 4
+            },
             {
                 "targets": [3],
                 "visible": false
@@ -98,27 +111,29 @@ $(document).ready(function() {
                 "defaultContent": "",
                 "render": function (data, type, row) {
                     if (data['active'] == true) {
-                        return "<div class='form-inline mx-auto'><button class='cloneStrategyButton'>Clone</button><button class='terminateStrategyButton'>Terminate</button></div>";
+                        return "<div class='form-inline mx-auto'><button class='cloneStrategyButton'>Clone</button><div class='mx-auto'><button class='terminateStrategyButton'>Terminate</button></div></div>";
                     }
                     else {
-                        return "<div class='form-inline mx-auto'><button class='cloneStrategyButton'>Clone</button></div>";
+                        return "<div class='form-inline mx-auto'><button class='cloneStrategyButton'>Clone</button><div class='mx-auto'><p>Terminated</p></div></div>";
                     }
                 }
 
             }
         ],
-        "scrollY": "300px",
+        "scrollY": "225px",
+        "scrollX": false,
         "paging": false,
+        "searching": false,
         columns: [
             {data: 'id', title: 'ID'},
             {data: 'type', title: 'Strategy Type'},
             {data: 'ticker', title: 'Ticker Symbol'},
             {data: 'active', title: 'Active'},
-            {data: 'quantity', title: 'Quantity'},
+            {data: 'quantity', title: 'Quantity', "width": 50},
             {data: 'shortPeriod', title: 'Short Period'},
             {data: 'longPeriod', title: 'Long Period'},
             {data: 'pandL', title: 'P/L'},
-            {data: null, "width": "150px"}
+            {data: null}
         ],
         "order": [[0,"desc"]],
         "initComplete": function(strategyTableSettings, strategyTableJson) {
@@ -128,7 +143,7 @@ $(document).ready(function() {
                 $('html, body').animate({
                     scrollTop: 0
                 }, 500);
-                $('#top').fadeOut(400).fadeIn(400).fadeOut(400).fadeIn(400);
+                $('#top').fadeOut(250).fadeIn(250);
             });
 
             $('#strategyTable').on("click", ".terminateStrategyButton", function () {
@@ -146,6 +161,11 @@ $(document).ready(function() {
             strategyTableRowClicked = false;
             $('#strategyTable').on("click", "tr", function() {
                 strategyTableRowClicked = true;
+                if (typeof rowID != "undefined") {
+                    $('#strategyTable tr.outlined').css({"outline-style":"", "outline-color":"", "outline-offset":""}).removeClass("outlined");
+                }
+                $(this).css({"outline-style":"solid", "outline-color":"rgba(0, 0, 0, 0.275)", "outline-offset":"-3px"});
+                $(this).addClass("outlined");
                 rowID = strategyTable.row(this).data()['id'];
                 orderTable.ajax.url("http://localhost:8081/orders/strategy_id/"+rowID.toString()+"/").load();
             });
@@ -174,6 +194,7 @@ $(document).ready(function() {
                 "columnDefs": [
                     {
                         "targets": [1],
+                        "width": 30,
                         "render": function(data, type, row) {
                             if (data==true) {
                                 return "Buy";
@@ -187,7 +208,7 @@ $(document).ready(function() {
                     {
                         "targets": [5],
                         "render": function(data) {
-                            return dateTimeToDate(data);
+                            return dateTimeToDate(data).toDateString();
                         }
                     },
                     {
@@ -197,15 +218,15 @@ $(document).ready(function() {
                         }
                     }
                 ],
-                "scrollY": "300px",
+                "scrollY": "225px",
                 "paging": false,
-                "searching": true,
+                "searching": false,
                 columns: [
                     { data: 'id', title: 'ID' },
-                    { data: 'buy', title: 'Buy/Sell' },
+                    { data: 'buy', title: 'Buy/Sell', "width": 20 },
                     { data: 'price', title: 'Price' },
                     { data: 'size', title: 'Size' },
-                    { data: 'stock', title: 'Ticker Symbol' },
+                    { data: 'stock', title: 'Ticker Symbol', "width": 20 },
                     { data: 'time', title: 'Time' },
                     { data: 'status', title: 'Status' },
                 ],
@@ -223,7 +244,7 @@ $(document).ready(function() {
                             datasets: [{
                                 data: prices,
                                 borderColor: 'rgba(0, 123, 255, 1)',
-                                borderWidth: 5,
+                                borderWidth: 2,
                                 fill: false,
                                 lineTension: 0,
                                 label: "Price of Stock per Share",
@@ -234,7 +255,7 @@ $(document).ready(function() {
                                     data: pAndL,
                                     borderColor: 'rgba(40, 167, 69, 1)',
                                     backgroundColor: 'rgba(40, 167, 69, .5)',
-                                    borderWidth: 5,
+                                    borderWidth: 2,
                                     fill: true,
                                     lineTension: 0,
                                     steppedLine: true,
@@ -245,6 +266,8 @@ $(document).ready(function() {
                                 ]
                         },
                         options: {
+                            responsive: true,
+                            maintainAspectRatio: false,
                             title: {
                                 display: true,
                                 text: 'Value vs. Time'
