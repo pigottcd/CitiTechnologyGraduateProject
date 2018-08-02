@@ -3,7 +3,7 @@ package com.training.graduate.controller.test;
 import com.graduate.training.controller.OrderController;
 import com.graduate.training.entities.Order;
 import com.graduate.training.service.OrderService;
-import com.graduate.training.service.OrderServiceImpl;
+import com.graduate.training.service.StrategyService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -21,6 +21,7 @@ import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.List;
 
+import static com.sun.javaws.JnlpxArgs.verify;
 import static org.hamcrest.CoreMatchers.is;
 import static org.mockito.BDDMockito.given;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -30,25 +31,18 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @RunWith(SpringRunner.class)
 @WebMvcTest(OrderController.class)
 @ContextConfiguration(classes={com.graduate.training.AppConfig.class})
-@TestPropertySource(locations = "classpath:application-test.properties") // this is only needed because swagger breaks tests
-public class OrderControllerTest {
+@TestPropertySource(locations = "classpath:application-test.properties")
+public class StrategyControllerTest {
 
     @Autowired
     private MockMvc mockMvc;
 
     @MockBean
-    private OrderService service;
+    private StrategyService service;
 
     @Test
-    public void testThatCanConnect() throws Exception {
+    public void testThatCanConnect() {
 
-        Order order = new Order(true, 100.00, 100, "C", LocalDateTime.now(), 1);
-
-        given(service.getOrderByID(1)).willReturn(order);
-
-        mockMvc.perform(get("/orders/strategy_id/1")
-                .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().isOk());
     }
 
 }
