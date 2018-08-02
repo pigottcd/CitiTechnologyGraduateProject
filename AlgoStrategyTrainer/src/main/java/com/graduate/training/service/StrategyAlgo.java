@@ -10,6 +10,7 @@ import java.util.List;
 
 public abstract class StrategyAlgo {
 
+    private static final Logger LOGGER = LogManager.getLogger(StrategyAlgo.class);
     private Strategy strategy;
 
 
@@ -53,12 +54,13 @@ public abstract class StrategyAlgo {
                 totalOutstanding -= o.getSize() * o.getPrice();
             }
         }
-        System.out.println("TOTAL QUANTITY: " + totalQuantity);
-        totalOutstanding -= totalQuantity * price;
-        System.out.println("Total Outstanding: " + totalOutstanding + ", Limit: " +
-                strategy.getPAndL() * strategy.getQuantity() * orders.get(0).getPrice());
+;
         if (Math.abs(totalOutstanding) >
                 Math.abs(strategy.getPAndL() * strategy.getQuantity() * orders.get(0).getPrice())) {
+
+            LOGGER.info("Exit calculated wth total outstanding: " + totalOutstanding
+                    + "and P and L: " + strategy.getPAndL());
+
             if (totalQuantity > 0) {
                 return new Order(false, price, strategy.getQuantity(), getTicker(), LocalDateTime.now(), getId());
             }
