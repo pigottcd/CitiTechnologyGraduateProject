@@ -128,6 +128,7 @@ $(document).ready(function() {
                 $('html, body').animate({
                     scrollTop: 0
                 }, 500);
+                $('#top').fadeOut(400).fadeIn(400).fadeOut(400).fadeIn(400);
             });
 
             $('#strategyTable').on("click", ".terminateStrategyButton", function () {
