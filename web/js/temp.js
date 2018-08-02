@@ -44,12 +44,13 @@ function terminateStrategy(data) {
     })
 }
 function pricesToPAndL(data) {
-    let pAndL = [];
-    dif = 0;
+    let pAndL = [0];
+    let dif = 0;
     for (idx = 0; idx < data.length-1; idx=idx+2) {
+
+        dif = dif + Math.abs(data[idx]-data[idx+1]);
         pAndL.push(dif);
-        dif = Math.abs(data[idx]-data[idx+1]);
-        pAndL.push(dif);
+        pAndL.push(null);
     }
     return pAndL;
 }
@@ -120,7 +121,7 @@ $(document).ready(function() {
             {data: null, "width": "150px"}
         ],
         "order": [[0,"desc"]],
-        "initComplete": function(settings, json) {
+        "initComplete": function(strategyTableSettings, strategyTableJson) {
             $('#strategyTable').on("click", ".cloneStrategyButton", function () {
                 let strategyDataFromRow = strategyTable.row($(this).parents("tr")).data();
                 populateStrategyCreatorFields(strategyDataFromRow);
@@ -138,20 +139,32 @@ $(document).ready(function() {
                 })
             });
 
+            strategyTableRowClicked = false;
             $('#strategyTable').on("click", "tr", function() {
-                let rowID = strategyTable.row(this).data()['id'];
+                strategyTableRowClicked = true;
+                rowID = strategyTable.row(this).data()['id'];
                 orderTable.ajax.url("http://localhost:8081/orders/strategy_id/"+rowID.toString()+"/").load();
             });
             strategyTable.on('draw', function() {
-                let firstRowID = strategyTable.row( ':first', {order: 'applied'}).data()['id'];
-                orderTable.ajax.url("http://localhost:8081/orders/strategy_id/"+firstRowID.toString()+"/").load();
+                let url;
+                let id;
+                if (strategyTableRowClicked) {
+                    id = rowID.toString();
+                }
+                else {
+                    id = strategyTable.row( ':first', {order: 'applied'}).data()['id'].toString();
+                }
+                url = "http://localhost:8081/orders/strategy_id/"+id+"/";
+                orderTable.ajax.url(url).load();
+                $('#currentStrategy').text("Strategy "+id);
             });
 
             // get latest strategy id
-            let firstRowID = strategyTable.row( ':first', {order: 'applied'}).data()['id'];
+            let firstRowID = strategyTable.row( ':first', {order: 'applied'}).data()['id'].toString();
+            $('#currentStrategy').text("Strategy "+firstRowID);
             let orderTable = $('#orderTable').DataTable({
                 "ajax":{
-                    "url":"http://localhost:8081/orders/strategy_id/"+firstRowID.toString()+"/",
+                    "url":"http://localhost:8081/orders/strategy_id/"+firstRowID+"/",
                     "dataSrc":""
                 },
                 "columnDefs": [
@@ -172,10 +185,17 @@ $(document).ready(function() {
                         "render": function(data) {
                             return dateTimeToDate(data);
                         }
+                    },
+                    {
+                        "targets": [6],
+                        "render": function() {
+                            return "Filled";
+                        }
                     }
                 ],
                 "scrollY": "300px",
                 "paging": false,
+                "searching": true,
                 columns: [
                     { data: 'id', title: 'ID' },
                     { data: 'buy', title: 'Buy/Sell' },
@@ -185,10 +205,9 @@ $(document).ready(function() {
                     { data: 'time', title: 'Time' },
                     { data: 'status', title: 'Status' },
                 ],
-                "initComplete": function(settings, json) {
+                "initComplete": function(orderTableSettings, orderTableJson) {
                     let prices = orderTable.column(2).data();
                     let pAndL = pricesToPAndL(prices);
-                    console.log(pAndL);
                     let dates = orderTable.column(5).data();
                     dates = dates.map(dateTimeToDate);
 
@@ -199,41 +218,68 @@ $(document).ready(function() {
                             labels: dates,
                             datasets: [{
                                 data: prices,
-                                borderColor: 'rgba(0, 119, 204, 1)',
+                                borderColor: 'rgba(0, 123, 255, 1)',
                                 borderWidth: 5,
                                 fill: false,
-                                lineTension: 0
+                                lineTension: 0,
+                                label: "Price of Stock per Share",
+                                yAxisID: "y-axis-1"
 
                             },
                                 {
                                     data: pAndL,
-                                    borderColor: 'rgba(119, 119, 204, 1)',
-                                    backgroundColor: 'rgba(119, 119, 204, .5)',
+                                    borderColor: 'rgba(40, 167, 69, 1)',
+                                    backgroundColor: 'rgba(40, 167, 69, .5)',
                                     borderWidth: 5,
                                     fill: true,
                                     lineTension: 0,
-                                    steppedLine: true
+                                    steppedLine: true,
+                                    spanGaps: true,
+                                    label: "Profit/Loss per Share",
+                                    yAxisID: "y-axis-2"
                                 }
                                 ]
                         },
                         options: {
                             title: {
                                 display: true,
-                                text: 'Price vs. Time'
+                                text: 'Value vs. Time'
                             },
                             legend: {
-                                display: false
+                                display: true
                             },
                             scales: {
                                 yAxes: [{
                                     scaleLabel: {
                                         display: true,
-                                        labelString: "$"
+                                        labelString: "P r i c e ( $ )",
+                                        fontColor: 'rgba(0, 123, 255, 1)',
+                                        lineHeight: 1.5,
+                                        fontSize: 16
                                     },
                                     ticks: {
                                         beginAtZero: false
-                                    }
-                                }],
+                                    },
+                                    position: "left",
+                                    id: "y-axis-1"
+                                },
+                                    {
+                                        scaleLabel: {
+                                            display: true,
+                                            labelString: "P r o f i t ( $ )",
+                                            fontColor: 'rgba(40, 167, 69, 1)',
+                                            lineHeight: 1.5,
+                                            fontSize: 16
+                                        },
+                                        ticks: {
+                                            beginAtZero: false
+                                        },
+                                        gridLines: {
+                                            drawOnChartArea: false
+                                        },
+                                        position: "right",
+                                        id: "y-axis-2"
+                                    }],
                                 xAxes: [{
                                     scaleLabel: {
                                         display: false,
@@ -251,10 +297,12 @@ $(document).ready(function() {
                     orderTable.on('draw', function() {
 
                         let prices = orderTable.column(2).data();
+                        let pAndL = pricesToPAndL(prices);
                         let dates = orderTable.column(5).data();
                         dates = dates.map(dateTimeToDate);
                         chart.data.labels = dates;
-                        chart.data.datasets.data = prices;
+                        chart.data.datasets[0].data = prices;
+                        chart.data.datasets[1].data = pAndL
 
                         chart.update();
 
@@ -265,7 +313,8 @@ $(document).ready(function() {
 
 
             setInterval(function() {
-                orderTable.ajax.reload();
+                orderTable.ajax.reload(null, false);
+                strategyTable.ajax.reload(null, false);
             }, 5000);
 
         }
