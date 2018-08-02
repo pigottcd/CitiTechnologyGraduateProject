@@ -110,12 +110,12 @@ $(document).ready(function() {
             {data: null, "width": "150px"}
         ],
         "initComplete": function(settings, json) {
-            $('.cloneStrategyButton').click(function () {
+            $('#strategyTable').on("click", ".cloneStrategyButton", function () {
                 let strategyDataFromRow = strategyTable.row($(this).parents("tr")).data();
                 populateStrategyCreatorFields(strategyDataFromRow);
             });
 
-            $('.terminateStrategyButton').click(function () {
+            $('#strategyTable').on("click", ".terminateStrategyButton", function () {
                 let strategyDataFromRow = strategyTable.row($(this).parents("tr")).data();
                 let deleteUrl = 'http://localhost:8081/strategies/strategy_id/' + strategyDataFromRow['id'].toString();
 
@@ -129,9 +129,6 @@ $(document).ready(function() {
 
             $('#strategyTable').on("click", "tr", function() {
                 console.log("works after");
-            });
-            $('#strategyTable tr').click(function() {
-                console.log("clicked");
                 let rowID = strategyTable.row(this).data()['id'];
                 orderTable.ajax.url("http://localhost:8081/orders/strategy_id/"+rowID.toString()+"/").load();
             });
@@ -147,6 +144,7 @@ $(document).ready(function() {
                     {
                         "targets": [1],
                         "render": function(data, type, row) {
+                            console.log(data);
                             if (data['buy']==true) {
                                 return "Buy";
                             }
