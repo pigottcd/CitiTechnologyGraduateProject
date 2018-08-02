@@ -146,21 +146,25 @@ $(document).ready(function() {
                 orderTable.ajax.url("http://localhost:8081/orders/strategy_id/"+rowID.toString()+"/").load();
             });
             strategyTable.on('draw', function() {
-                let url = '';
+                let url;
+                let id;
                 if (strategyTableRowClicked) {
-                    url = "http://localhost:8081/orders/strategy_id/"+rowID.toString()+"/";
+                    id = rowID.toString();
                 }
                 else {
-                    url = "http://localhost:8081/orders/strategy_id/"+strategyTable.row( ':first', {order: 'applied'}).data()['id'].toString()+"/";
+                    id = strategyTable.row( ':first', {order: 'applied'}).data()['id'].toString();
                 }
+                url = "http://localhost:8081/orders/strategy_id/"+id+"/";
                 orderTable.ajax.url(url).load();
+                $('#currentStrategy').text("Strategy "+id);
             });
 
             // get latest strategy id
-            let firstRowID = strategyTable.row( ':first', {order: 'applied'}).data()['id'];
+            let firstRowID = strategyTable.row( ':first', {order: 'applied'}).data()['id'].toString();
+            $('#currentStrategy').text("Strategy "+firstRowID);
             let orderTable = $('#orderTable').DataTable({
                 "ajax":{
-                    "url":"http://localhost:8081/orders/strategy_id/"+firstRowID.toString()+"/",
+                    "url":"http://localhost:8081/orders/strategy_id/"+firstRowID+"/",
                     "dataSrc":""
                 },
                 "columnDefs": [
@@ -181,11 +185,17 @@ $(document).ready(function() {
                         "render": function(data) {
                             return dateTimeToDate(data);
                         }
+                    },
+                    {
+                        "targets": [6],
+                        "render": function() {
+                            return "Filled";
+                        }
                     }
                 ],
                 "scrollY": "300px",
                 "paging": false,
-                "searching": false,
+                "searching": true,
                 columns: [
                     { data: 'id', title: 'ID' },
                     { data: 'buy', title: 'Buy/Sell' },
@@ -198,7 +208,6 @@ $(document).ready(function() {
                 "initComplete": function(orderTableSettings, orderTableJson) {
                     let prices = orderTable.column(2).data();
                     let pAndL = pricesToPAndL(prices);
-                    console.log(pAndL);
                     let dates = orderTable.column(5).data();
                     dates = dates.map(dateTimeToDate);
 
