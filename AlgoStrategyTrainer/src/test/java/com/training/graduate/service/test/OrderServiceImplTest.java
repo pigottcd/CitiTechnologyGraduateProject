@@ -26,6 +26,10 @@ import static org.mockito.internal.verification.VerificationModeFactory.times;
 
 
 public class OrderServiceImplTest {
+    @Test
+    public void run() {
+        return;
+    }
     /*@InjectMocks
     private OrderServiceImpl service;
 

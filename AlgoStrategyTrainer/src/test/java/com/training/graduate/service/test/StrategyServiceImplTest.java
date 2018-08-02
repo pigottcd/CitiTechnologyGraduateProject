@@ -53,5 +53,9 @@ public class StrategyServiceImplTest {
         assertFalse(strategies.isEmpty());
 
     }*/
+    @Test
+    public void run() {
+        return;
+    }
 
 }
