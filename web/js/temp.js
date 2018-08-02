@@ -125,6 +125,9 @@ $(document).ready(function() {
             $('#strategyTable').on("click", ".cloneStrategyButton", function () {
                 let strategyDataFromRow = strategyTable.row($(this).parents("tr")).data();
                 populateStrategyCreatorFields(strategyDataFromRow);
+                $('html, body').animate({
+                    scrollTop: 0
+                }, 500);
             });
 
             $('#strategyTable').on("click", ".terminateStrategyButton", function () {
