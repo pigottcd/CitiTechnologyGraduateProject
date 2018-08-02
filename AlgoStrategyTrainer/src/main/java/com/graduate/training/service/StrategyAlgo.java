@@ -26,6 +26,16 @@ public abstract class StrategyAlgo {
     Strategy getStrategy() {
         return strategy;
     }
+    double getAverage (List<Double> range){
+        if (range.size() == 0) {
+            return 0;
+        }
+        double sum = 0.0;
+        for (double price : range){
+            sum += price;
+        }
+        return sum/range.size();
+    }
     Order calculateExit(double price, List<Order> orders) {
         if (orders.size() == 0) {
             return null;
