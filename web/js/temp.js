@@ -109,6 +109,7 @@ $(document).ready(function() {
             {data: 'pandL', title: 'P/L'},
             {data: null, "width": "150px"}
         ],
+        "order": [[0,"desc"]],
         "initComplete": function(settings, json) {
             $('#strategyTable').on("click", ".cloneStrategyButton", function () {
                 let strategyDataFromRow = strategyTable.row($(this).parents("tr")).data();
@@ -134,7 +135,7 @@ $(document).ready(function() {
             });
 
             // get latest strategy id
-            let lastRowID = strategyTable.row( ':last', {order: 'applied'}).data()['id'];
+            let lastRowID = strategyTable.row( ':first', {order: 'applied'}).data()['id'];
             let orderTable = $('#orderTable').DataTable({
                 "ajax":{
                     "url":"http://localhost:8081/orders/strategy_id/"+lastRowID.toString()+"/",
@@ -144,8 +145,7 @@ $(document).ready(function() {
                     {
                         "targets": [1],
                         "render": function(data, type, row) {
-                            console.log(data);
-                            if (data['buy']==true) {
+                            if (data==true) {
                                 return "Buy";
                             }
                             else {
