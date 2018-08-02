@@ -99,6 +99,7 @@ $(document).ready(function() {
             ],
             "scrollY": "300px",
             "paging": false,
+            "searching": false,
             data: strategyData,
             columns: [
                 { data: 'id', title: 'ID' },
@@ -160,6 +161,7 @@ $(document).ready(function() {
                 ],
                 "scrollY": "300px",
                 "paging": false,
+                "searching": false,
                 data: orderData,
                 columns: [
                     { data: 'id', title: 'ID' },

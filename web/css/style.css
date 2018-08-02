@@ -6,8 +6,7 @@ body {
 h3 {
   margin-top: 2rem;
 }
-
-.container-fluid .row, .container .row:last-child {
+.container {
   margin-bottom: 1rem;
 }
 .row .row {
@@ -66,4 +65,19 @@ hr {
 #strategyCreatorForm input::placeholder {
   font-style: italic;
 
+}
+#strategyCreatorForm * {
+  font-size: 14px;
+}
+th {
+  font-size: 12px;
+}
+
+td {
+  font-size: 12px;
+}
+
+#outlinedRow {
+  outline-syle: solid;
+  outline-color: red;
 }
