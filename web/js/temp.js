@@ -43,6 +43,16 @@ function terminateStrategy(data) {
         type: 'DELETE'
     })
 }
+function pricesToPAndL(data) {
+    let pAndL = [];
+    dif = 0;
+    for (idx = 0; idx < data.length-1; idx=idx+2) {
+        pAndL.push(dif);
+        dif = Math.abs(data[idx]-data[idx+1]);
+        pAndL.push(dif);
+    }
+    return pAndL;
+}
 function priceToPrices(elm) {
     return elm.price;
 }
@@ -132,12 +142,16 @@ $(document).ready(function() {
                 let rowID = strategyTable.row(this).data()['id'];
                 orderTable.ajax.url("http://localhost:8081/orders/strategy_id/"+rowID.toString()+"/").load();
             });
+            strategyTable.on('draw', function() {
+                let firstRowID = strategyTable.row( ':first', {order: 'applied'}).data()['id'];
+                orderTable.ajax.url("http://localhost:8081/orders/strategy_id/"+firstRowID.toString()+"/").load();
+            });
 
             // get latest strategy id
-            let lastRowID = strategyTable.row( ':first', {order: 'applied'}).data()['id'];
+            let firstRowID = strategyTable.row( ':first', {order: 'applied'}).data()['id'];
             let orderTable = $('#orderTable').DataTable({
                 "ajax":{
-                    "url":"http://localhost:8081/orders/strategy_id/"+lastRowID.toString()+"/",
+                    "url":"http://localhost:8081/orders/strategy_id/"+firstRowID.toString()+"/",
                     "dataSrc":""
                 },
                 "columnDefs": [
@@ -171,10 +185,85 @@ $(document).ready(function() {
                     { data: 'time', title: 'Time' },
                     { data: 'status', title: 'Status' },
                 ],
+                "initComplete": function(settings, json) {
+                    let prices = orderTable.column(2).data();
+                    let pAndL = pricesToPAndL(prices);
+                    console.log(pAndL);
+                    let dates = orderTable.column(5).data();
+                    dates = dates.map(dateTimeToDate);
+
+                    let ctx = $('#pAndLChart')[0].getContext('2d');
+                    let config = {
+                        type: 'line',
+                        data: {
+                            labels: dates,
+                            datasets: [{
+                                data: prices,
+                                borderColor: 'rgba(0, 119, 204, 1)',
+                                borderWidth: 5,
+                                fill: false,
+                                lineTension: 0
+
+                            },
+                                {
+                                    data: pAndL,
+                                    borderColor: 'rgba(119, 119, 204, 1)',
+                                    backgroundColor: 'rgba(119, 119, 204, .5)',
+                                    borderWidth: 5,
+                                    fill: true,
+                                    lineTension: 0,
+                                    steppedLine: true
+                                }
+                                ]
+                        },
+                        options: {
+                            title: {
+                                display: true,
+                                text: 'Price vs. Time'
+                            },
+                            legend: {
+                                display: false
+                            },
+                            scales: {
+                                yAxes: [{
+                                    scaleLabel: {
+                                        display: true,
+                                        labelString: "$"
+                                    },
+                                    ticks: {
+                                        beginAtZero: false
+                                    }
+                                }],
+                                xAxes: [{
+                                    scaleLabel: {
+                                        display: false,
+                                        labelString: "Time"
+                                    },
+                                    type: 'time',
+                                    time: {
+                                        unit: 'minute'
+                                    }
+                                }]
+                            }
+                        }
+                    };
+                    let chart = new Chart(ctx, config);
+                    orderTable.on('draw', function() {
+
+                        let prices = orderTable.column(2).data();
+                        let dates = orderTable.column(5).data();
+                        dates = dates.map(dateTimeToDate);
+                        chart.data.labels = dates;
+                        chart.data.datasets.data = prices;
+
+                        chart.update();
+
+                    });
+                }
             });
-            orderTable.on('draw', function() {
-                console.log('updated');
-            });
+
+
+
             setInterval(function() {
                 orderTable.ajax.reload();
             }, 5000);
