@@ -34,6 +34,10 @@ public class StrategyServiceImpl implements StrategyService {
         this.orderService = orderService;
         this.dao = dao;
         strategies = new ArrayList<>();
+        for(Strategy s : dao.findByActiveIsTrue()) {
+            addStrategy(s);
+        }
+
     }
 
     public void addStrategy(Strategy s) {
