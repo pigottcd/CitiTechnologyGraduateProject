@@ -16,6 +16,7 @@ public class TwoMovingAveragesAlgo extends StrategyAlgo {
     private int longPeriod;
     private double longAverage = 0;
     private double shortAverage = 0;
+    private Boolean pastBuy = null;
 
     public TwoMovingAveragesAlgo(Strategy strategy, int shortPeriod, int longPeriod) {
         super(strategy);
@@ -42,10 +43,22 @@ public class TwoMovingAveragesAlgo extends StrategyAlgo {
 
         double price = priceFeed.getCurrentPrice(ticker);
         if ((shortAverage > longAverage)&&(currentShortAverage < currentLongAverage)){
+            if (pastBuy == null) {
+                pastBuy = false;
+            } else if (!pastBuy) {
+                return newOrder;
+            }
+            pastBuy = false;
             newOrder = new Order(false, price,getStrategy().getQuantity(), ticker, LocalDateTime.now(), getId());
             System.out.println("New Sell Order:" + newOrder.toString());
         }
-        if ((longAverage > shortAverage)&&(currentLongAverage < currentShortAverage)) {
+        else if ((longAverage > shortAverage)&&(currentLongAverage < currentShortAverage)) {
+            if (pastBuy == null) {
+                pastBuy = true;
+            } else if (pastBuy) {
+                return newOrder;
+            }
+            pastBuy = true;
             newOrder = new Order(true, price, getStrategy().getQuantity(), ticker, LocalDateTime.now(), getId());
             System.out.println("New Buy Order:" + newOrder.toString());
         }
