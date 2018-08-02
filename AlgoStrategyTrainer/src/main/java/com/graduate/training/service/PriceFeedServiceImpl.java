@@ -53,18 +53,22 @@ public class PriceFeedServiceImpl implements PriceFeedService {
         }
     }
     public void deregister(String ticker) {
+        LOGGER.info("Deregistering ticker: " + ticker);
         PriceListing listing;
         if((listing = activeListings.get(ticker)) == null) {
+            LOGGER.warn("deregister, ticker: " + ticker + ", ticker not found");
             return;
         }
         listing.activeCount--;
         if(listing.activeCount <= 0) {
+            LOGGER.info("Ticker: " + ticker + " removed from map");
             activeListings.remove(ticker);
         }
     }
     public double getCurrentPrice(String ticker) {
         PriceListing listing;
         if ((listing = activeListings.get(ticker)) == null) {
+            LOGGER.warn("getCurrentPrice, ticker: " + ticker + ", ticker not found");
             return 0;
         }
         return listing.getCurrentPrice();
@@ -72,6 +76,7 @@ public class PriceFeedServiceImpl implements PriceFeedService {
     public List<Double> getPriceRange(String ticker) {
         PriceListing listing;
         if ((listing = activeListings.get(ticker)) == null) {
+            LOGGER.warn("getPriceRange, ticker: " + ticker + ", ticker not found");
             return new ArrayList<>();
         }
         return listing.prices;
@@ -79,10 +84,12 @@ public class PriceFeedServiceImpl implements PriceFeedService {
     public List<Double> getPriceRange(String ticker, int range) {
         PriceListing listing;
         if ((listing = activeListings.get(ticker)) == null) {
+            LOGGER.warn("getPriceRange, ticker: " + ticker + ", ticker not found");
+
             return new ArrayList<>();
         }
-        System.out.println("range: " + range + ", size: " + listing.prices.size());
         if(range > listing.prices.size()) {
+            LOGGER.info("getPriceRange, ticker: " + ticker +  "does not have enough current data, exiting");
             return new ArrayList<>();
         }
         return listing.prices.subList(listing.prices.size()-range, listing.prices.size());
@@ -95,7 +102,7 @@ public class PriceFeedServiceImpl implements PriceFeedService {
 
         for (PriceListing listing : activeListings.values()) {
             String price = template.getForObject(baseUrl + listing.ticker + "&f=p0", String.class);
-            System.out.println("Got price: " + price);
+            LOGGER.info("Got price: " + price.trim());
             listing.prices.add(Double.parseDouble(price));
         }
     }
