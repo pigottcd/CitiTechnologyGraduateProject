@@ -6,7 +6,8 @@ import com.graduate.training.entities.Strategy;
 
 import java.time.LocalDateTime;
 import java.util.List;
-
+import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
 
 public class TwoMovingAveragesAlgo extends StrategyAlgo {
 
