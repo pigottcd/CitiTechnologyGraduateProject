@@ -43,22 +43,22 @@ function terminateStrategy(data) {
         type: 'DELETE'
     })
 }
-function dateTimeToDates(elm) {
-    let year = elm.time.year;
-    let month = elm.time.monthValue;
-    let day = elm.time.dayOfMonth;
-    let hours = elm.time.hour;
-    let minutes = elm.time.minute;
-    let seconds = elm.time.second;
-    let milliseconds = elm.time.nano*(0.000001);
-    let date = new Date(year, month, day, hours, minutes, seconds, milliseconds);
-    return date;
-}
 function priceToPrices(elm) {
     return elm.price;
 }
 function timeToTimes(elm) {
-    return elm.time;
+    return obj;
+}
+function dateTimeToDate(obj) {
+    let year = obj.year;
+    let month = obj.monthValue;
+    let day = obj.dayOfMonth;
+    let hours = obj.hour;
+    let minutes = obj.minute;
+    let seconds = obj.second;
+    let milliseconds = obj.nano*(0.000001);
+    let date = new Date(year, month, day, hours, minutes, seconds, milliseconds);
+    return date;
 }
 $(document).ready(function() {
 
@@ -129,7 +129,6 @@ $(document).ready(function() {
             });
 
             $('#strategyTable').on("click", "tr", function() {
-                console.log("works after");
                 let rowID = strategyTable.row(this).data()['id'];
                 orderTable.ajax.url("http://localhost:8081/orders/strategy_id/"+rowID.toString()+"/").load();
             });
@@ -153,6 +152,12 @@ $(document).ready(function() {
                             }
                         }
 
+                    },
+                    {
+                        "targets": [5],
+                        "render": function(data) {
+                            return dateTimeToDate(data);
+                        }
                     }
                 ],
                 "scrollY": "300px",
@@ -165,7 +170,10 @@ $(document).ready(function() {
                     { data: 'stock', title: 'Ticker Symbol' },
                     { data: 'time', title: 'Time' },
                     { data: 'status', title: 'Status' },
-                ]
+                ],
+            });
+            orderTable.on('draw', function() {
+                console.log('updated');
             });
             setInterval(function() {
                 orderTable.ajax.reload();
