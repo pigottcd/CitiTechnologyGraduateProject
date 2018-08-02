@@ -62,3 +62,8 @@ hr {
   width: 110px;
   background-color: white;
 }
+
+#strategyCreatorForm input::placeholder {
+  font-style: italic;
+
+}
