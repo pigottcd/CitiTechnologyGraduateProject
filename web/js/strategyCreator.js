@@ -160,6 +160,7 @@ function sendJSONToAPI(strategy, data) {
         contentType: "application/json"
     }).then(function() {
         $('#strategyTable').DataTable().ajax.reload(null, false);
+        strategyTableRowClicked = false;
     });
 }
 

@@ -11,10 +11,8 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
-
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-import java.sql.SQLOutput;
+import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -22,14 +20,17 @@ import java.util.List;
 @EnableScheduling
 @Service
 public class StrategyServiceImpl implements StrategyService {
+    private static final Logger LOGGER = LogManager.getLogger(StrategyServiceImpl.class);
 
     private PriceFeedService feed;
     private OrderService orderService;
     private List<StrategyAlgo> strategies;
     private StrategyRepository dao;
-
+    private boolean startup;
     @Autowired
     public StrategyServiceImpl(OrderService orderService, PriceFeedService feed, StrategyRepository dao) {
+        startup = true;
+        //SimpleLayout  layout
         this.feed = feed;
         this.orderService = orderService;
         this.dao = dao;
@@ -37,17 +38,18 @@ public class StrategyServiceImpl implements StrategyService {
         for(Strategy s : dao.findByActiveIsTrue()) {
             addStrategy(s);
         }
-
+        startup = false;
     }
 
     public void addStrategy(Strategy s) {
+        LOGGER.info("Adding Strategy: " +s.getId());
         StrategyAlgo algo = null;
         switch(s.getType()) {
             case "TwoMovingAverages":
                 algo = new TwoMovingAveragesAlgo(s,s.getShortPeriod(), s.getLongPeriod());
         }
         if (algo == null) {
-            System.out.println("ERROR: expected valid strategy type got: " + s.getType());
+            LOGGER.error("Expected valid strategy type got: " + s.getType());
             return;
         }
         feed.register(s.getTicker());
@@ -59,14 +61,15 @@ public class StrategyServiceImpl implements StrategyService {
         while (i.hasNext()) {
             StrategyAlgo s = i.next();
             if(s.getId() == id){
+                LOGGER.info("Deactivating strategy: " + s.getId());
                 feed.deregister(s.getTicker());
                 s.setActive(false);
                 dao.save(s.getStrategy());
-                System.out.println("Exiting Strategy " + s.getId());
                 i.remove();
                 return;
             }
         }
+        LOGGER.warn("Deactivating strategy: " + id + " not found");
     }
 
     public Iterable<Strategy> getStrategies(){
@@ -84,7 +87,8 @@ public class StrategyServiceImpl implements StrategyService {
     @Scheduled(fixedDelay = 2000)
     @Transactional(propagation = Propagation.REQUIRED)
     public void runStrategies() {
-
+        if(startup)
+            return;
         //db query for active strats
         //run all active strats
         //send any generated trades
@@ -92,12 +96,13 @@ public class StrategyServiceImpl implements StrategyService {
         List<Integer> removeIds = new ArrayList<>();
         while (i.hasNext()) {
             StrategyAlgo s = i.next();
-            System.out.println("Running strat: " + s.getId());
+            LOGGER.info("Running strat: " + s.getId());
             //get all orders per strat id from dao
             Order exitingOrder = s.calculateExit(
                     feed.getCurrentPrice(s.getTicker()), orderService.getOrderByStrategyID(s.getId())
             );
             if(exitingOrder != null) {
+                LOGGER.info("Exiting strategy " + s.getId() +  " with order " + exitingOrder.getId());
                 orderService.addOrder(exitingOrder);
                 removeIds.add(s.getId());
                 continue;

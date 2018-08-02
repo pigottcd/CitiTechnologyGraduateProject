@@ -5,7 +5,8 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
-
+import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
 import java.util.*;
 
 @EnableScheduling
@@ -31,7 +32,7 @@ public class PriceFeedServiceImpl implements PriceFeedService {
             return prices.get(prices.size() -1);
         }
     }
-
+    private static final Logger LOGGER = LogManager.getLogger(PriceFeedServiceImpl.class);
     private Map<String, PriceListing> activeListings;
 
     PriceFeedServiceImpl() {
@@ -40,8 +41,10 @@ public class PriceFeedServiceImpl implements PriceFeedService {
 
 
     public void register(String ticker) {
+        LOGGER.info("Registering ticker: " + ticker);
         PriceListing listing;
         if ((listing = activeListings.get(ticker)) == null) {
+            LOGGER.info("New ticker: " + ticker);
             listing = new PriceListing(ticker);
             activeListings.put(listing.ticker, listing);
         }

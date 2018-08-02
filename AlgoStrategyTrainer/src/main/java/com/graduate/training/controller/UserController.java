@@ -5,8 +5,8 @@ import com.graduate.training.entities.User;
 import com.graduate.training.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
+import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
 
 @RestController
 @RequestMapping("/users/")

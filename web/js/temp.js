@@ -43,22 +43,33 @@ function terminateStrategy(data) {
         type: 'DELETE'
     })
 }
-function dateTimeToDates(elm) {
-    let year = elm.time.year;
-    let month = elm.time.monthValue;
-    let day = elm.time.dayOfMonth;
-    let hours = elm.time.hour;
-    let minutes = elm.time.minute;
-    let seconds = elm.time.second;
-    let milliseconds = elm.time.nano*(0.000001);
-    let date = new Date(year, month, day, hours, minutes, seconds, milliseconds);
-    return date;
+function pricesToPAndL(data) {
+    let pAndL = [0];
+    let dif = 0;
+    for (idx = 0; idx < data.length-1; idx=idx+2) {
+
+        dif = dif + Math.abs(data[idx]-data[idx+1]);
+        pAndL.push(dif);
+        pAndL.push(null);
+    }
+    return pAndL;
 }
 function priceToPrices(elm) {
     return elm.price;
 }
 function timeToTimes(elm) {
-    return elm.time;
+    return obj;
+}
+function dateTimeToDate(obj) {
+    let year = obj.year;
+    let month = obj.monthValue;
+    let day = obj.dayOfMonth;
+    let hours = obj.hour;
+    let minutes = obj.minute;
+    let seconds = obj.second;
+    let milliseconds = obj.nano*(0.000001);
+    let date = new Date(year, month, day, hours, minutes, seconds, milliseconds);
+    return date;
 }
 $(document).ready(function() {
 
@@ -110,10 +121,14 @@ $(document).ready(function() {
             {data: null, "width": "150px"}
         ],
         "order": [[0,"desc"]],
-        "initComplete": function(settings, json) {
+        "initComplete": function(strategyTableSettings, strategyTableJson) {
             $('#strategyTable').on("click", ".cloneStrategyButton", function () {
                 let strategyDataFromRow = strategyTable.row($(this).parents("tr")).data();
                 populateStrategyCreatorFields(strategyDataFromRow);
+                $('html, body').animate({
+                    scrollTop: 0
+                }, 500);
+                $('#top').fadeOut(400).fadeIn(400).fadeOut(400).fadeIn(400);
             });
 
             $('#strategyTable').on("click", ".terminateStrategyButton", function () {
@@ -128,17 +143,32 @@ $(document).ready(function() {
                 })
             });
 
+            strategyTableRowClicked = false;
             $('#strategyTable').on("click", "tr", function() {
-                console.log("works after");
-                let rowID = strategyTable.row(this).data()['id'];
+                strategyTableRowClicked = true;
+                rowID = strategyTable.row(this).data()['id'];
                 orderTable.ajax.url("http://localhost:8081/orders/strategy_id/"+rowID.toString()+"/").load();
+            });
+            strategyTable.on('draw', function() {
+                let url;
+                let id;
+                if (strategyTableRowClicked) {
+                    id = rowID.toString();
+                }
+                else {
+                    id = strategyTable.row( ':first', {order: 'applied'}).data()['id'].toString();
+                }
+                url = "http://localhost:8081/orders/strategy_id/"+id+"/";
+                orderTable.ajax.url(url).load();
+                $('#currentStrategy').text("Strategy "+id);
             });
 
             // get latest strategy id
-            let lastRowID = strategyTable.row( ':first', {order: 'applied'}).data()['id'];
+            let firstRowID = strategyTable.row( ':first', {order: 'applied'}).data()['id'].toString();
+            $('#currentStrategy').text("Strategy "+firstRowID);
             let orderTable = $('#orderTable').DataTable({
                 "ajax":{
-                    "url":"http://localhost:8081/orders/strategy_id/"+lastRowID.toString()+"/",
+                    "url":"http://localhost:8081/orders/strategy_id/"+firstRowID+"/",
                     "dataSrc":""
                 },
                 "columnDefs": [
@@ -153,10 +183,23 @@ $(document).ready(function() {
                             }
                         }
 
+                    },
+                    {
+                        "targets": [5],
+                        "render": function(data) {
+                            return dateTimeToDate(data);
+                        }
+                    },
+                    {
+                        "targets": [6],
+                        "render": function() {
+                            return "Filled";
+                        }
                     }
                 ],
                 "scrollY": "300px",
                 "paging": false,
+                "searching": true,
                 columns: [
                     { data: 'id', title: 'ID' },
                     { data: 'buy', title: 'Buy/Sell' },
@@ -165,10 +208,117 @@ $(document).ready(function() {
                     { data: 'stock', title: 'Ticker Symbol' },
                     { data: 'time', title: 'Time' },
                     { data: 'status', title: 'Status' },
-                ]
+                ],
+                "initComplete": function(orderTableSettings, orderTableJson) {
+                    let prices = orderTable.column(2).data();
+                    let pAndL = pricesToPAndL(prices);
+                    let dates = orderTable.column(5).data();
+                    dates = dates.map(dateTimeToDate);
+
+                    let ctx = $('#pAndLChart')[0].getContext('2d');
+                    let config = {
+                        type: 'line',
+                        data: {
+                            labels: dates,
+                            datasets: [{
+                                data: prices,
+                                borderColor: 'rgba(0, 123, 255, 1)',
+                                borderWidth: 5,
+                                fill: false,
+                                lineTension: 0,
+                                label: "Price of Stock per Share",
+                                yAxisID: "y-axis-1"
+
+                            },
+                                {
+                                    data: pAndL,
+                                    borderColor: 'rgba(40, 167, 69, 1)',
+                                    backgroundColor: 'rgba(40, 167, 69, .5)',
+                                    borderWidth: 5,
+                                    fill: true,
+                                    lineTension: 0,
+                                    steppedLine: true,
+                                    spanGaps: true,
+                                    label: "Profit/Loss per Share",
+                                    yAxisID: "y-axis-2"
+                                }
+                                ]
+                        },
+                        options: {
+                            title: {
+                                display: true,
+                                text: 'Value vs. Time'
+                            },
+                            legend: {
+                                display: true
+                            },
+                            scales: {
+                                yAxes: [{
+                                    scaleLabel: {
+                                        display: true,
+                                        labelString: "P r i c e ( $ )",
+                                        fontColor: 'rgba(0, 123, 255, 1)',
+                                        lineHeight: 1.5,
+                                        fontSize: 16
+                                    },
+                                    ticks: {
+                                        beginAtZero: false
+                                    },
+                                    position: "left",
+                                    id: "y-axis-1"
+                                },
+                                    {
+                                        scaleLabel: {
+                                            display: true,
+                                            labelString: "P r o f i t ( $ )",
+                                            fontColor: 'rgba(40, 167, 69, 1)',
+                                            lineHeight: 1.5,
+                                            fontSize: 16
+                                        },
+                                        ticks: {
+                                            beginAtZero: false
+                                        },
+                                        gridLines: {
+                                            drawOnChartArea: false
+                                        },
+                                        position: "right",
+                                        id: "y-axis-2"
+                                    }],
+                                xAxes: [{
+                                    scaleLabel: {
+                                        display: false,
+                                        labelString: "Time"
+                                    },
+                                    type: 'time',
+                                    time: {
+                                        unit: 'minute'
+                                    }
+                                }]
+                            }
+                        }
+                    };
+                    let chart = new Chart(ctx, config);
+                    orderTable.on('draw', function() {
+
+                        let prices = orderTable.column(2).data();
+                        let pAndL = pricesToPAndL(prices);
+                        let dates = orderTable.column(5).data();
+                        dates = dates.map(dateTimeToDate);
+                        chart.data.labels = dates;
+                        chart.data.datasets[0].data = prices;
+                        chart.data.datasets[1].data = pAndL
+
+                        chart.update();
+
+                    });
+                }
             });
+
+
+
             setInterval(function() {
-                orderTable.ajax.reload();
+                orderTable.ajax.reload(null, false);
+                strategyTable.ajax.reload(null, false);
             }, 5000);
 
         }
