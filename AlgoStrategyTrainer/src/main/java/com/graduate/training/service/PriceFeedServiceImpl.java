@@ -106,7 +106,7 @@ public class PriceFeedServiceImpl implements PriceFeedService {
         }
         return listing.prices;
     }
-    //returns the last "range" items of a speicif ticker
+    //returns the last "range" items of a specific ticker
     //if the # of items requested are not stored, return an empty list
     public List<Double> getPriceRange(String ticker, int range) {
         PriceListing listing;
