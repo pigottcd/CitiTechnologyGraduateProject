@@ -10,6 +10,13 @@ import org.apache.logging.log4j.LogManager;
 
 import java.util.List;
 
+
+/*
+    The Order Serive handles all submissions and requests for orders.
+    It calls on the database access object for the order information,
+    and sends new orders to the activemq sender to be processed by the
+    external order broker.
+*/
 @Service
 public class OrderServiceImpl implements OrderService {
     private static final Logger LOGGER = LogManager.getLogger(OrderService.class);
