@@ -8,6 +8,14 @@ import org.apache.logging.log4j.LogManager;
 import java.time.LocalDateTime;
 import java.util.List;
 
+/*
+    The Strategy Algo is responsible for running algorithms based on
+    the information provided by the strategy class.  It takes in a 
+    strategy in its constructor and will run the specified strategy
+    in the runStrategy method.  The other main method is the
+    calculate exit function which determines when the algorithm should
+    stop running based on a P&L calculation.
+*/
 public abstract class StrategyAlgo {
 
     private static final Logger LOGGER = LogManager.getLogger(StrategyAlgo.class);
@@ -44,6 +52,7 @@ public abstract class StrategyAlgo {
         }
         int totalQuantity = 0;
         double totalOutstanding = 0;
+        //calculate profit and loss based on past trades
         for (Order o : orders) {
             if (o.isBuy()) {
                 totalQuantity += o.getSize();
