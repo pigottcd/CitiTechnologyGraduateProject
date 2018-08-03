@@ -41,7 +41,7 @@ function populateStrategyCreatorFields (strategyData) {
 
 // "terminate" strategy by sending delete ajax call to rest api when terminating a strategy
 function terminateStrategy(data) {
-    let url = 'http://localhost:8081/strategies/strategy_id/' + data['id'].toString();
+    let url = 'http://localhost:8082/strategies/strategy_id/' + data['id'].toString();
     $.ajax({
         url: url,
         type: 'DELETE'
@@ -64,7 +64,7 @@ function pricesToPAndL(data) {
 // converts a dateTime java object into a date js object
 function dateTimeToDate(obj) {
     let year = obj.year;
-    let month = obj.monthValue;
+    let month = obj.monthValue-1;
     let day = obj.dayOfMonth;
     let hours = obj.hour;
     let minutes = obj.minute;
@@ -83,7 +83,7 @@ $(document).ready(function() {
     // create and push table of strategies to table with id="strategyTable" in HTML
     let strategyTable = $('#strategyTable').DataTable({
         "ajax": {
-            "url": "http://localhost:8081/strategies/",
+            "url": "http://localhost:8082/strategies/",
             "dataSrc": ""
         },
         // runs when a row is created
@@ -187,7 +187,7 @@ $(document).ready(function() {
             // click listener for terminate button
             $('#strategyTable').on("click", ".terminateStrategyButton", function () {
                 let strategyDataFromRow = strategyTable.row($(this).parents("tr")).data();
-                let deleteUrl = 'http://localhost:8081/strategies/strategy_id/' + strategyDataFromRow['id'].toString();
+                let deleteUrl = 'http://localhost:/8082strategies/strategy_id/' + strategyDataFromRow['id'].toString();
 
                 $.ajax({
                     url: deleteUrl,
@@ -206,7 +206,7 @@ $(document).ready(function() {
                 $(this).css({"outline-style":"solid", "outline-color":"rgba(0, 0, 0, 0.275)", "outline-offset":"-3px"});
                 $(this).addClass("outlined");
                 rowID = strategyTable.row(this).data()['id'];
-                orderTable.ajax.url("http://localhost:8081/orders/strategy_id/"+rowID.toString()+"/").load();
+                orderTable.ajax.url("http://localhost:8082/orders/strategy_id/"+rowID.toString()+"/").load();
                 $('#currentOrders').fadeOut(250).fadeIn(250).fadeOut(250).fadeIn(250);
                 $('#currentStrategy').fadeOut(250).fadeIn(250).fadeOut(250).fadeIn(250);
             });
@@ -219,7 +219,7 @@ $(document).ready(function() {
                 else {
                     id = strategyTable.row( ':first', {order: 'applied'}).data()['id'].toString();
                 }
-                url = "http://localhost:8081/orders/strategy_id/"+id+"/";
+                url = "http://localhost:8082/orders/strategy_id/"+id+"/";
                 orderTable.ajax.url(url).load();
                 $('#currentStrategy').text("Strategy "+id+" Profit and Loss");
                 $('#currentOrders').text("Strategy "+id+" Orders");
@@ -232,7 +232,7 @@ $(document).ready(function() {
             $('#currentOrders').text("Strategy "+firstRowID+" Orders");
             let orderTable = $('#orderTable').DataTable({
                 "ajax":{
-                    "url":"http://localhost:8081/orders/strategy_id/"+firstRowID+"/",
+                    "url":"http://localhost:8082/orders/strategy_id/"+firstRowID+"/",
                     "dataSrc":""
                 },
                 "columnDefs": [

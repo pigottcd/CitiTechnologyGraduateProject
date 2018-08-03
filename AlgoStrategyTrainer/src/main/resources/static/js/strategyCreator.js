@@ -143,7 +143,7 @@ function buildJSONFromForm(strategy) {
 }
 
 function sendJSONToAPI(strategy, data) {
-    let url = 'http:localhost:8081/';
+    let url = 'http:localhost:8082/';
 
     if (strategy!='user') {
         url += 'strategies/'
