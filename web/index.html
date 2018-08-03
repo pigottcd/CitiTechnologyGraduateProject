@@ -1,9 +1,13 @@
 <!DOCTYPE html>
+
 <html lang="en">
+    
     <head>
+        
         <title>AlgoStrategyTrader</title>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        
         <!--
         Description: <meta name="description" content="">
         Author: <meta name="author" content="">
@@ -27,64 +31,80 @@
 
         </nav>
 
-        <!-- main page -->
+        <!-- main -->
         <main role="main">
 
             <!-- strategy creator container -->
             <div class="container" id="top">
 
-                	<!-- Strategy Creator form-->
+                	<!-- strategy creator form, js:void(0) stops page refresh on submit -->
                     <form id="strategyCreatorForm" action="javascript:void(0)">
+                        
+                        <!-- title of strategy creator form -->
                         <div class="row">
+                            
                             <div class="col-xl-12 form-inline">
+                                
                                 <div class="mx-auto form-inline">
                                     <p><b>Strategy Creator</b></p>
                                 </div>
+                                
                             </div>
+                            
                         </div>
+                        
+                        <!-- first row of inputs for strategy creator -->
                         <div class="row">
 
                             <!-- stock tag input -->
                             <div class="col-xl-2 form-inline" id="stockTagDiv">
+                                
                                 <div class="mx-auto form-inline">
                                     <label for="stockTag">Stock:</label>
                                     <input type="text" class="form-control" id="stockTag" placeholder="Ex: AMD" required>
                                 </div>
+                                
                             </div>
 
                             <!-- strategy selector -->
                             <div class="col-xl-4 form-inline">
+                                
                                 <div class="mx-auto form-inline">
                                     <label for="strategySelector">Strategy:</label>
                                     <select class="form-control" id="strategySelector">
-                                        <!--<option disabled selected hidden>Select a strategy.</option>-->
                                         <option value="twoMovingAverages">Two Moving Averages</option>
                                         <option value="bollingerBands">Bollinger Bands</option>
                                         <option value="priceBreakout">Price Breakout</option>
-                                        <option value="user">user</option>
                                     </select>
                                 </div>
+                                
                             </div>
 
                             <!-- profit loss percentage input -->
                             <div class="col-xl-3 form-inline">
+                                
                                 <div class="mx-auto form-inline" id="pnl">
                                     <label for="profitLossPercentage">P/L%:</label>
                                     <input type="number" class="form-control" id="profitLossPercentage" placeholder="Ex: 1" required>
                                     <input type="text" class="form-control" id="percentage" value="%" disabled>
                                 </div>
+                                
                             </div>
 
                             <!-- amount of shares input -->
                             <div class="col-xl-3 form-inline">
+                                
                                 <div class="mx-auto form-inline" id="amount">
                                     <label for="amountOfShares">Shares:</label>
                                     <input type="number" class="form-control" id="amountOfShares" placeholder="Ex: 50" required>
                                     <input type="text" class="form-control" id="shares" value="shares" disabled>
                                 </div>
+                                
                             </div>
 
                         </div>
+                        
+                        <!-- second row of inputs -->
                         <div class="row">
 
                             <!-- parameter 1 input -->
