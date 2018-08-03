@@ -1,0 +1,90 @@
+body {
+  padding-top: 5rem;
+  padding-bottom: 2rem;
+}
+
+h3 {
+  margin-top: 2rem;
+}
+.container {
+  margin-bottom: 1rem;
+}
+.row .row {
+  margin-top: 1rem;
+  margin-bottom: 0;
+}
+[class*="col-"] {
+  padding-top: .5rem;
+  padding-bottom: .5rem;
+  background-color: rgba(72, 77, 83, .15);
+  border: 1px solid rgba(72, 77, 83, .2);
+}
+.border {
+  border: 1px solid rgba(86, 61, 124, .2);
+}
+hr {
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+}
+
+.form-inline * {
+  margin:0px 3px 0px 3px;
+}
+
+#stockTag, #longAverage, #shortAverage, #movingAverage, #standardDeviations, #fixedPeriod, #amountOfShares {
+  width: 90px;
+}
+
+#movingAverageTimeUnit, #longAverageTimeUnit, #shortAverageTimeUnit, #fixedPeriodTimeUnit {
+  width: 110px;
+}
+#profitLossPercentage, #fitOccurrences {
+  width: 75px;
+}
+
+#percentage {
+  width: 40px;
+  background-color: white;
+}
+
+#shares {
+  width: 71px;
+  background-color: white;
+}
+
+#deviations {
+  width: 100px;
+  background-color: white;
+}
+
+#occurrences {
+  width: 110px;
+  background-color: white;
+}
+
+#strategyCreatorForm input::placeholder {
+  font-style: italic;
+
+}
+#strategyCreatorForm * {
+  font-size: 14px;
+}
+th {
+  font-size: 12px;
+}
+
+td {
+  font-size: 12px;
+}
+
+#overlay {
+  position: absolute; /* Sit on top of the page content */
+  display: none;
+  width: 160px; /* Full width (cover the whole page) */
+  height: 50px; /* Full height (cover the whole page) */
+  top: 85px;
+  right: 385px;
+  z-index: 2; /* Specify a stack order in case you're using a different order for other elements */
+
+
+}

@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+
+<html lang="en">
+    
+    <head>
+        
+        <title>AlgoStrategyTrader</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        
+        <!--
+        Description: <meta name="description" content="">
+        Author: <meta name="author" content="">
+        Icon: <link rel="icon" href="">
+        -->
+
+        <!-- CSS -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css">
+        <link href="./css/style.css" rel="stylesheet">
+
+    </head>
+
+    <body>
+
+
+
+    <!-- navbar -->
+        <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
+
+
+        	<!-- navbar title -->
+            <a class="navbar-brand mx-auto" href="">AlgoStrategyTrader</a>
+
+        </nav>
+
+        <!-- main -->
+        <main role="main">
+
+
+            <!-- strategy creator container -->
+            <div class="container" id="top">
+                <div class="alert alert-primary show fade" id="overlay" role="alert">
+                    Strategy Cloned!
+                </div>
+
+
+                	<!-- strategy creator form, js:void(0) stops page refresh on submit -->
+                    <form id="strategyCreatorForm" action="javascript:void(0)">
+                        
+                        <!-- title of strategy creator form -->
+                        <div class="row">
+                            
+                            <div class="col-xl-12 form-inline">
+                                
+                                <div class="mx-auto form-inline">
+                                    <p><b id="strategyCreatorTitle">Strategy Creator</b></p>
+                                </div>
+                                
+                            </div>
+                            
+                        </div>
+                        
+                        <!-- first row of inputs for strategy creator -->
+                        <div class="row">
+
+                            <!-- stock tag input -->
+                            <div class="col-xl-2 form-inline" id="stockTagDiv">
+                                
+                                <div class="mx-auto form-inline">
+                                    <label for="stockTag">Stock:</label>
+                                    <input type="text" class="form-control" id="stockTag" placeholder="Ex: AMD" required>
+                                </div>
+                                
+                            </div>
+
+                            <!-- strategy selector -->
+                            <div class="col-xl-4 form-inline">
+                                
+                                <div class="mx-auto form-inline">
+                                    <label for="strategySelector">Strategy:</label>
+                                    <select class="form-control" id="strategySelector">
+                                        <option value="twoMovingAverages">Two Moving Averages</option>
+                                        <option value="bollingerBands">Bollinger Bands</option>
+                                        <option value="priceBreakout">Price Breakout</option>
+                                    </select>
+                                </div>
+                                
+                            </div>
+
+                            <!-- profit loss percentage input -->
+                            <div class="col-xl-3 form-inline">
+                                
+                                <div class="mx-auto form-inline" id="pnl">
+                                    <label for="profitLossPercentage">P/L%:</label>
+                                    <input type="number" class="form-control" id="profitLossPercentage" placeholder="Ex: 1" required>
+                                    <input type="text" class="form-control" id="percentage" value="%" disabled>
+                                </div>
+                                
+                            </div>
+
+                            <!-- amount of shares input -->
+                            <div class="col-xl-3 form-inline">
+                                
+                                <div class="mx-auto form-inline" id="amount">
+                                    <label for="amountOfShares">Shares:</label>
+                                    <input type="number" class="form-control" id="amountOfShares" placeholder="Ex: 50" required>
+                                    <input type="text" class="form-control" id="shares" value="shares" disabled>
+                                </div>
+                                
+                            </div>
+
+                        </div>
+                        
+                        <!-- second row of inputs -->
+                        <div class="row">
+
+                            <!-- parameter 1 input -->
+                            <div class="col-xl-5 form-inline">
+                                
+                                <div class="mx-auto form-inline" id="parameter1">
+                                    <label for="longAverage">Long Average:</label>
+                                    <input type="number" class="form-control" id="longAverage" placeholder="Ex: 3" required>
+                                    <select class="form-control" id="longAverageTimeUnit">
+                                        <option>hours</option>
+                                        <option>minutes</option>
+                                        <option>seconds</option>
+                                    </select>
+                                </div>
+                                
+                            </div>
+
+                            <!-- parameter 2 input -->
+                            <div class="col-xl-5 form-inline">
+                                
+                                <div class="mx-auto form-inline" id="parameter2">
+                                    <label for="shortAverage">Short Average:</label>
+                                    <input type="number" class="form-control" id="shortAverage" placeholder="Ex: 30" required>
+                                    <select class="form-control" id="shortAverageTimeUnit">
+                                        <option>hours</option>
+                                        <option selected>minutes</option>
+                                        <option>seconds</option>
+                                    </select>
+                                </div>
+                                
+                            </div>
+
+                            <!-- submit input -->
+                            <div class="col-xl-2 form-inline">
+                                
+                                <div class="mx-auto form-inline" id="submit">
+                                    <button type="submit" class="btn btn-primary">Submit</button>
+                                </div>
+                                
+                            </div>
+
+                        </div>
+
+                    </form>
+                
+            </div>
+            
+            <!-- table and graph container -->
+            <div class="container-fluid">
+                
+                <!-- tables and graphs row -->
+                <div class="row">
+                    
+                    <!-- table col -->
+                    <div class="col-xl-6">
+                        
+                        <!-- table 1 title -->
+                        <div class="mx-auto form-inline">
+                            <p class="mx-auto"><b>Strategies</b></p>
+                        </div>
+
+                        <!-- table 1 rendered by DataTable -->
+                        <div class="table-responsive" id="strategyTableDiv">
+                            <table id="strategyTable" class="row-border"></table>
+                        </div>
+                        
+                        <!-- table 2 title -->
+                        <div class="mx-auto form-inline">
+                            <p class="mx-auto"><b id="currentOrders">Orders</b></p>
+                        </div>
+                        
+                        <!-- table 2 rendered by DataTable -->
+                        <div class="table-responsive" id="orderTableDiv">
+                            <table id="orderTable" class="row-border"></table>
+                        </div>
+                    
+                    </div>
+
+                    <!-- graph col -->
+                    <div class="col-xl-6">
+                        
+                        <!-- title -->
+                        <div class="mx-auto form-inline">
+                            <p class="mx-auto"><b id="currentStrategy"></b></p>
+                        </div>
+                        
+                	    <!-- graph rendered by chart.js -->
+                        <div class="container-fluid" style="height: 650px;">
+                            <canvas id="pAndLChart"></canvas>
+                        </div>
+                        
+                    </div>
+                    
+                </div>
+                
+            </div>
+
+        </main>
+
+        <!-- script libraries -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.bundle.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
+
+        <!-- strategy creator script -->
+        <script src="./js/strategyCreator.js"></script>
+
+        <!-- tabls and charts -->
+        <script src="./js/temp.js"></script>
+
+    </body>
+    
+</html>
