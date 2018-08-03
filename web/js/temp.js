@@ -1,27 +1,29 @@
+// converts time in seconds to a time and a time unit
 function timeInSecondsToInUnit (time) {
-    if (time/60 < 1) {
+    if (time <= 0) {
+        return null;
+    } else if (time/60 < 1) {
         return [time, "seconds"];
+    } else if (time/3600 < 1) {
+        return [time/60, "minutes"];
     }
-    else {
-        if (time/3600 < 1) {
-            return [time/60, "minutes"];
-        }
-        else {
-            return [time/3600, "hours"];
-        }
-    }
-
+    return [time/3600, "hours"];
 }
+
+// populates streategy creator fields when cloning a strategies settings
 function populateStrategyCreatorFields (strategyData) {
+    // pull settings from strategy data
     let strategyType = strategyData['type'];
     let stockTag = strategyData['ticker'];
     let profitLossPercentage = strategyData['pandL'];
     let amountOfShares = strategyData['quantity'];
-
+    
+    // set (strategy independent) streategy creator inputs to settings from strategy data
     $('#stockTag').val(stockTag);
     $('#profitLossPercentage').val(profitLossPercentage*100);
     $('#amountOfShares').val(amountOfShares);
-
+    
+    // set (strategy dependent) strategy creator inputs
     if (strategyType=='TwoMovingAverages') {
         $('#strategySelector').val("twoMovingAverages");
 
@@ -36,6 +38,8 @@ function populateStrategyCreatorFields (strategyData) {
         $('#shortAverageTimeUnit').val(shortAverageParams[1]);
     }
 }
+
+// "terminate" strategy by sending delete ajax call to rest api when terminating a strategy
 function terminateStrategy(data) {
     let url = 'http://localhost:8081/strategies/strategy_id/' + data['id'].toString();
     $.ajax({
@@ -43,6 +47,8 @@ function terminateStrategy(data) {
         type: 'DELETE'
     })
 }
+
+// profit and loss calculator
 function pricesToPAndL(data) {
     let pAndL = [0];
     let dif = 0;
@@ -54,12 +60,16 @@ function pricesToPAndL(data) {
     }
     return pAndL;
 }
+
+// used to 
 function priceToPrices(elm) {
     return elm.price;
 }
 function timeToTimes(elm) {
     return obj;
 }
+
+
 function dateTimeToDate(obj) {
     let year = obj.year;
     let month = obj.monthValue;
