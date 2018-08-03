@@ -23,8 +23,11 @@
 
     <body>
 
-        <!-- navbar -->
+
+
+    <!-- navbar -->
         <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
+
 
         	<!-- navbar title -->
             <a class="navbar-brand mx-auto" href="">AlgoStrategyTrader</a>
@@ -34,8 +37,13 @@
         <!-- main -->
         <main role="main">
 
+
             <!-- strategy creator container -->
             <div class="container" id="top">
+                <div class="alert alert-primary show fade" id="overlay" role="alert">
+                    Strategy Cloned!
+                </div>
+
 
                 	<!-- strategy creator form, js:void(0) stops page refresh on submit -->
                     <form id="strategyCreatorForm" action="javascript:void(0)">
@@ -46,7 +54,7 @@
                             <div class="col-xl-12 form-inline">
                                 
                                 <div class="mx-auto form-inline">
-                                    <p><b>Strategy Creator</b></p>
+                                    <p><b id="strategyCreatorTitle">Strategy Creator</b></p>
                                 </div>
                                 
                             </div>
@@ -161,7 +169,7 @@
                     <!-- table col -->
                     <div class="col-xl-6">
                         
-                        <!-- table 1 title -- >
+                        <!-- table 1 title -->
                         <div class="mx-auto form-inline">
                             <p class="mx-auto"><b>Strategies</b></p>
                         </div>
@@ -173,7 +181,7 @@
                         
                         <!-- table 2 title -->
                         <div class="mx-auto form-inline">
-                            <p class="mx-auto"><b>Orders</b></p>
+                            <p class="mx-auto"><b id="currentOrders">Orders</b></p>
                         </div>
                         
                         <!-- table 2 rendered by DataTable -->

@@ -105,6 +105,26 @@ $(document).ready(function() {
                 // keep the rows outlined class
                 $(row).addClass("outlined");
             }
+
+            if (!strategyTableRowClicked) {
+                if (typeof last == "undefined") {
+                    $(row).css({"outline-style":"solid", "outline-color":"rgba(0, 0, 0, 0.275)", "outline-offset":"-3px"});
+                    // keep the rows outlined class
+                    $(row).addClass("outlined");
+                    last = row;
+                    //rowID = data['id'];
+                }
+                else {
+                    $(last).css({"outline-style":"", "outline-color":"", "outline-offset":""}).removeClass("outlined");
+                    $(row).css({"outline-style":"solid", "outline-color":"rgba(0, 0, 0, 0.275)", "outline-offset":"-3px"});
+                    // keep the rows outlined class
+                    $(row).addClass("outlined");
+                    last = row;
+
+                }
+                rowID = data['id'];
+            }
+
         },
         // settings for columns
         "columnDefs": [
@@ -157,12 +177,12 @@ $(document).ready(function() {
                 let strategyDataFromRow = strategyTable.row($(this).parents("tr")).data();
                 // send data to function to populate strategy creator inputs
                 populateStrategyCreatorFields(strategyDataFromRow);
+                $('#overlay').fadeTo(0, 1);
                 // scroll the page up to the strategy creator
                 $('html, body').animate({
                     scrollTop: 0
                 }, 500);
-                // flash the strategy creator
-                $('#top').fadeOut(250).fadeIn(250);
+                $('#overlay').delay(2000).fadeTo(1000, 0);
             });
             // click listener for terminate button
             $('#strategyTable').on("click", ".terminateStrategyButton", function () {
@@ -187,6 +207,8 @@ $(document).ready(function() {
                 $(this).addClass("outlined");
                 rowID = strategyTable.row(this).data()['id'];
                 orderTable.ajax.url("http://localhost:8081/orders/strategy_id/"+rowID.toString()+"/").load();
+                $('#currentOrders').fadeOut(250).fadeIn(250).fadeOut(250).fadeIn(250);
+                $('#currentStrategy').fadeOut(250).fadeIn(250).fadeOut(250).fadeIn(250);
             });
             strategyTable.on('draw', function() {
                 let url;
@@ -199,12 +221,15 @@ $(document).ready(function() {
                 }
                 url = "http://localhost:8081/orders/strategy_id/"+id+"/";
                 orderTable.ajax.url(url).load();
-                $('#currentStrategy').text("Strategy "+id);
+                $('#currentStrategy').text("Strategy "+id+" Profit and Loss");
+                $('#currentOrders').text("Strategy "+id+" Orders");
             });
 
             // get latest strategy id
             let firstRowID = strategyTable.row( ':first', {order: 'applied'}).data()['id'].toString();
-            $('#currentStrategy').text("Strategy "+firstRowID);
+
+            $('#currentStrategy').text("Strategy "+firstRowID+ " Profit and Loss");
+            $('#currentOrders').text("Strategy "+firstRowID+" Orders");
             let orderTable = $('#orderTable').DataTable({
                 "ajax":{
                     "url":"http://localhost:8081/orders/strategy_id/"+firstRowID+"/",
@@ -232,6 +257,12 @@ $(document).ready(function() {
                     },
                     {
                         "targets": [6],
+                        "render": function(data) {
+                            return dateTimeToDate(data).toLocaleTimeString();
+                        }
+                    },
+                    {
+                        "targets": [7],
                         "render": function() {
                             return "Filled";
                         }
@@ -246,7 +277,8 @@ $(document).ready(function() {
                     { data: 'price', title: 'Price' },
                     { data: 'size', title: 'Size' },
                     { data: 'stock', title: 'Ticker Symbol', "width": 20 },
-                    { data: 'time', title: 'Time' },
+                    { data: 'time', title: 'Date' },
+                    { data: 'time', title: 'Time'},
                     { data: 'status', title: 'Status' },
                 ],
                 "initComplete": function(orderTableSettings, orderTableJson) {
