@@ -1,5 +1,8 @@
 package com.training.graduate.controller.test;
 
+import org.junit.Test;
+
+/*
 import com.graduate.training.controller.OrderController;
 import com.graduate.training.entities.Order;
 import com.graduate.training.service.OrderService;
@@ -31,6 +34,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 //@WebMvcTest(OrderController.class)
 //@ContextConfiguration(classes={com.graduate.training.AppConfig.class})
 //@TestPropertySource(locations = "classpath:application-test.properties") // this is only needed because swagger breaks tests
+*/
 public class OrderControllerTest {
     @Test
     public void run() {
