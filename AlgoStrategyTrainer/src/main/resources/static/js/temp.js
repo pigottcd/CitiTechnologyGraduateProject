@@ -187,7 +187,7 @@ $(document).ready(function() {
             // click listener for terminate button
             $('#strategyTable').on("click", ".terminateStrategyButton", function () {
                 let strategyDataFromRow = strategyTable.row($(this).parents("tr")).data();
-                let deleteUrl = 'http://localhost:/8082strategies/strategy_id/' + strategyDataFromRow['id'].toString();
+                let deleteUrl = '/strategies/strategy_id/' + strategyDataFromRow['id'].toString();
 
                 $.ajax({
                     url: deleteUrl,
