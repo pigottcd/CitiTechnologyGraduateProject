@@ -61,15 +61,7 @@ function pricesToPAndL(data) {
     return pAndL;
 }
 
-// used to 
-function priceToPrices(elm) {
-    return elm.price;
-}
-function timeToTimes(elm) {
-    return obj;
-}
-
-
+// converts a dateTime java object into a date js object
 function dateTimeToDate(obj) {
     let year = obj.year;
     let month = obj.monthValue;
@@ -81,31 +73,40 @@ function dateTimeToDate(obj) {
     let date = new Date(year, month, day, hours, minutes, seconds, milliseconds);
     return date;
 }
+
+// runs when the page has finished loading
 $(document).ready(function() {
-
+    
+    // flag boolean for keeping current row on intervaled ajax updates
     strategyTableRowClicked = false;
-
+    
+    // create and push table of strategies to table with id="strategyTable" in HTML
     let strategyTable = $('#strategyTable').DataTable({
         "ajax": {
             "url": "http://localhost:8081/strategies/",
             "dataSrc": ""
         },
+        // runs when a row is created
         "createdRow": function (row, data) {
-
+            
+            // if the strategy is active, add bootstrap class to color the row green
             if (data['active'] == true) {
                 $(row).addClass("table-success");
             }
+            // if the strategy isn't active, add bootstrap class to color the row red
             else {
                 $(row).addClass("table-danger");
             }
-
-            if (strategyTableRowClicked) {
-                if (data['id'] == rowID) {
-                    $(row).css({"outline-style":"solid", "outline-color":"rgba(0, 0, 0, 0.275)", "outline-offset":"-3px"});
-                    $(row).addClass("outlined");
-                }
+            
+            // if a row has been clicked and the current row matches the clicked rows id
+            if (strategyTableRowClicked && data['id'] == rowID) {
+                // keep the row outlined
+                $(row).css({"outline-style":"solid", "outline-color":"rgba(0, 0, 0, 0.275)", "outline-offset":"-3px"});
+                // keep the rows outlined class
+                $(row).addClass("outlined");
             }
         },
+        // settings for columns
         "columnDefs": [
             {
                 "width": "10px",
@@ -115,6 +116,7 @@ $(document).ready(function() {
                 "targets": [3],
                 "visible": false
             },
+            // render clone and terminate buttons as last column on the table
             {
                 "targets": [-1],
                 "data": null,
@@ -145,17 +147,24 @@ $(document).ready(function() {
             {data: 'pandL', title: 'P/L'},
             {data: null}
         ],
+        // sets the order of the table on initialization
         "order": [[0,"desc"]],
+        // runs once the table has fully initialized
         "initComplete": function(strategyTableSettings, strategyTableJson) {
+            // click listener for clone button
             $('#strategyTable').on("click", ".cloneStrategyButton", function () {
+                // pull data from row
                 let strategyDataFromRow = strategyTable.row($(this).parents("tr")).data();
+                // send data to function to populate strategy creator inputs
                 populateStrategyCreatorFields(strategyDataFromRow);
+                // scroll the page up to the strategy creator
                 $('html, body').animate({
                     scrollTop: 0
                 }, 500);
+                // flash the strategy creator
                 $('#top').fadeOut(250).fadeIn(250);
             });
-
+            // click listener for terminate button
             $('#strategyTable').on("click", ".terminateStrategyButton", function () {
                 let strategyDataFromRow = strategyTable.row($(this).parents("tr")).data();
                 let deleteUrl = 'http://localhost:8081/strategies/strategy_id/' + strategyDataFromRow['id'].toString();
