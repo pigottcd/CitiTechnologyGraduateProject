@@ -63,7 +63,9 @@ public abstract class StrategyAlgo {
                 totalOutstanding -= o.getSize() * o.getPrice();
             }
         }
-;
+        //calculate value of current position
+        totalOutstanding -= totalQuantity * price;
+        //if range is outside of acceptable p&l boundry
         if (Math.abs(totalOutstanding) >
                 Math.abs(strategy.getPAndL() * strategy.getQuantity() * orders.get(0).getPrice())) {
 
