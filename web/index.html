@@ -1,9 +1,13 @@
 <!DOCTYPE html>
+
 <html lang="en">
+    
     <head>
+        
         <title>AlgoStrategyTrader</title>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        
         <!--
         Description: <meta name="description" content="">
         Author: <meta name="author" content="">
@@ -25,114 +29,87 @@
         	<!-- navbar title -->
             <a class="navbar-brand mx-auto" href="">AlgoStrategyTrader</a>
 
-            <!-- navbar dropdown when screen size is small -->
-            <!--
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-
-            <!-- navbar items -->
-            <!--
-            <div class="collapse navbar-collapse">
-                <ul class="navbar-nav mr-auto">
-
-                	<!-- strategy options -->
-                    <!--
-                    <li class="nav-item dropdown active">
-                        <a class="nav-link dropdown-toggle" href="" id="strategyDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Strategies</a>
-                        <div class="dropdown-menu" aria-labelledby="strategyDropdown">
-                            <a class="dropdown-item" href="#">Create</a>
-                            <a class="dropdown-item" href="#">View</a>
-                        </div>
-                    </li>
-
-                    <!-- graph options -->
-                    <!--
-                    <li class="nav-item dropdown active">
-                        <a class="nav-link dropdown-toggle" href="" id="graphDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Graphs</a>
-                        <div class="dropdown-menu" aria-labelledby="graphDropdown">
-                            <a class="dropdown-item" href="#">Timeline</a>
-                            <a class="dropdown-item" href="#">Mix</a>
-                        </div>
-                    </li>
-
-                    <!-- order options -->
-                    <!--
-                    <li class="nav-item dropdown active">
-                        <a class="nav-link dropdown-toggle" href="" id="orderDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Orders</a>
-                        <div class="dropdown-menu" aria-labelledby="orderDropdown">
-                            <a class="dropdown-item" href="#">All</a>
-                            <a class="dropdown-item" href="#">Executed</a>
-                        </div>
-                    </li>
-
-                </ul>
-            </div>
-            -->
         </nav>
 
-        <!-- main page -->
+        <!-- main -->
         <main role="main">
 
             <!-- strategy creator container -->
             <div class="container" id="top">
 
-                	<!-- Strategy Creator form-->
+                	<!-- strategy creator form, js:void(0) stops page refresh on submit -->
                     <form id="strategyCreatorForm" action="javascript:void(0)">
+                        
+                        <!-- title of strategy creator form -->
                         <div class="row">
+                            
                             <div class="col-xl-12 form-inline">
+                                
                                 <div class="mx-auto form-inline">
                                     <p><b>Strategy Creator</b></p>
                                 </div>
+                                
                             </div>
+                            
                         </div>
+                        
+                        <!-- first row of inputs for strategy creator -->
                         <div class="row">
 
                             <!-- stock tag input -->
                             <div class="col-xl-2 form-inline" id="stockTagDiv">
+                                
                                 <div class="mx-auto form-inline">
                                     <label for="stockTag">Stock:</label>
                                     <input type="text" class="form-control" id="stockTag" placeholder="Ex: AMD" required>
                                 </div>
+                                
                             </div>
 
                             <!-- strategy selector -->
                             <div class="col-xl-4 form-inline">
+                                
                                 <div class="mx-auto form-inline">
                                     <label for="strategySelector">Strategy:</label>
                                     <select class="form-control" id="strategySelector">
-                                        <!--<option disabled selected hidden>Select a strategy.</option>-->
                                         <option value="twoMovingAverages">Two Moving Averages</option>
                                         <option value="bollingerBands">Bollinger Bands</option>
                                         <option value="priceBreakout">Price Breakout</option>
-                                        <option value="user">user</option>
                                     </select>
                                 </div>
+                                
                             </div>
 
                             <!-- profit loss percentage input -->
                             <div class="col-xl-3 form-inline">
+                                
                                 <div class="mx-auto form-inline" id="pnl">
                                     <label for="profitLossPercentage">P/L%:</label>
                                     <input type="number" class="form-control" id="profitLossPercentage" placeholder="Ex: 1" required>
                                     <input type="text" class="form-control" id="percentage" value="%" disabled>
                                 </div>
+                                
                             </div>
 
                             <!-- amount of shares input -->
                             <div class="col-xl-3 form-inline">
+                                
                                 <div class="mx-auto form-inline" id="amount">
                                     <label for="amountOfShares">Shares:</label>
                                     <input type="number" class="form-control" id="amountOfShares" placeholder="Ex: 50" required>
                                     <input type="text" class="form-control" id="shares" value="shares" disabled>
                                 </div>
+                                
                             </div>
 
                         </div>
+                        
+                        <!-- second row of inputs -->
                         <div class="row">
 
                             <!-- parameter 1 input -->
                             <div class="col-xl-5 form-inline">
+                                
                                 <div class="mx-auto form-inline" id="parameter1">
                                     <label for="longAverage">Long Average:</label>
                                     <input type="number" class="form-control" id="longAverage" placeholder="Ex: 3" required>
@@ -142,10 +119,12 @@
                                         <option>seconds</option>
                                     </select>
                                 </div>
+                                
                             </div>
 
                             <!-- parameter 2 input -->
                             <div class="col-xl-5 form-inline">
+                                
                                 <div class="mx-auto form-inline" id="parameter2">
                                     <label for="shortAverage">Short Average:</label>
                                     <input type="number" class="form-control" id="shortAverage" placeholder="Ex: 30" required>
@@ -155,75 +134,77 @@
                                         <option>seconds</option>
                                     </select>
                                 </div>
+                                
                             </div>
 
                             <!-- submit input -->
                             <div class="col-xl-2 form-inline">
+                                
                                 <div class="mx-auto form-inline" id="submit">
                                     <button type="submit" class="btn btn-primary">Submit</button>
                                 </div>
+                                
                             </div>
 
                         </div>
 
                     </form>
+                
             </div>
-            <div class="container">
+            
+            <!-- table and graph container -->
+            <div class="container-fluid">
+                
+                <!-- tables and graphs row -->
                 <div class="row">
+                    
                     <!-- table col -->
-                    <div class="col-md-12">
-                        <div class="mx-auto form-inline">
-                            <p class="mx-auto"><b id="currentStrategy"></b></p>
-                        </div></div></div>
-            <!-- graph and table row -->
-            <div class="row">
-
-                <!-- graph col -->
-                <div class="col-md-12">
-
-                	<!-- graph rendered by chart.js and json data from api -->
-                    <!-- class="w-100 chartjs-render-monitor"
-                      width="575" height="242"
-                      style="display: block; width: 575px; height: 242px;"
-                      -->
-                    <canvas id="pAndLChart"></canvas>
-                </div>
-            </div>
-                <div class="row">
-                    <!-- table col -->
-                    <div class="col-md-12">
+                    <div class="col-xl-6">
+                        
+                        <!-- table 1 title -- >
                         <div class="mx-auto form-inline">
                             <p class="mx-auto"><b>Strategies</b></p>
-                        </div></div></div>
-                <div class="row">
-                <!-- table col -->
-                <div class="col-md-12">
+                        </div>
 
-                	<!-- table generated by json data from api -->
-                    <div class="table-responsive" id="strategyTableDiv">
-                        <table id="strategyTable"></table>
-                    </div>
-
-                </div>
-                </div>
-                <div class="row">
-                    <!-- table col -->
-                    <div class="col-md-12">
+                        <!-- table 1 rendered by DataTable -->
+                        <div class="table-responsive" id="strategyTableDiv">
+                            <table id="strategyTable" class="row-border"></table>
+                        </div>
+                        
+                        <!-- table 2 title -->
                         <div class="mx-auto form-inline">
                             <p class="mx-auto"><b>Orders</b></p>
-                        </div></div></div>
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="table-responsive" id="orderTableDiv">
-                        <table id="orderTable"></table>
+                        </div>
+                        
+                        <!-- table 2 rendered by DataTable -->
+                        <div class="table-responsive" id="orderTableDiv">
+                            <table id="orderTable" class="row-border"></table>
+                        </div>
+                    
                     </div>
+
+                    <!-- graph col -->
+                    <div class="col-xl-6">
+                        
+                        <!-- title -->
+                        <div class="mx-auto form-inline">
+                            <p class="mx-auto"><b id="currentStrategy"></b></p>
+                        </div>
+                        
+                	    <!-- graph rendered by chart.js -->
+                        <div class="container-fluid" style="height: 650px;">
+                            <canvas id="pAndLChart"></canvas>
+                        </div>
+                        
+                    </div>
+                    
                 </div>
-            </div>
+                
             </div>
 
         </main>
 
-        <!-- Script libraries -->
+        <!-- script libraries -->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.bundle.min.js"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
         <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
@@ -233,11 +214,9 @@
         <!-- strategy creator script -->
         <script src="./js/strategyCreator.js"></script>
 
-        <!-- Script to populate table and chart -->
-
+        <!-- tabls and charts -->
         <script src="./js/temp.js"></script>
-        <!--
-        <script src="./js/strategyTable.js"></script>
-        <script src="./js/strategyGraph.js"></script>-->
+
     </body>
+    
 </html>

@@ -159,7 +159,7 @@ function sendJSONToAPI(strategy, data) {
         data: data,
         contentType: "application/json"
     }).then(function() {
-        $('#strategyTable').DataTable().ajax.reload(null, false);
+        $('#strategyTable').DataTable().ajax.reload();
         strategyTableRowClicked = false;
     });
 }

@@ -9,6 +9,25 @@ import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.LogManager;
 import java.util.*;
 
+
+
+/*
+    The price feed service is responsible for getting market data
+    from an external api, and storing the data of specific tickers
+    that are being used by current active strategies.
+    
+    It counts the number of active strategies following a specific
+    ticker, and only stops following the ticker when there are no
+    active strategies (tracked through register and deregister).
+    
+    To get price feed data for a specific ticker, it must first be
+    registered.  After registering, there is a "warm up" period for
+    the getPriceRange request, because historical data is not immediatly
+    pulled on registering but rather accumulated after registering. 
+    If you request for a range that is larger than what the price feed 
+    currently stores for a specific ticker, the price feed service 
+    returns an empty list.
+*/
 @EnableScheduling
 @Service
 @Scope(value = "singleton")
@@ -33,13 +52,17 @@ public class PriceFeedServiceImpl implements PriceFeedService {
         }
     }
     private static final Logger LOGGER = LogManager.getLogger(PriceFeedServiceImpl.class);
+    
+    //maps tickers to the pricelisting class for easy access to currently tracked tickers.
     private Map<String, PriceListing> activeListings;
 
     PriceFeedServiceImpl() {
         activeListings = new HashMap<>();
     }
 
-
+    //registers a ticker to be tracked by the price feed service.
+    //if currently tracked, adds to the active count, if not currently tracked
+    //creates a new price listing that will later be updated with prices
     public void register(String ticker) {
         LOGGER.info("Registering ticker: " + ticker);
         PriceListing listing;
@@ -65,6 +88,7 @@ public class PriceFeedServiceImpl implements PriceFeedService {
             activeListings.remove(ticker);
         }
     }
+    
     public double getCurrentPrice(String ticker) {
         PriceListing listing;
         if ((listing = activeListings.get(ticker)) == null) {
@@ -73,6 +97,7 @@ public class PriceFeedServiceImpl implements PriceFeedService {
         }
         return listing.getCurrentPrice();
     }
+    //returns all stored data on a specific ticker
     public List<Double> getPriceRange(String ticker) {
         PriceListing listing;
         if ((listing = activeListings.get(ticker)) == null) {
@@ -81,6 +106,8 @@ public class PriceFeedServiceImpl implements PriceFeedService {
         }
         return listing.prices;
     }
+    //returns the last "range" items of a speicif ticker
+    //if the # of items requested are not stored, return an empty list
     public List<Double> getPriceRange(String ticker, int range) {
         PriceListing listing;
         if ((listing = activeListings.get(ticker)) == null) {
@@ -95,6 +122,8 @@ public class PriceFeedServiceImpl implements PriceFeedService {
         return listing.prices.subList(listing.prices.size()-range, listing.prices.size());
     }
 
+    //loops through all of the tracked tickers, and adds a new price to the list of prices
+    //for that ticker.  Price is obtianed through an external rest request.
     @Scheduled(fixedDelay = 2000)
     public void updateListings() {
         final String baseUrl = "http://feed.conygre.com:8080/MockYahoo/quotes.csv?s=";
