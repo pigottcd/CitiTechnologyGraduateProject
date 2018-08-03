@@ -27,11 +27,11 @@ import static org.mockito.BDDMockito.given;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-
+/*
 @RunWith(SpringRunner.class)
 @WebMvcTest(OrderController.class)
 @ContextConfiguration(classes={com.graduate.training.AppConfig.class})
-@TestPropertySource(locations = "classpath:application-test.properties")
+@TestPropertySource(locations = "classpath:application-test.properties")*/
 public class StrategyControllerTest {
 
     @Autowired
