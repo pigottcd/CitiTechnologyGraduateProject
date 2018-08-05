@@ -9,14 +9,14 @@ function generateStrategySelectionParameters(strategy) {
             '<select class="form-control" id="longAverageTimeUnit">' +
             '<option>hours</option>' +
             '<option>minutes</option>' +
-            '<option>seconds</option>' +
+            '<option selected>seconds</option>' +
             '</select>';
         parameter2HTML = '<label for="shortAverage">Short Average:</label>' +
             '<input type="number" class="form-control" id="shortAverage" placeholder="Ex: 30" required>' +
             '<select class="form-control" id="shortAverageTimeUnit">' +
             '<option>hours</option>' +
-            '<option selected>minutes</option>' +
-            '<option>seconds</option>' +
+            '<option>minutes</option>' +
+            '<option selected>seconds</option>' +
             '</select>';
     }
     else if (strategy == 'bollingerBands') {

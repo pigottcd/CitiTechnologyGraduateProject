@@ -17,7 +17,7 @@
         <!-- CSS -->
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
         <link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css">
-        <link href="./css/style.css" rel="stylesheet">
+        <link href="/css/style.css" rel="stylesheet">
 
     </head>
 
@@ -79,10 +79,10 @@
                                 
                                 <div class="mx-auto form-inline">
                                     <label for="strategySelector">Strategy:</label>
-                                    <select class="form-control" id="strategySelector">
+                                    <select class="form-control" id="strategySelector" disabled>
                                         <option value="twoMovingAverages">Two Moving Averages</option>
-                                        <option value="bollingerBands">Bollinger Bands</option>
-                                        <option value="priceBreakout">Price Breakout</option>
+                                        <!-- <option value="bollingerBands">Bollinger Bands</option>
+                                        <option value="priceBreakout">Price Breakout</option> -->
                                     </select>
                                 </div>
                                 
@@ -93,7 +93,7 @@
                                 
                                 <div class="mx-auto form-inline" id="pnl">
                                     <label for="profitLossPercentage">P/L%:</label>
-                                    <input type="number" class="form-control" id="profitLossPercentage" placeholder="Ex: 1" required>
+                                    <input type="number" class="form-control" id="profitLossPercentage" placeholder="Ex: 100" step="5" required>
                                     <input type="text" class="form-control" id="percentage" value="%" disabled>
                                 </div>
                                 
@@ -124,7 +124,7 @@
                                     <select class="form-control" id="longAverageTimeUnit">
                                         <option>hours</option>
                                         <option>minutes</option>
-                                        <option>seconds</option>
+                                        <option selected>seconds</option>
                                     </select>
                                 </div>
                                 
@@ -138,8 +138,8 @@
                                     <input type="number" class="form-control" id="shortAverage" placeholder="Ex: 30" required>
                                     <select class="form-control" id="shortAverageTimeUnit">
                                         <option>hours</option>
-                                        <option selected>minutes</option>
-                                        <option>seconds</option>
+                                        <option>minutes</option>
+                                        <option selected>seconds</option>
                                     </select>
                                 </div>
                                 
@@ -223,7 +223,7 @@
         <script src="./js/strategyCreator.js"></script>
 
         <!-- tabls and charts -->
-        <script src="./js/temp.js"></script>
+        <script src="./js/tablesAndChart.js"></script>
 
     </body>
     

@@ -24,7 +24,7 @@ function populateStrategyCreatorFields (strategyData) {
     $('#amountOfShares').val(amountOfShares);
     
     // set (strategy dependent) strategy creator inputs
-    if (strategyType=='TwoMovingAverages') {
+    if (strategyType==='TwoMovingAverages') {
         $('#strategySelector').val("twoMovingAverages");
 
         let longAverageInSeconds = strategyData['longPeriod'];
@@ -40,21 +40,35 @@ function populateStrategyCreatorFields (strategyData) {
 }
 
 // "terminate" strategy by sending delete ajax call to rest api when terminating a strategy
-function terminateStrategy(data) {
+function terminateStrategy(data, table) {
     let url = '/strategies/strategy_id/' + data['id'].toString();
     $.ajax({
         url: url,
         type: 'DELETE'
+    }).then(function () {
+        table.ajax.reload(null, false);
     })
 }
 
 // profit and loss calculator
-function pricesToPAndL(data) {
+function pricesToPAndL(data, type) {
+
+    // pAndL starts at zero
     let pAndL = [0];
+    // use dif to keep track off previous iterations pnl, to be able to calculate cumulative pnl
     let dif = 0;
     for (idx = 0; idx < data.length-1; idx=idx+2) {
 
-        dif = dif + Math.abs(data[idx]-data[idx+1]);
+        // pnl for a pair = sell price - buy price
+        // if the first order of the pair was a buy, subtract that from second order of the pair
+        if (type[idx]) {
+            dif = dif + (data[idx+1]-data[idx]);
+        }
+        // if the first order of the pair was a sell, second order of the pair gets subtracted from that
+        else {
+            dif = dif + (data[idx]-data[idx+1]);
+        }
+
         pAndL.push(dif);
         pAndL.push(null);
     }
@@ -70,14 +84,13 @@ function dateTimeToDate(obj) {
     let minutes = obj.minute;
     let seconds = obj.second;
     let milliseconds = obj.nano*(0.000001);
-    let date = new Date(year, month, day, hours, minutes, seconds, milliseconds);
-    return date;
+    return new Date(year, month, day, hours, minutes, seconds, milliseconds);
 }
 
 // runs when the page has finished loading
 $(document).ready(function() {
     
-    // flag boolean for keeping current row on intervaled ajax updates
+    // flag boolean for keeping current row on interval-ed ajax updates
     strategyTableRowClicked = false;
     
     // create and push table of strategies to table with id="strategyTable" in HTML
@@ -88,18 +101,18 @@ $(document).ready(function() {
         },
         // runs when a row is created
         "createdRow": function (row, data) {
-            
+
             // if the strategy is active, add bootstrap class to color the row green
-            if (data['active'] == true) {
+            if (data['active']) {
                 $(row).addClass("table-success");
             }
             // if the strategy isn't active, add bootstrap class to color the row red
             else {
                 $(row).addClass("table-danger");
             }
-            
+
             // if a row has been clicked and the current row matches the clicked rows id
-            if (strategyTableRowClicked && data['id'] == rowID) {
+            if (strategyTableRowClicked && data['id'] === rowID) {
                 // keep the row outlined
                 $(row).css({"outline-style":"solid", "outline-color":"rgba(0, 0, 0, 0.275)", "outline-offset":"-3px"});
                 // keep the rows outlined class
@@ -107,12 +120,11 @@ $(document).ready(function() {
             }
 
             if (!strategyTableRowClicked) {
-                if (typeof last == "undefined") {
+                if (typeof last === "undefined") {
                     $(row).css({"outline-style":"solid", "outline-color":"rgba(0, 0, 0, 0.275)", "outline-offset":"-3px"});
                     // keep the rows outlined class
                     $(row).addClass("outlined");
                     last = row;
-                    //rowID = data['id'];
                 }
                 else {
                     $(last).css({"outline-style":"", "outline-color":"", "outline-offset":""}).removeClass("outlined");
@@ -141,12 +153,12 @@ $(document).ready(function() {
                 "targets": [-1],
                 "data": null,
                 "defaultContent": "",
-                "render": function (data, type, row) {
-                    if (data['active'] == true) {
-                        return "<div class='form-inline mx-auto'><button class='cloneStrategyButton'>Clone</button><div class='mx-auto'><button class='terminateStrategyButton'>Terminate</button></div></div>";
+                "render": function (data) {
+                    if (data['active']) {
+                        return "<div class='form-inline mx-auto'><button class='cloneStrategyButton'>Clone</button><div class='mx-auto form-inline'><button class='terminateStrategyButton'>Terminate</button></div></div>";
                     }
                     else {
-                        return "<div class='form-inline mx-auto'><button class='cloneStrategyButton'>Clone</button><div class='mx-auto'><p>Terminated</p></div></div>";
+                        return "<div class='form-inline mx-auto'><button class='cloneStrategyButton'>Clone</button><div class='mx-auto form-inline'><p>Terminated</p></div></div>";
                     }
                 }
 
@@ -159,54 +171,55 @@ $(document).ready(function() {
         columns: [
             {data: 'id', title: 'ID'},
             {data: 'type', title: 'Strategy Type'},
-            {data: 'ticker', title: 'Ticker Symbol'},
+            {data: 'ticker', title: 'Ticker Symbol', width: 25 },
             {data: 'active', title: 'Active'},
-            {data: 'quantity', title: 'Quantity', "width": 50},
-            {data: 'shortPeriod', title: 'Short Period'},
-            {data: 'longPeriod', title: 'Long Period'},
+            {data: 'quantity', title: 'Quantity'},
+            {data: 'shortPeriod', title: 'Short Period', width: 50},
+            {data: 'longPeriod', title: 'Long Period', width: 50},
             {data: 'pandL', title: 'P/L'},
             {data: null}
         ],
         // sets the order of the table on initialization
         "order": [[0,"desc"]],
         // runs once the table has fully initialized
-        "initComplete": function(strategyTableSettings, strategyTableJson) {
+        "initComplete": function() {
+            let strategyTableDOM =  $('#strategyTable');
             // click listener for clone button
-            $('#strategyTable').on("click", ".cloneStrategyButton", function () {
+            strategyTableDOM.on("click", ".cloneStrategyButton", function () {
                 // pull data from row
                 let strategyDataFromRow = strategyTable.row($(this).parents("tr")).data();
                 // send data to function to populate strategy creator inputs
                 populateStrategyCreatorFields(strategyDataFromRow);
-                $('#overlay').fadeTo(0, 1);
+
+                let overlay = $('#overlay');
+                overlay.fadeTo(0, 1);
                 // scroll the page up to the strategy creator
                 $('html, body').animate({
                     scrollTop: 0
                 }, 500);
-                $('#overlay').delay(2000).fadeTo(1000, 0);
+                overlay.delay(2000).fadeTo(1000, 0);
             });
             // click listener for terminate button
-            $('#strategyTable').on("click", ".terminateStrategyButton", function () {
+            strategyTableDOM.on("click", ".terminateStrategyButton", function () {
                 let strategyDataFromRow = strategyTable.row($(this).parents("tr")).data();
-                let deleteUrl = '/strategies/strategy_id/' + strategyDataFromRow['id'].toString();
-
-                $.ajax({
-                    url: deleteUrl,
-                    type: 'DELETE'
-                }).then(function () {
-                    strategyTable.ajax.reload(null, false);
-                })
+                terminateStrategy(strategyDataFromRow, strategyTable);
             });
 
             strategyTableRowClicked = false;
-            $('#strategyTable').on("click", "tr", function() {
+            strategyTableDOM.on("click", "tr", function() {
                 strategyTableRowClicked = true;
                 if (typeof rowID != "undefined") {
+                    if (rowID == strategyTable.row(this).data()['id']) {
+                        return;
+                    }
                     $('#strategyTable tr.outlined').css({"outline-style":"", "outline-color":"", "outline-offset":""}).removeClass("outlined");
                 }
                 $(this).css({"outline-style":"solid", "outline-color":"rgba(0, 0, 0, 0.275)", "outline-offset":"-3px"});
                 $(this).addClass("outlined");
                 rowID = strategyTable.row(this).data()['id'];
                 orderTable.ajax.url("/orders/strategy_id/"+rowID.toString()+"/").load();
+                $('#currentStrategy').text("Strategy "+rowID.toString()+" Profit and Loss");
+                $('#currentOrders').text("Strategy "+rowID.toString()+" Orders");
                 $('#currentOrders').fadeOut(250).fadeIn(250).fadeOut(250).fadeIn(250);
                 $('#currentStrategy').fadeOut(250).fadeIn(250).fadeOut(250).fadeIn(250);
             });
@@ -239,8 +252,8 @@ $(document).ready(function() {
                     {
                         "targets": [1],
                         "width": 30,
-                        "render": function(data, type, row) {
-                            if (data==true) {
+                        "render": function(data) {
+                            if (data) {
                                 return "Buy";
                             }
                             else {
@@ -273,17 +286,18 @@ $(document).ready(function() {
                 "searching": false,
                 columns: [
                     { data: 'id', title: 'ID' },
-                    { data: 'buy', title: 'Buy/Sell', "width": 20 },
-                    { data: 'price', title: 'Price' },
-                    { data: 'size', title: 'Size' },
-                    { data: 'stock', title: 'Ticker Symbol', "width": 20 },
+                    { data: 'buy', title: 'Buy/Sell', width: 10 },
+                    { data: 'price', title: 'Price'},
+                    { data: 'size', title: 'Size'},
+                    { data: 'stock', title: 'Ticker Symbol', "width": 25 },
                     { data: 'time', title: 'Date' },
                     { data: 'time', title: 'Time'},
                     { data: 'status', title: 'Status' },
                 ],
-                "initComplete": function(orderTableSettings, orderTableJson) {
+                "initComplete": function() {
                     let prices = orderTable.column(2).data();
-                    let pAndL = pricesToPAndL(prices);
+                    let buySells = orderTable.column(1).data();
+                    let pAndL = pricesToPAndL(prices, buySells);
                     let dates = orderTable.column(5).data();
                     dates = dates.map(dateTimeToDate);
 
@@ -330,13 +344,16 @@ $(document).ready(function() {
                                 yAxes: [{
                                     scaleLabel: {
                                         display: true,
-                                        labelString: "P r i c e ( $ )",
+                                        labelString: "P r i c e",
                                         fontColor: 'rgba(0, 123, 255, 1)',
                                         lineHeight: 1.5,
                                         fontSize: 16
                                     },
                                     ticks: {
-                                        beginAtZero: false
+                                        beginAtZero: false,
+                                        callback: function(value) {
+                                            return '$' + value;
+                                        }
                                     },
                                     position: "left",
                                     id: "y-axis-1"
@@ -344,13 +361,16 @@ $(document).ready(function() {
                                     {
                                         scaleLabel: {
                                             display: true,
-                                            labelString: "P r o f i t ( $ )",
+                                            labelString: "P r o f i t",
                                             fontColor: 'rgba(40, 167, 69, 1)',
                                             lineHeight: 1.5,
                                             fontSize: 16
                                         },
                                         ticks: {
-                                            beginAtZero: false
+                                            beginAtZero: false,
+                                            callback: function(value) {
+                                                return '$' + value;
+                                            }
                                         },
                                         gridLines: {
                                             drawOnChartArea: false
@@ -374,20 +394,20 @@ $(document).ready(function() {
                     let chart = new Chart(ctx, config);
                     orderTable.on('draw', function() {
 
+                        let buySells = orderTable.column(1).data();
                         let prices = orderTable.column(2).data();
-                        let pAndL = pricesToPAndL(prices);
+                        let pAndL = pricesToPAndL(prices, buySells);
                         let dates = orderTable.column(5).data();
                         dates = dates.map(dateTimeToDate);
                         chart.data.labels = dates;
                         chart.data.datasets[0].data = prices;
-                        chart.data.datasets[1].data = pAndL
+                        chart.data.datasets[1].data = pAndL;
 
                         chart.update();
 
                     });
                 }
             });
-
 
 
             setInterval(function() {

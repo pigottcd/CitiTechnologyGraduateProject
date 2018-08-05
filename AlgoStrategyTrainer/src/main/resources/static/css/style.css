@@ -39,7 +39,7 @@ hr {
   width: 110px;
 }
 #profitLossPercentage, #fitOccurrences {
-  width: 75px;
+  width: 85px;
 }
 
 #percentage {
@@ -82,8 +82,8 @@ td {
   display: none;
   width: 160px; /* Full width (cover the whole page) */
   height: 50px; /* Full height (cover the whole page) */
-  top: 85px;
-  right: 385px;
+  top: 90px;
+  left: 270px;
   z-index: 2; /* Specify a stack order in case you're using a different order for other elements */
 
 
