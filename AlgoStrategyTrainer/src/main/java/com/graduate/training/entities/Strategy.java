@@ -14,17 +14,19 @@ public class Strategy implements Serializable {
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     @Column(name="id")
     private int id;
-    @Column(name = "type")         private String type;
-    @Column(name = "ticker")       private String ticker;
-    @Column(name = "active")       private Boolean active;
-    @Column(name = "quantity")     private Integer quantity;
-    @Column(name = "short_period") private Integer shortPeriod;
-    @Column(name = "long_period")  private Integer longPeriod;
-    @Column(name = "p_and_l")      private Double pAndL;
-
+    @Column(name = "type")             private String type;
+    @Column(name = "ticker")           private String ticker;
+    @Column(name = "active")           private Boolean active;
+    @Column(name = "quantity")         private Integer quantity;
+    @Column(name = "short_period")     private Integer shortPeriod;
+    @Column(name = "long_period")      private Integer longPeriod;
+    @Column(name = "p_and_l")          private Double pAndL;
+    @Column(name = "bollinger_period") private Integer bollingerPeriod;
+    @Column(name = "bollinger_deviation") private Double bollingerDeviation;
     public Strategy() {}
     public Strategy(String type, String ticker, Boolean active, Integer quantity,
-                    Integer shortPeriod, Integer longPeriod, double pAndL) {
+                    Integer shortPeriod, Integer longPeriod, double pAndL, Integer bollingerPeriod,
+                    Double bollingerDeviation) {
         this.type = type;
         this.ticker = ticker;
         this.active = active;
@@ -32,6 +34,8 @@ public class Strategy implements Serializable {
         this.shortPeriod = shortPeriod;
         this.longPeriod = longPeriod;
         this.pAndL = pAndL;
+        this.bollingerDeviation = bollingerDeviation;
+        this.bollingerPeriod = bollingerPeriod;
     }
 
     public Integer getQuantity() {
@@ -95,4 +99,20 @@ public class Strategy implements Serializable {
     }
 
     public void setPAndL(double pAndL) { this.pAndL = pAndL; }
+
+    public Integer getBollingerPeriod() {
+        return bollingerPeriod;
+    }
+
+    public void setBollingerPeriod(Integer bollingerPeriod) {
+        this.bollingerPeriod = bollingerPeriod;
+    }
+
+    public Double getBollingerDeviation() {
+        return bollingerDeviation;
+    }
+
+    public void setBollingerDeviation(Double bollingerDeviation) {
+        this.bollingerDeviation = bollingerDeviation;
+    }
 }

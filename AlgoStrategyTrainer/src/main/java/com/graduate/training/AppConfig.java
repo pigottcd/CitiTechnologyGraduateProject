@@ -38,7 +38,8 @@ public class AppConfig {
         FileSystemUtils.deleteRecursively(new File("activemq-data"));
         ConfigurableApplicationContext context = SpringApplication.run(AppConfig.class, args);
         StrategyService service = context.getBean(StrategyService.class);
-        service.addStrategy(new Strategy("TwoMovingAverages", "C", true, 100, 2, 10, .1));
+        service.addStrategy(
+                new Strategy("BollingerBands", "C", true, 100, null, null, .1, 10, 2.0 ));
     }
 
 }

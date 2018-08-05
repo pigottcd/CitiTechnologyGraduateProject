@@ -47,6 +47,9 @@ public class StrategyServiceImpl implements StrategyService {
         switch(s.getType()) {
             case "TwoMovingAverages":
                 algo = new TwoMovingAveragesAlgo(s,s.getShortPeriod(), s.getLongPeriod());
+                break;
+            case "BollingerBands":
+                algo = new BollingerBandsAlgo(s,s.getBollingerPeriod(), s.getBollingerDeviation());
         }
         if (algo == null) {
             LOGGER.error("Expected valid strategy type got: " + s.getType());

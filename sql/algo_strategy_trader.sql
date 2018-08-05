@@ -1,3 +1,5 @@
+CREATE DATABASE  IF NOT EXISTS `algo_strategy_trader` /*!40100 DEFAULT CHARACTER SET utf8 */;
+USE `algo_strategy_trader`;
 -- MySQL dump 10.13  Distrib 5.7.12, for Win64 (x86_64)
 --
 -- Host: localhost    Database: algo_strategy_trader
@@ -34,7 +36,7 @@ CREATE TABLE `orders` (
   PRIMARY KEY (`id`),
   KEY `_idx` (`strategy_id`),
   CONSTRAINT `strategy_id` FOREIGN KEY (`strategy_id`) REFERENCES `strategy` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=227 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=273 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -43,6 +45,7 @@ CREATE TABLE `orders` (
 
 LOCK TABLES `orders` WRITE;
 /*!40000 ALTER TABLE `orders` DISABLE KEYS */;
+INSERT INTO `orders` VALUES (272,'',103.54,100,'C','¬\í\0sr\0\rjava.time.Ser•]„º\"H²\0\0xpw\0\0\â,!3%@x',NULL,79);
 /*!40000 ALTER TABLE `orders` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -62,8 +65,10 @@ CREATE TABLE `strategy` (
   `short_period` int(11) DEFAULT NULL,
   `long_period` int(11) DEFAULT NULL,
   `p_and_l` float NOT NULL,
+  `bollinger_period` int(11) DEFAULT NULL,
+  `bollinger_deviation` float DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=67 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=80 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -72,6 +77,7 @@ CREATE TABLE `strategy` (
 
 LOCK TABLES `strategy` WRITE;
 /*!40000 ALTER TABLE `strategy` DISABLE KEYS */;
+INSERT INTO `strategy` VALUES (79,'BollingerBands','C','','100',NULL,NULL,0.1,10,2);
 /*!40000 ALTER TABLE `strategy` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -110,4 +116,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-08-03 17:36:42
+-- Dump completed on 2018-08-05 21:31:59

@@ -116,7 +116,7 @@ public class PriceFeedServiceImpl implements PriceFeedService {
             return new ArrayList<>();
         }
         if(range > listing.prices.size()) {
-            LOGGER.info("getPriceRange, ticker: " + ticker +  "does not have enough current data, exiting");
+            LOGGER.info("getPriceRange, ticker: " + ticker +  " does not have enough current data, exiting");
             return new ArrayList<>();
         }
         return listing.prices.subList(listing.prices.size()-range, listing.prices.size());
