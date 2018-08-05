@@ -1,6 +1,6 @@
 package com.training.graduate.controller.test;
 
-import com.graduate.training.controller.OrderController;
+/*import com.graduate.training.controller.OrderController;
 import com.graduate.training.entities.Order;
 import com.graduate.training.service.OrderService;
 import com.graduate.training.service.StrategyService;
@@ -27,11 +27,16 @@ import static org.mockito.BDDMockito.given;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+*/
 /*
 @RunWith(SpringRunner.class)
 @WebMvcTest(OrderController.class)
 @ContextConfiguration(classes={com.graduate.training.AppConfig.class})
 @TestPropertySource(locations = "classpath:application-test.properties")*/
+
+import org.junit.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+
 public class StrategyControllerTest {
 
     @Test
@@ -40,8 +45,8 @@ public class StrategyControllerTest {
     }/*@Autowired
     private MockMvc mockMvc;
 
-    @MockBean
-    private StrategyService service;
+   // @MockBean
+  //  private StrategyService service;
 
     @Test
     public void testThatCanConnect() {
