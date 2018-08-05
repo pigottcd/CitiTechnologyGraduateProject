@@ -18,6 +18,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -32,10 +33,12 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 //@ContextConfiguration(classes={com.graduate.training.AppConfig.class})
 //@TestPropertySource(locations = "classpath:application-test.properties") // this is only needed because swagger breaks tests
 public class OrderControllerTest {
+
     @Test
-    public void run() {
+    public void testThatCanConnect() {
         return;
     }
+
     /*@Autowired
     private MockMvc mockMvc;
 
