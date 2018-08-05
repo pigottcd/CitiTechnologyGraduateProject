@@ -17,7 +17,7 @@ import static org.springframework.test.web.client.ExpectedCount.times;
 import static org.mockito.Mockito.verify;
 
 public class StrategyServiceImplTest {
-    /*@InjectMocks
+    @InjectMocks
     private StrategyServiceImpl strategyService;
 
     @Mock
@@ -52,10 +52,6 @@ public class StrategyServiceImplTest {
         strategies.add(algo);
         assertFalse(strategies.isEmpty());
 
-    }*/
-    @Test
-    public void run() {
-        return;
     }
 
 }

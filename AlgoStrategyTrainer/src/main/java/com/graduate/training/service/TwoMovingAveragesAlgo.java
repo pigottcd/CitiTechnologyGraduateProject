@@ -8,6 +8,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.LogManager;
+import org.springframework.beans.factory.annotation.Autowired;
 
 /*
     Implementation of a two moving averages strategy.
@@ -30,8 +31,11 @@ public class TwoMovingAveragesAlgo extends StrategyAlgo {
         this.longPeriod = longPeriod;
     }
 
+    TwoMovingAveragesAlgo () {
+    }
 
-    Order runStrategy(PriceFeedService priceFeed) {
+
+    public Order runStrategy(PriceFeedService priceFeed) {
         Order newOrder = null;
         String ticker = getTicker();
 
@@ -41,6 +45,7 @@ public class TwoMovingAveragesAlgo extends StrategyAlgo {
             LOGGER.error("short period set to longer than long period, exiting");
             return null;
         }
+
         if (currentLongRange.size() < longPeriod) {
             LOGGER.info("warming up, currentLongRangeSize(): " + currentLongRange.size());
             return null;
@@ -71,5 +76,45 @@ public class TwoMovingAveragesAlgo extends StrategyAlgo {
         shortAverage = currentShortAverage;
         longAverage = currentLongAverage;
         return newOrder;
+    }
+
+    public int getShortPeriod() {
+        return shortPeriod;
+    }
+
+    public void setShortPeriod(int shortPeriod) {
+        this.shortPeriod = shortPeriod;
+    }
+
+    public int getLongPeriod() {
+        return longPeriod;
+    }
+
+    public void setLongPeriod(int longPeriod) {
+        this.longPeriod = longPeriod;
+    }
+
+    public double getLongAverage() {
+        return longAverage;
+    }
+
+    public void setLongAverage(double longAverage) {
+        this.longAverage = longAverage;
+    }
+
+    public double getShortAverage() {
+        return shortAverage;
+    }
+
+    public void setShortAverage(double shortAverage) {
+        this.shortAverage = shortAverage;
+    }
+
+    public Boolean getPastBuy() {
+        return pastBuy;
+    }
+
+    public void setPastBuy(Boolean pastBuy) {
+        this.pastBuy = pastBuy;
     }
 }

@@ -39,8 +39,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 public class StrategyControllerTest {
 
-    //@Autowired
-    //private MockMvc mockMvc;
+    @Test
+    public void test() {
+        return;
+    }
+    /*@Autowired
+    private MockMvc mockMvc;
 
    // @MockBean
   //  private StrategyService service;
@@ -49,5 +53,5 @@ public class StrategyControllerTest {
     public void testThatCanConnect() {
 
     }
-
+*/
 }

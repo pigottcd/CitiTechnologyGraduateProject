@@ -26,11 +26,8 @@ import static org.mockito.internal.verification.VerificationModeFactory.times;
 
 
 public class OrderServiceImplTest {
-    @Test
-    public void run() {
-        return;
-    }
-    /*@InjectMocks
+
+    @InjectMocks
     private OrderServiceImpl service;
 
     @Mock
@@ -68,5 +65,5 @@ public class OrderServiceImplTest {
         sender.send(o);
         verify(sender, times(1)).send(o);
 
-    }*/
+    }
 }
