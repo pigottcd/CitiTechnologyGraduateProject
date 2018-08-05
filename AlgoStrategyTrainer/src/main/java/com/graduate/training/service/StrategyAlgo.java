@@ -21,7 +21,7 @@ public abstract class StrategyAlgo {
     private static final Logger LOGGER = LogManager.getLogger(StrategyAlgo.class);
     private Strategy strategy;
 
-
+    StrategyAlgo() {}
     StrategyAlgo(Strategy strategy) {
         this.strategy = strategy;
     }
@@ -36,7 +36,7 @@ public abstract class StrategyAlgo {
     Strategy getStrategy() {
         return strategy;
     }
-    double getAverage (List<Double> range){
+    public double getAverage (List<Double> range){
         if (range.size() == 0) {
             return 0;
         }
