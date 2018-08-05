@@ -9,9 +9,15 @@ import java.util.List;
 import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.LogManager;
 
+/*
+    Implementation of a two moving averages strategy.
+    Calculates a short and long average of historical price data.
+    A buy or sell is triggered when the short average's value
+    swaps with the long average's value.
+ */
 public class TwoMovingAveragesAlgo extends StrategyAlgo {
 
-
+    private static final Logger LOGGER = LogManager.getLogger(TwoMovingAveragesAlgo.class);
     private int shortPeriod;
     private int longPeriod;
     private double longAverage = 0;
@@ -31,36 +37,35 @@ public class TwoMovingAveragesAlgo extends StrategyAlgo {
 
         List<Double> currentShortRange = priceFeed.getPriceRange(ticker, shortPeriod);
         List<Double> currentLongRange = priceFeed.getPriceRange(ticker, longPeriod);
-        if (currentLongRange.size() < longPeriod) {
-            System.out.println("warming up, currentLongRangeSize(): " + currentLongRange.size());
-            return newOrder;
+        if(shortPeriod >= longPeriod ){
+            LOGGER.error("short period set to longer than long period, exiting");
+            return null;
         }
-
+        if (currentLongRange.size() < longPeriod) {
+            LOGGER.info("warming up, currentLongRangeSize(): " + currentLongRange.size());
+            return null;
+        }
         //get Averages
         double currentShortAverage = getAverage(currentShortRange);
         double currentLongAverage = getAverage(currentLongRange);
-        System.out.println("shortAverage: " + currentShortAverage + ", longAverage: " + currentLongAverage);
+        LOGGER.info("shortAverage: " + currentShortAverage + ", longAverage: " + currentLongAverage);
 
         double price = priceFeed.getCurrentPrice(ticker);
         if ((shortAverage > longAverage)&&(currentShortAverage < currentLongAverage)){
-            if (pastBuy == null) {
-                pastBuy = false;
-            } else if (!pastBuy) {
-                return newOrder;
+            if (pastBuy != null && !pastBuy) {
+                return null;
             }
             pastBuy = false;
             newOrder = new Order(false, price,getStrategy().getQuantity(), ticker, LocalDateTime.now(), getId());
-            System.out.println("New Sell Order:" + newOrder.toString());
+            LOGGER.info("New Sell Order:" + newOrder.toString());
         }
         else if ((longAverage > shortAverage)&&(currentLongAverage < currentShortAverage)) {
-            if (pastBuy == null) {
-                pastBuy = true;
-            } else if (pastBuy) {
-                return newOrder;
+            if (pastBuy != null && pastBuy) {
+                return null;
             }
             pastBuy = true;
             newOrder = new Order(true, price, getStrategy().getQuantity(), ticker, LocalDateTime.now(), getId());
-            System.out.println("New Buy Order:" + newOrder.toString());
+            LOGGER.info("New Buy Order:" + newOrder.toString());
         }
 
         shortAverage = currentShortAverage;
