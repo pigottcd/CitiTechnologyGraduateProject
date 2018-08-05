@@ -42,8 +42,7 @@ public class StrategyControllerTest {
     @Test
     public void test() {
         return;
-    }
-    /*@Autowired
+    }/*@Autowired
     private MockMvc mockMvc;
 
    // @MockBean
